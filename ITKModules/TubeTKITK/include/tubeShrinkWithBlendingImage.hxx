@@ -88,7 +88,7 @@ ShrinkWithBlendingImage< TInputImage, TOutputImage >
   os << indent << "UseLog:"
      << m_Filter->GetUseLog() << std::endl;
 
-  if( m_Filter->GetInputMipPointImage() != ITK_NULLPTR )
+  if( m_Filter->GetInputMipPointImage() != nullptr )
     {
     os << indent << "Input MIP Point Image: "
        << m_Filter->GetInputMipPointImage() << std::endl;
@@ -98,7 +98,7 @@ ShrinkWithBlendingImage< TInputImage, TOutputImage >
     os << indent << "Input MIP Point Image: NULL" << std::endl;
     }
 
-  if( m_Filter->GetOutputMipPointImage() != ITK_NULLPTR )
+  if( m_Filter->GetOutputMipPointImage() != nullptr )
     {
     os << indent << "Output MIP Point Image: "
        << m_Filter->GetOutputMipPointImage() << std::endl;
