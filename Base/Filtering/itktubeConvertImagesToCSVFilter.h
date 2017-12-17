@@ -97,7 +97,7 @@ protected:
 
   ConvertImagesToCSVFilter ( void );
   ~ConvertImagesToCSVFilter( void ) {};
-  virtual void GenerateData() ITK_OVERRIDE;
+  virtual void GenerateData() override;
   virtual void PrintSelf( std::ostream & os, Indent indent ) const;
 
 private:

@@ -95,7 +95,7 @@ public:
 protected:
   ConvertShrunkenSeedImageToListFilter( void );
   ~ConvertShrunkenSeedImageToListFilter( void ) {};
-  virtual void GenerateData() ITK_OVERRIDE;
+  virtual void GenerateData() override;
   void PrintSelf( std::ostream & os, itk::Indent indent ) const;
   void VerifyPreconditions();
 
