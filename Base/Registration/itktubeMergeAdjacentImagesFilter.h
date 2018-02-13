@@ -43,14 +43,14 @@ class MergeAdjacentImagesFilter :
 {
 public:
 
-  typedef MergeAdjacentImagesFilter                          Self;
-  typedef ImageSource< TImage >                              Superclass;
-  typedef SmartPointer< Self >                               Pointer;
-  typedef SmartPointer< const Self >                         ConstPointer;
+  using Self = MergeAdjacentImagesFilter;
+  using Superclass = ImageSource< TImage >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
-  typedef TImage                                             ImageType;
-  typedef typename TImage::PixelType                         PixelType;
-  typedef std::vector< int >                                 PaddingType;
+  using ImageType = TImage;
+  using PixelType = typename TImage::PixelType;
+  using PaddingType = std::vector< int >;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
@@ -58,7 +58,7 @@ public:
   /** Run-time type information ( and related methods ). */
   itkTypeMacro( MergeAdjacentImagesFilter, ImageSource );
 
-  itkStaticConstMacro( ImageDimension, unsigned int, TImage::ImageDimension );
+  static constexpr unsigned int ImageDimension = TImage::ImageDimension;
 
   /** Set input image 1 */
   virtual void SetInput1( const ImageType * image );

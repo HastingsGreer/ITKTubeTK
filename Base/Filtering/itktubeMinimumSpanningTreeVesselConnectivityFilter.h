@@ -51,21 +51,20 @@ class MinimumSpanningTreeVesselConnectivityFilter
     GroupSpatialObject< VDimension >, GroupSpatialObject< VDimension > >
 {
 public:
-  /** Standard class typedefs. */
-  typedef GroupSpatialObject< VDimension >      TubeGroupType;
+  /** Standard class type alias. */
+  using TubeGroupType = GroupSpatialObject< VDimension >;
 
   typedef MinimumSpanningTreeVesselConnectivityFilter
                                                 Self;
-  typedef SpatialObjectToSpatialObjectFilter< TubeGroupType, TubeGroupType >
-                                                Superclass;
-  typedef SmartPointer< Self >                  Pointer;
-  typedef SmartPointer< const Self >            ConstPointer;
+  using Superclass = SpatialObjectToSpatialObjectFilter< TubeGroupType, TubeGroupType >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
-  typedef VesselTubeSpatialObject< VDimension > TubeType;
-  typedef typename TubeType::Pointer            TubePointerType;
-  typedef typename TubeType::ConstPointer       TubeConstPointerType;
-  typedef itk::IndexValueType                   TubeIdType;
-  typedef std::vector< TubeIdType >             TubeIdListType;
+  using TubeType = VesselTubeSpatialObject< VDimension >;
+  using TubePointerType = typename TubeType::Pointer;
+  using TubeConstPointerType = typename TubeType::ConstPointer;
+  using TubeIdType = itk::IndexValueType;
+  using TubeIdListType = std::vector< TubeIdType >;
 
   /** Run-time type information ( and related methods ).   */
   itkTypeMacro( MinimumSpanningTreeVesselConnectivityFilter,
@@ -138,12 +137,9 @@ private:
     bool operator>( const ConnectionPointType & rhs ) const;
     };
 
-  typedef itksys::hash_map< TubeIdType, GraphEdgeType >
-  GraphEdgeListType;
-  typedef itksys::hash_map< TubeIdType, GraphEdgeListType >
-  TubeAdjacencyListGraphType;
-  typedef itksys::hash_map< TubeIdType, TubePointerType >
-  TubeIdToPointerMapType;
+  using GraphEdgeListType = itksys::hash_map< TubeIdType, GraphEdgeType >;
+  using TubeAdjacencyListGraphType = itksys::hash_map< TubeIdType, GraphEdgeListType >;
+  using TubeIdToPointerMapType = itksys::hash_map< TubeIdType, TubePointerType >;
 
   struct TubePQElementType
     {

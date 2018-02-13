@@ -39,21 +39,21 @@ int DoIt( int argc, char * argv[] )
   PARSE_ARGS;
 
   /*Typedefs..*/
-  typedef float                                         TPixel;
-  typedef itk::Vector< TPixel, Dimension >              TangentPixelType;
-  typedef itk::Image< TPixel, Dimension >               DensityImageType;
-  typedef itk::Image< TPixel, Dimension >               RadiusImageType;
-  typedef itk::Image< TangentPixelType, Dimension >     TangentImageType;
-  typedef itk::Image< unsigned char, Dimension >        TemplateImageType;
-  typedef itk::ImageFileReader< TemplateImageType >     TemplateImageReaderType;
+  using TPixel = float;
+  using TangentPixelType = itk::Vector< TPixel, Dimension >;
+  using DensityImageType = itk::Image< TPixel, Dimension >;
+  using RadiusImageType = itk::Image< TPixel, Dimension >;
+  using TangentImageType = itk::Image< TangentPixelType, Dimension >;
+  using TemplateImageType = itk::Image< unsigned char, Dimension >;
+  using TemplateImageReaderType = itk::ImageFileReader< TemplateImageType >;
 
   /** Max Intensity value */
   TPixel   max_densityIntensity = 2048;
 
-  typedef tube::ConvertTubesToDensityImage<
-  TPixel, Dimension > TubeToDensityImageBuilderType;
+  using TubeToDensityImageBuilderType = tube::ConvertTubesToDensityImage<
+  TPixel, Dimension >;
 
-  typedef itk::SpatialObjectReader< Dimension >         TubesReaderType;
+  using TubesReaderType = itk::SpatialObjectReader< Dimension >;
 
 
   double progress = 0.0;
@@ -152,7 +152,7 @@ int DoIt( int argc, char * argv[] )
 
   timeCollector.Start( "Save data" );
   std::cout << "Writing image: " << outputDensityImage.c_str() << std::endl;
-  typedef itk::ImageFileWriter< DensityImageType > WriterType_d;
+  using WriterType_d = itk::ImageFileWriter< DensityImageType >;
   typename WriterType_d::Pointer  writer_d = WriterType_d::New();
 
   writer_d->SetFileName( outputDensityImage.c_str() );
@@ -161,7 +161,7 @@ int DoIt( int argc, char * argv[] )
   writer_d->Update();
 
   std::cout << "Writing image: " << outputRadiusImage.c_str() << std::endl;
-  typedef itk::ImageFileWriter< RadiusImageType > WriterType_r;
+  using WriterType_r = itk::ImageFileWriter< RadiusImageType >;
   typename WriterType_r::Pointer  writer_r = WriterType_r::New();
 
   writer_r->SetFileName( outputRadiusImage.c_str() );
@@ -170,7 +170,7 @@ int DoIt( int argc, char * argv[] )
   writer_r->Update();
 
   std::cout << "Writing image: " << outputTangentImage.c_str() << std::endl;
-  typedef itk::ImageFileWriter< TangentImageType > WriterType_t;
+  using WriterType_t = itk::ImageFileWriter< TangentImageType >;
   typename WriterType_t::Pointer  writer_t = WriterType_t::New();
 
   writer_t->SetFileName( outputTangentImage.c_str() );

@@ -54,12 +54,11 @@ class TubeExponentialResolutionWeightFunction:
   public FunctionBase< TTubePoint, TWeight >
 {
 public:
-  /** Standard class typedefs. */
-  typedef TubeExponentialResolutionWeightFunction< TTubePoint, TWeight >
-                                               Self;
-  typedef FunctionBase< TTubePoint, TWeight >  Superclass;
-  typedef SmartPointer< Self >                 Pointer;
-  typedef SmartPointer< const Self >           ConstPointer;
+  /** Standard class type alias. */
+  using Self = TubeExponentialResolutionWeightFunction< TTubePoint, TWeight >;
+  using Superclass = FunctionBase< TTubePoint, TWeight >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /** Run-time type information ( and related methods ). */
   itkTypeMacro( TubeExponentialResolutionWeightFunction, FunctionBase );
@@ -67,8 +66,8 @@ public:
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
 
-  typedef TWeight    WeightType;
-  typedef TTubePoint TubePointType;
+  using WeightType = TWeight;
+  using TubePointType = TTubePoint;
 
   WeightType Evaluate( const TubePointType & tubePoint ) const
     {

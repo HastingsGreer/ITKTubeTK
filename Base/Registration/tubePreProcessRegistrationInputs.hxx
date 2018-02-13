@@ -58,16 +58,16 @@ PreProcessRegistrationInputs( int argc,
   typename TRegistrationMethod::FeatureWeightsType & pointWeights )
 {
   const unsigned int Dimension = VDimension;
-  typedef TFloat                                     FloatType;
-  typedef TTube                                      TubeType;
-  typedef TTubeNet                                   TubeNetType;
-  typedef TImage                                     ImageType;
-  typedef TRegistrationMethod                        RegistrationMethodType;
+  using FloatType = TFloat;
+  using TubeType = TTube;
+  using TubeNetType = TTubeNet;
+  using ImageType = TImage;
+  using RegistrationMethodType = TRegistrationMethod;
 
   PARSE_ARGS;
 
   timeCollector.Start( "Load data" );
-  typedef itk::ImageFileReader< ImageType > ImageReaderType;
+  using ImageReaderType = itk::ImageFileReader< ImageType >;
   typename ImageReaderType::Pointer reader = ImageReaderType::New();
   reader->SetFileName( inputVolume.c_str() );
   try
@@ -82,7 +82,7 @@ PreProcessRegistrationInputs( int argc,
     return EXIT_FAILURE;
     }
 
-  typedef itk::SpatialObjectReader< Dimension > TubeNetReaderType;
+  using TubeNetReaderType = itk::SpatialObjectReader< Dimension >;
   typename TubeNetReaderType::Pointer vesselReader =
     TubeNetReaderType::New();
   vesselReader->SetFileName( inputVessel );
@@ -102,9 +102,8 @@ PreProcessRegistrationInputs( int argc,
   progressReporter.Report( progress );
 
   timeCollector.Start( "Sub-sample data" );
-  typedef itk::tube::SubSampleTubeTreeSpatialObjectFilter< TubeNetType,
-    TubeType >
-      SubSampleTubeTreeFilterType;
+  using SubSampleTubeTreeFilterType = itk::tube::SubSampleTubeTreeSpatialObjectFilter< TubeNetType,
+    TubeType >;
   typename SubSampleTubeTreeFilterType::Pointer subSampleTubeTreeFilter =
     SubSampleTubeTreeFilterType::New();
   subSampleTubeTreeFilter->SetInput( vesselReader->GetGroup() );
@@ -132,8 +131,7 @@ PreProcessRegistrationInputs( int argc,
     {
     timeCollector.Start( "Gaussian Blur" );
 
-    typedef itk::RecursiveGaussianImageFilter< ImageType, ImageType >
-      GaussianFilterType;
+    using GaussianFilterType = itk::RecursiveGaussianImageFilter< ImageType, ImageType >;
     typename GaussianFilterType::Pointer gaussianFilter;
 
     // Progress per iteration
@@ -163,14 +161,12 @@ PreProcessRegistrationInputs( int argc,
 
   timeCollector.Start( "Compute Model Feature Weights" );
 
-  typedef itk::tube::Function::TubeExponentialResolutionWeightFunction<
-    typename TubeType::TubePointType, FloatType >
-    WeightFunctionType;
+  using WeightFunctionType = itk::tube::Function::TubeExponentialResolutionWeightFunction<
+    typename TubeType::TubePointType, FloatType >;
   typedef typename RegistrationMethodType::FeatureWeightsType
     PointWeightsType;
-  typedef itk::tube::TubePointWeightsCalculator< Dimension,
-    TubeType, WeightFunctionType, PointWeightsType >
-    PointWeightsCalculatorType;
+  using PointWeightsCalculatorType = itk::tube::TubePointWeightsCalculator< Dimension,
+    TubeType, WeightFunctionType, PointWeightsType >;
 
   typename WeightFunctionType::Pointer weightFunction =
     WeightFunctionType::New();

@@ -43,22 +43,22 @@ class SegmentTubes:
   public itk::ProcessObject
 {
 public:
-  /** Standard class typedefs. */
-  typedef SegmentTubes                                 Self;
-  typedef itk::ProcessObject                           Superclass;
-  typedef itk::SmartPointer< Self >                    Pointer;
-  typedef itk::SmartPointer< const Self >              ConstPointer;
+  /** Standard class type alias. */
+  using Self = SegmentTubes;
+  using Superclass = itk::ProcessObject;
+  using Pointer = itk::SmartPointer< Self >;
+  using ConstPointer = itk::SmartPointer< const Self >;
 
-  typedef TInputImage                                  ImageType;
-  typedef typename ImageType::PixelType                PixelType;
-  typedef typename ImageType::IndexType                IndexType;
+  using ImageType = TInputImage;
+  using PixelType = typename ImageType::PixelType;
+  using IndexType = typename ImageType::IndexType;
 
-  typedef itk::tube::TubeExtractor< ImageType >        FilterType;
-  typedef typename FilterType::TubeMaskImageType       TubeMaskImageType;
-  typedef typename FilterType::TubeType                TubeType;
-  typedef typename FilterType::TubeGroupType           TubeGroupType;
+  using FilterType = itk::tube::TubeExtractor< ImageType >;
+  using TubeMaskImageType = typename FilterType::TubeMaskImageType;
+  using TubeType = typename FilterType::TubeType;
+  using TubeGroupType = typename FilterType::TubeGroupType;
 
-  typedef typename FilterType::ContinuousIndexType     ContinuousIndexType;
+  using ContinuousIndexType = typename FilterType::ContinuousIndexType;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );

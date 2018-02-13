@@ -51,18 +51,18 @@ public:
   /**
    * Standard "Self" typedef
    */
-  typedef NJetImageFunction Self;
+  using Self = NJetImageFunction;
 
   /**
    * Standard "Superclass" typedef
    */
-  typedef Object Superclass; // ImageFunction<TInputImage, double> Superclass;
+  using Superclass = Object Superclass; // ImageFunction<TInputImage, double>;
 
   /**
-   * Smart pointer typedef support.
+   * Smart pointer type alias support
    */
-  typedef SmartPointer< Self >        Pointer;
-  typedef SmartPointer< const Self >  ConstPointer;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /**
    * Method for creation through the object factory.
@@ -75,26 +75,24 @@ public:
   /**
    * Dimension of the underlying image.
    */
-  itkStaticConstMacro( ImageDimension,
-                      unsigned int,
-                      TInputImage::ImageDimension );
+  static constexpr unsigned int ImageDimension = TInputImage::ImageDimension;
 
-  typedef TInputImage                                      InputImageType;
-  typedef typename InputImageType::Pointer                 InputImagePointer;
+  using InputImageType = TInputImage;
+  using InputImagePointer = typename InputImageType::Pointer;
 
-  typedef Point<double, ImageDimension >                   PointType;
-  typedef Vector< double, ImageDimension >                 VectorType;
-  typedef Matrix< double, ImageDimension, ImageDimension > MatrixType;
+  using PointType = Point<double, ImageDimension >;
+  using VectorType = Vector< double, ImageDimension >;
+  using MatrixType = Matrix< double, ImageDimension, ImageDimension >;
 
-  typedef typename InputImageType::IndexType               IndexType;
+  using IndexType = typename InputImageType::IndexType;
 
-  typedef ContinuousIndex<double, ImageDimension >         ContinuousIndexType;
+  using ContinuousIndexType = ContinuousIndex<double, ImageDimension >;
 
-  typedef typename InputImageType::SpacingType             SpacingType;
+  using SpacingType = typename InputImageType::SpacingType;
 
-  typedef Size< ImageDimension >                           SizeType;
+  using SizeType = Size< ImageDimension >;
 
-  typedef Array< VectorType >                              ArrayVectorType;
+  using ArrayVectorType = Array< VectorType >;
 
   /**
    * Set the input image.

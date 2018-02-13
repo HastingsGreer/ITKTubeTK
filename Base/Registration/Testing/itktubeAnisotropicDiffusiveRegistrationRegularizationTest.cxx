@@ -47,15 +47,14 @@ int itkAnisotropicDiffusiveRegistrationRegularizationTest( int argc, char * argv
 
   // Typedefs
   enum { Dimension = 3 };
-  typedef double                                          PixelType;
-  typedef double                                          VectorScalarType;
-  typedef itk::Image< PixelType, Dimension >              FixedImageType;
-  typedef itk::Image< PixelType, Dimension >              MovingImageType;
-  typedef itk::Vector< VectorScalarType, Dimension >      VectorType;
-  typedef itk::Image< VectorType, Dimension >             DeformationFieldType;
-  typedef itk::ImageRegionIterator< DeformationFieldType >
-                                                          IteratorType;
-  typedef itk::Index< Dimension >                         IndexType;
+  using PixelType = double;
+  using VectorScalarType = double;
+  using FixedImageType = itk::Image< PixelType, Dimension >;
+  using MovingImageType = itk::Image< PixelType, Dimension >;
+  using VectorType = itk::Vector< VectorScalarType, Dimension >;
+  using DeformationFieldType = itk::Image< VectorType, Dimension >;
+  using IteratorType = itk::ImageRegionIterator< DeformationFieldType >;
+  using IndexType = itk::Index< Dimension >;
 
   // Image parameters
   int         startValue = 0;
@@ -191,12 +190,10 @@ int itkAnisotropicDiffusiveRegistrationRegularizationTest( int argc, char * argv
   movingImage->FillBuffer( 0.0 );
 
   // Setup the registrator object
-  typedef itk::tube::DiffusiveRegistrationFilter
-      < FixedImageType, MovingImageType, DeformationFieldType >
-      DiffusiveRegistrationFilterType;
-  typedef itk::tube::AnisotropicDiffusiveRegistrationFilter
-      < FixedImageType, MovingImageType, DeformationFieldType >
-      AnisotropicDiffusiveRegistrationFilterType;
+  using DiffusiveRegistrationFilterType = itk::tube::DiffusiveRegistrationFilter
+      < FixedImageType, MovingImageType, DeformationFieldType >;
+  using AnisotropicDiffusiveRegistrationFilterType = itk::tube::AnisotropicDiffusiveRegistrationFilter
+      < FixedImageType, MovingImageType, DeformationFieldType >;
 
   DiffusiveRegistrationFilterType::Pointer registrator = 0;
   AnisotropicDiffusiveRegistrationFilterType::Pointer anisotropicRegistrator
@@ -226,7 +223,7 @@ int itkAnisotropicDiffusiveRegistrationRegularizationTest( int argc, char * argv
     }
 
   // Save the smoothed deformation field
-  typedef itk::ImageFileWriter< DeformationFieldType > WriterType;
+  using WriterType = itk::ImageFileWriter< DeformationFieldType >;
   WriterType::Pointer writer = WriterType::New();
   writer->SetFileName( argv[1] );
   writer->SetInput( registrator->GetOutput() );

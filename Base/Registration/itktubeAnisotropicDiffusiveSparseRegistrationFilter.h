@@ -78,13 +78,13 @@ class AnisotropicDiffusiveSparseRegistrationFilter
                                         TDeformationField >
 {
 public:
-  /** Standard class typedefs. */
-  typedef AnisotropicDiffusiveSparseRegistrationFilter      Self;
-  typedef DiffusiveRegistrationFilter< TFixedImage,
+  /** Standard class type alias. */
+  using Self = AnisotropicDiffusiveSparseRegistrationFilter;
+  using Superclass = DiffusiveRegistrationFilter< TFixedImage,
                                        TMovingImage,
-                                       TDeformationField >  Superclass;
-  typedef SmartPointer< Self >                              Pointer;
-  typedef SmartPointer< const Self >                        ConstPointer;
+                                       TDeformationField >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
@@ -94,16 +94,15 @@ public:
                 DiffusiveRegistrationFilter );
 
   /** Inherit some parameters from the superclass. */
-  itkStaticConstMacro( ImageDimension, unsigned int,
-    Superclass::ImageDimension );
+  static constexpr unsigned int ImageDimension = Superclass::ImageDimension;
 
-  /** Convenient typedefs from the superclass. */
-  typedef typename Superclass::FixedImageType          FixedImageType;
-  typedef typename Superclass::FixedImagePointer       FixedImagePointer;
-  typedef typename Superclass::MovingImageType         MovingImageType;
-  typedef typename Superclass::MovingImagePointer      MovingImagePointer;
-  typedef typename Superclass::DeformationFieldType    DeformationFieldType;
-  typedef typename Superclass::TimeStepType            TimeStepType;
+  /** Convenient type alias from the superclass. */
+  using FixedImageType = typename Superclass::FixedImageType;
+  using FixedImagePointer = typename Superclass::FixedImagePointer;
+  using MovingImageType = typename Superclass::MovingImageType;
+  using MovingImagePointer = typename Superclass::MovingImagePointer;
+  using DeformationFieldType = typename Superclass::DeformationFieldType;
+  using TimeStepType = typename Superclass::TimeStepType;
 
   typedef typename Superclass::DeformationFieldPointer
       DeformationFieldPointer;
@@ -164,65 +163,55 @@ public:
   /** Normal vector types.  There are three normals at each voxel, which are
    *  stored in a matrix.  If the normals are based on the structure tensor,
    *  then the matrix will be symmetric, but we won't enforce that. */
-  typedef double NormalVectorComponentType;
-  typedef itk::Vector< NormalVectorComponentType, ImageDimension >
-      NormalVectorType;
-  typedef itk::Image< NormalVectorType, ImageDimension >
-      NormalVectorImageType;
+  using NormalVectorComponentType = double;
+  using NormalVectorType = itk::Vector< NormalVectorComponentType, ImageDimension >;
+  using NormalVectorImageType = itk::Image< NormalVectorType, ImageDimension >;
   typedef typename NormalVectorImageType::Pointer
       NormalVectorImagePointer;
-  typedef itk::Matrix< NormalVectorComponentType,
+  using NormalMatrixType = itk::Matrix< NormalVectorComponentType,
                        ImageDimension,
-                       ImageDimension >                 NormalMatrixType;
-  typedef itk::Image< NormalMatrixType, ImageDimension >
-      NormalMatrixImageType;
+                       ImageDimension >;
+  using NormalMatrixImageType = itk::Image< NormalMatrixType, ImageDimension >;
   typedef typename NormalMatrixImageType::Pointer
       NormalMatrixImagePointer;
-  typedef ZeroFluxNeumannBoundaryCondition< NormalMatrixImageType >
-      NormalMatrixImageBoundaryConditionType;
-  typedef itk::ImageRegionIterator< NormalMatrixImageType >
-      NormalMatrixImageRegionType;
+  using NormalMatrixImageBoundaryConditionType = ZeroFluxNeumannBoundaryCondition< NormalMatrixImageType >;
+  using NormalMatrixImageRegionType = itk::ImageRegionIterator< NormalMatrixImageType >;
   typedef typename NormalMatrixImageType::RegionType
       ThreadNormalMatrixImageRegionType;
 
   /** Types for weighting between the plane/tube/point states of the
     * regularization - a matrix A, likely symmetric but we won't enforce
     * that here. */
-  typedef double                                        WeightComponentType;
-  typedef typename itk::Matrix< WeightComponentType,
+  using WeightComponentType = double;
+  using WeightMatrixType = typename itk::Matrix< WeightComponentType,
                                 ImageDimension,
-                                ImageDimension >        WeightMatrixType;
-  typedef itk::Image< WeightMatrixType, ImageDimension >
-      WeightMatrixImageType;
+                                ImageDimension >;
+  using WeightMatrixImageType = itk::Image< WeightMatrixType, ImageDimension >;
   typedef typename WeightMatrixImageType::Pointer
       WeightMatrixImagePointer;
-  typedef itk::ImageRegionIterator< WeightMatrixImageType >
-      WeightMatrixImageRegionType;
+  using WeightMatrixImageRegionType = itk::ImageRegionIterator< WeightMatrixImageType >;
   typedef typename WeightMatrixImageType::RegionType
       ThreadWeightMatrixImageRegionType;
 
   /** We also need a weighting w between the diffusive regularization and
    * the anisotropic regularization, which is a scalar. */
-  typedef itk::Image< WeightComponentType, ImageDimension >
-      WeightComponentImageType;
+  using WeightComponentImageType = itk::Image< WeightComponentType, ImageDimension >;
   typedef typename WeightComponentImageType::Pointer
       WeightComponentImagePointer;
-  typedef itk::ImageRegionIterator< WeightComponentImageType >
-      WeightComponentImageRegionType;
+  using WeightComponentImageRegionType = itk::ImageRegionIterator< WeightComponentImageType >;
   typedef typename WeightComponentImageType::RegionType
       ThreadWeightComponentImageRegionType;
 
   /** Organ boundary surface types */
-  typedef vtkPolyData                               BorderSurfaceType;
-  typedef vtkSmartPointer< BorderSurfaceType >      BorderSurfacePointer;
+  using BorderSurfaceType = vtkPolyData;
+  using BorderSurfacePointer = vtkSmartPointer< BorderSurfaceType >;
 
   /** Tube spatial object types */
   typedef typename itk::SpatialObject< ImageDimension >::ChildrenListType
       TubeListType;
   typedef TubeListType *
       TubeListPointer;
-  typedef itk::VesselTubeSpatialObject< ImageDimension >
-      TubeType;
+  using TubeType = itk::VesselTubeSpatialObject< ImageDimension >;
   typedef typename TubeType::PointListType
       TubePointListType;
   typedef typename TubeType::TubePointType

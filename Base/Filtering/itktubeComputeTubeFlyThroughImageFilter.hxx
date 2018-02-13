@@ -70,7 +70,7 @@ ComputeTubeFlyThroughImageFilter< TPixel, Dimension >
   // Find the user specified tybe
   itkDebugMacro( << "Finding user specified tube" );
 
-  typedef typename TubeGroupType::ChildrenListType      TubeListType;
+  using TubeListType = typename TubeGroupType::ChildrenListType;
 
   TubeType * inputTube = NULL;
   bool blnTubeFound = false;
@@ -112,7 +112,7 @@ ComputeTubeFlyThroughImageFilter< TPixel, Dimension >
   inputTube->ComputeTangentAndNormals();
 
   // Get list of tube points
-  typedef typename TubeType::PointListType    TubePointListType;
+  using TubePointListType = typename TubeType::PointListType;
 
   TubePointListType tubePointList = inputTube->GetPoints();
 
@@ -228,17 +228,15 @@ ComputeTubeFlyThroughImageFilter< TPixel, Dimension >
   // and fill into corresponding slice in the output image
   itkDebugMacro( "Generating fly through image" );
 
-  typedef typename TubeType::TubePointType             TubePointType;
-  typedef typename TubePointType::CovariantVectorType  TubeNormalType;
-  typedef ImageRegionIteratorWithIndex<
-    OutputImageType >                                  OutputImageIteratorType;
-  typedef ImageRegionIterator< OutputMaskType >        OutputMaskIteratorType;
+  using TubePointType = typename TubeType::TubePointType;
+  using TubeNormalType = typename TubePointType::CovariantVectorType;
+  using OutputImageIteratorType = ImageRegionIteratorWithIndex<
+    OutputImageType >;
+  using OutputMaskIteratorType = ImageRegionIterator< OutputMaskType >;
 
-  typedef LinearInterpolateImageFunction< InputImageType, double >
-    InterpolatorType;
+  using InterpolatorType = LinearInterpolateImageFunction< InputImageType, double >;
 
-  typedef MinimumMaximumImageFilter< InputImageType >
-    MinMaxImageFilterType;
+  using MinMaxImageFilterType = MinimumMaximumImageFilter< InputImageType >;
 
   typename TubeType::TransformType * pTubeIndexPhysTransform =
     inputTube->GetIndexToWorldTransform();

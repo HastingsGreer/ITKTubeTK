@@ -58,25 +58,23 @@ class TubeToTubeTransformFilter :
 {
 public:
 
-  typedef GroupSpatialObject< TDimension >                   GroupType;
+  using GroupType = GroupSpatialObject< TDimension >;
 
-  /** Standard class typedefs. */
-  typedef TubeToTubeTransformFilter< TTransformType, TDimension >
-    Self;
+  /** Standard class type alias. */
+  using Self = TubeToTubeTransformFilter< TTransformType, TDimension >;
 
-  typedef SpatialObjectToSpatialObjectFilter< GroupType, GroupType >
-    Superclass;
+  using Superclass = SpatialObjectToSpatialObjectFilter< GroupType, GroupType >;
 
-  typedef SmartPointer< Self >                               Pointer;
-  typedef SmartPointer< const Self >                         ConstPointer;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
-  typedef VesselTubeSpatialObject< TDimension >              TubeType;
+  using TubeType = VesselTubeSpatialObject< TDimension >;
 
   typedef typename VesselTubeSpatialObject< TDimension >::TransformType
     TubeTransformType;
 
   /** Typedef for the transformations */
-  typedef TTransformType                                     TransformType;
+  using TransformType = TTransformType;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );

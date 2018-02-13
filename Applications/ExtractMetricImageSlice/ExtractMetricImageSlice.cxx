@@ -36,12 +36,12 @@ int main( int argc, char * argv[] )
 
   const unsigned int MetricDimension = 6;
   const unsigned int SliceDimension = 2;
-  typedef double     FloatType;
+  using FloatType = double;
 
-  typedef itk::Image< FloatType, MetricDimension > MetricImageType;
-  typedef itk::Image< FloatType, SliceDimension >  SliceImageType;
+  using MetricImageType = itk::Image< FloatType, MetricDimension >;
+  using SliceImageType = itk::Image< FloatType, SliceDimension >;
 
-  typedef itk::ImageFileReader< MetricImageType > ReaderType;
+  using ReaderType = itk::ImageFileReader< MetricImageType >;
   ReaderType::Pointer reader = ReaderType::New();
   reader->SetFileName( inputMetricImage );
   try
@@ -55,8 +55,7 @@ int main( int argc, char * argv[] )
     return EXIT_FAILURE;
     }
 
-  typedef itk::ExtractImageFilter< MetricImageType, SliceImageType >
-    ExtractFilterType;
+  using ExtractFilterType = itk::ExtractImageFilter< MetricImageType, SliceImageType >;
   ExtractFilterType::Pointer extractor = ExtractFilterType::New();
   extractor->SetInput( reader->GetOutput() );
   extractor->SetDirectionCollapseToIdentity();
@@ -82,7 +81,7 @@ int main( int argc, char * argv[] )
   extractionRegion.SetIndex( extractionIndex );
   extractor->SetExtractionRegion( extractionRegion );
 
-  typedef itk::ImageFileWriter< SliceImageType > WriterType;
+  using WriterType = itk::ImageFileWriter< SliceImageType >;
   WriterType::Pointer writer = WriterType::New();
   writer->SetFileName( outputMetricSlice );
   writer->SetInput( extractor->GetOutput() );

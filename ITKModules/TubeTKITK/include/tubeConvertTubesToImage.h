@@ -46,16 +46,16 @@ class ConvertTubesToImage:
   public itk::ProcessObject
 {
 public:
-  /** Standard class typedefs. */
-  typedef ConvertTubesToImage                        Self;
-  typedef itk::ProcessObject                         Superclass;
-  typedef itk::SmartPointer< Self >                  Pointer;
-  typedef itk::SmartPointer< const Self >            ConstPointer;
+  /** Standard class type alias. */
+  using Self = ConvertTubesToImage;
+  using Superclass = itk::ProcessObject;
+  using Pointer = itk::SmartPointer< Self >;
+  using ConstPointer = itk::SmartPointer< const Self >;
 
-  typedef itk::Image< TOutputPixel, Dimension >      OutputImageType;
-  typedef itk::tube::TubeSpatialObjectToImageFilter< Dimension,
-    OutputImageType >                                FilterType;
-  typedef typename FilterType::SpatialObjectType     TubesType;
+  using OutputImageType = itk::Image< TOutputPixel, Dimension >;
+  using FilterType = itk::tube::TubeSpatialObjectToImageFilter< Dimension,
+    OutputImageType >;
+  using TubesType = typename FilterType::SpatialObjectType;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );

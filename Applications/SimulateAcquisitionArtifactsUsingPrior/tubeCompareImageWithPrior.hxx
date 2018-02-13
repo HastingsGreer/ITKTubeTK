@@ -337,14 +337,12 @@ CompareImageWithPrior< TPixel, TDimension>
       m_ProgressReporter->Report( m_ProgressStart );
       }
 
-    typedef itk::BinaryBallStructuringElement< PixelType, TDimension >
-      BallType;
+    using BallType = itk::BinaryBallStructuringElement< PixelType, TDimension >;
     BallType ball;
     ball.SetRadius( 1 );
     ball.CreateStructuringElement();
 
-    typedef itk::BinaryErodeImageFilter< ImageType, ImageType, BallType >
-      ErodeFilterType;
+    using ErodeFilterType = itk::BinaryErodeImageFilter< ImageType, ImageType, BallType >;
 
     for( int r=0; r<m_Erode; r++ )
       {
@@ -382,14 +380,12 @@ CompareImageWithPrior< TPixel, TDimension>
       m_ProgressReporter->Report( m_ProgressStart );
       }
 
-    typedef itk::BinaryBallStructuringElement< PixelType, TDimension >
-      BallType;
+    using BallType = itk::BinaryBallStructuringElement< PixelType, TDimension >;
     BallType ball;
     ball.SetRadius( 1 );
     ball.CreateStructuringElement();
 
-    typedef itk::BinaryDilateImageFilter< ImageType, ImageType, BallType >
-      DilateFilterType;
+    using DilateFilterType = itk::BinaryDilateImageFilter< ImageType, ImageType, BallType >;
 
     for( int r=0; r<m_Dilate; r++ )
       {
@@ -422,8 +418,7 @@ CompareImageWithPrior< TPixel, TDimension>
       m_TimeCollector->Start( "Blur" );
       }
 
-    typedef itk::RecursiveGaussianImageFilter< ImageType, ImageType >
-      FilterType;
+    using FilterType = itk::RecursiveGaussianImageFilter< ImageType, ImageType >;
     typename FilterType::Pointer filter = FilterType::New();
 
     for( unsigned int i=0; i<TDimension; i++ )
@@ -460,8 +455,7 @@ CompareImageWithPrior< TPixel, TDimension>
 
     if( m_UseRegistrationOptimization )
       {
-      typedef itk::NormalizeImageFilter< ImageType, ImageType >
-        NormFilterType;
+      using NormFilterType = itk::NormalizeImageFilter< ImageType, ImageType >;
 
       typename NormFilterType::Pointer norm1 = NormFilterType::New();
       norm1->SetInput( m_OutputVolImage );
@@ -545,12 +539,10 @@ CompareImageWithPrior< TPixel, TDimension>
         }
       }
 
-    typedef itk::ResampleImageFilter< ImageType, ImageType, double >
-      ResamplerType;
+    using ResamplerType = itk::ResampleImageFilter< ImageType, ImageType, double >;
     typename ResamplerType::Pointer resampler = ResamplerType::New();
 
-    typedef itk::LinearInterpolateImageFunction< ImageType, double >
-      InterpolatorType;
+    using InterpolatorType = itk::LinearInterpolateImageFunction< ImageType, double >;
     typename InterpolatorType::Pointer interpolator =
       InterpolatorType::New();
     interpolator->SetInputImage( m_OutputMaskImage );
@@ -562,8 +554,8 @@ CompareImageWithPrior< TPixel, TDimension>
     resampler->Update();
     m_OutputMaskImage = resampler->GetOutput();
 
-    typedef itk::NearestNeighborInterpolateImageFunction< ImageType,
-      double > NNInterpolatorType;
+    using NNInterpolatorType = itk::NearestNeighborInterpolateImageFunction< ImageType,
+      double >;
     typename ResamplerType::Pointer orgResampler =
       ResamplerType::New();
     typename NNInterpolatorType::Pointer orgInterpolator =
@@ -619,7 +611,7 @@ CompareImageWithPrior< TPixel, TDimension>
         }
       }
 
-    typedef itk::CropImageFilter< ImageType, ImageType > CropFilterType;
+    using CropFilterType = itk::CropImageFilter< ImageType, ImageType >;
     typename CropFilterType::Pointer cropInputFilter =
       CropFilterType::New();
     typename CropFilterType::Pointer cropMaskFilter =
@@ -664,7 +656,7 @@ CompareImageWithPrior< TPixel, TDimension>
       m_TimeCollector->Start( "Normalize" );
       }
 
-    typedef itk::ImageRegionIterator< ImageType > IterType;
+    using IterType = itk::ImageRegionIterator< ImageType >;
     IterType volIter( m_OutputVolImage,
       m_OutputVolImage->GetLargestPossibleRegion() );
     IterType maskIter( m_OutputMaskImage,
@@ -731,8 +723,7 @@ CompareImageWithPrior< TPixel, TDimension>
     double scale = ( meanVolFg - meanVolBg ) / ( meanMaskFg - meanMaskBg );
     double shift = meanVolBg/scale - meanMaskBg;
 
-     typedef itk::ShiftScaleImageFilter< ImageType, ImageType >
-      FilterType;
+     using FilterType = itk::ShiftScaleImageFilter< ImageType, ImageType >;
     typename FilterType::Pointer filter = FilterType::New();
     filter->SetInput( m_OutputMaskImage );
     filter->SetShift( shift );

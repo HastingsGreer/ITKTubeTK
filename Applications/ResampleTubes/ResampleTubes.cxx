@@ -42,7 +42,7 @@ template< unsigned int Dimension >
 void WriteOutput( typename itk::GroupSpatialObject<Dimension>::Pointer
   tubesGroup, const char * fileName )
 {
-  typedef itk::SpatialObjectWriter< Dimension > SpatialObjectWriterType;
+  using SpatialObjectWriterType = itk::SpatialObjectWriter< Dimension >;
 
   typename SpatialObjectWriterType::Pointer writer =
     SpatialObjectWriterType::New();
@@ -56,9 +56,9 @@ int DoIt( int argc, char * argv[] )
 {
   PARSE_ARGS;
 
-  typedef itk::tube::ResampleTubesFilter< Dimension > FilterType;
+  using FilterType = itk::tube::ResampleTubesFilter< Dimension >;
   typename FilterType::Pointer filter = FilterType::New();
-  typedef typename FilterType::TubeGroupType   GroupSpatialObjectType;
+  using GroupSpatialObjectType = typename FilterType::TubeGroupType;
 
   double progress = 0.0;
   itk::TimeProbesCollectorBase timeCollector;
@@ -73,7 +73,7 @@ int DoIt( int argc, char * argv[] )
   typename GroupSpatialObjectType::Pointer tubesGroup =
     GroupSpatialObjectType::New();
 
-  typedef itk::SpatialObjectReader< Dimension > SpatialObjectReaderType;
+  using SpatialObjectReaderType = itk::SpatialObjectReader< Dimension >;
   typename SpatialObjectReaderType::Pointer reader =
     SpatialObjectReaderType::New();
   reader->SetFileName( inputTubeFile.c_str() );
@@ -101,8 +101,8 @@ int DoIt( int argc, char * argv[] )
 
   if( !matchImage.empty() )
     {
-    typedef itk::Image< char, Dimension >         MatchImageType;
-    typedef itk::ImageFileReader< MatchImageType> MatchImageReaderType;
+    using MatchImageType = itk::Image< char, Dimension >;
+    using MatchImageReaderType = itk::ImageFileReader< MatchImageType>;
 
     typename MatchImageReaderType::Pointer matchReader =
       MatchImageReaderType::New();
@@ -113,9 +113,8 @@ int DoIt( int argc, char * argv[] )
 
   if( !loadDisplacementField.empty() )
       {
-      typedef typename FilterType::DisplacementFieldType DisplacementFieldType;
-      typedef typename itk::ImageFileReader< DisplacementFieldType >
-        DisplacementFieldReaderType;
+      using DisplacementFieldType = typename FilterType::DisplacementFieldType;
+      using DisplacementFieldReaderType = typename itk::ImageFileReader< DisplacementFieldType >;
 
       // Read the displacement field
       typename DisplacementFieldReaderType::Pointer dfReader =

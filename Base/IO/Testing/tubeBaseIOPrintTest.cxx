@@ -36,7 +36,7 @@ limitations under the License.
 
 int tubeBaseIOPrintTest( int tubeNotUsed( argc ), char * tubeNotUsed( argv )[] )
 {
-  typedef itk::Image< float, 3 > ImageType;
+  using ImageType = itk::Image< float, 3 >;
   itk::tube::PDFSegmenterParzenIO< ImageType,
     ImageType > pdfSegmenterParzenIO;
   std::cout << "-------------pdfSegmenterParzenIO" << std::endl;

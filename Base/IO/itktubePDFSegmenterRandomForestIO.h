@@ -49,9 +49,9 @@ class PDFSegmenterRandomForestIO
 {
 public:
 
-  typedef PDFSegmenterRandomForestIO<TImage, TLabelMap>  PDFSegmenterIOType;
+  using PDFSegmenterIOType = PDFSegmenterRandomForestIO<TImage, TLabelMap>;
 
-  typedef PDFSegmenterRandomForest<TImage, TLabelMap>    PDFSegmenterType;
+  using PDFSegmenterType = PDFSegmenterRandomForest<TImage, TLabelMap>;
 
   PDFSegmenterRandomForestIO( void );
 

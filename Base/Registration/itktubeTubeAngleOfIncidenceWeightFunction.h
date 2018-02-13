@@ -65,12 +65,11 @@ class TubeAngleOfIncidenceWeightFunction:
   public FunctionBase< TTubePoint, TWeight >
 {
 public:
-  /** Standard class typedefs. */
-  typedef TubeAngleOfIncidenceWeightFunction< TTubePoint, TWeight >
-                                               Self;
-  typedef FunctionBase< TTubePoint, TWeight >  Superclass;
-  typedef SmartPointer< Self >                 Pointer;
-  typedef SmartPointer< const Self >           ConstPointer;
+  /** Standard class type alias. */
+  using Self = TubeAngleOfIncidenceWeightFunction< TTubePoint, TWeight >;
+  using Superclass = FunctionBase< TTubePoint, TWeight >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /** Run-time type information ( and related methods ). */
   itkTypeMacro( TubeAngleOfIncidenceWeightFunction, FunctionBase );
@@ -78,9 +77,9 @@ public:
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
 
-  typedef TWeight                           WeightType;
-  typedef TTubePoint                        TubePointType;
-  typedef typename TubePointType::PointType PointType;
+  using WeightType = TWeight;
+  using TubePointType = TTubePoint;
+  using PointType = typename TubePointType::PointType;
 
   /** Set/Get the fractional importance of the angle of incicent an the tube
    * point weight. */

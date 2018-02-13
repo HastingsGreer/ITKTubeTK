@@ -38,43 +38,38 @@ template< class TInputImage >
 void
 RoughBMode( TInputImage * inputImage, const char * fileName )
 {
-  typedef TInputImage InputImageType;
-  typedef itk::AbsImageAdaptor< InputImageType,
-      typename InputImageType::PixelType >
-    AbsAdaptorType;
+  using InputImageType = TInputImage;
+  using AbsAdaptorType = itk::AbsImageAdaptor< InputImageType,
+      typename InputImageType::PixelType >;
   typename AbsAdaptorType::Pointer absAdaptor = AbsAdaptorType::New();
   absAdaptor->SetImage( inputImage );
 
-  typedef itk::AddImageFilter<
+  using AddConstantFilterType = itk::AddImageFilter<
       AbsAdaptorType,
       InputImageType,
-      InputImageType >
-    AddConstantFilterType;
+      InputImageType >;
   typename AddConstantFilterType::Pointer addConstantFilter =
     AddConstantFilterType::New();
   addConstantFilter->SetInput1( absAdaptor );
   addConstantFilter->SetConstant2( 1.0e-12 );
   addConstantFilter->Update();
 
-  typedef itk::Log10ImageAdaptor< InputImageType,
-      typename InputImageType::PixelType >
-    Log10AdaptorType;
+  using Log10AdaptorType = itk::Log10ImageAdaptor< InputImageType,
+      typename InputImageType::PixelType >;
   typename Log10AdaptorType::Pointer log10Adaptor =
     Log10AdaptorType::New();
   log10Adaptor->SetImage( addConstantFilter->GetOutput() );
 
-  typedef unsigned char OutputPixelType;
-  typedef itk::Image< OutputPixelType, InputImageType::ImageDimension >
-    OutputImageType;
-  typedef itk::IntensityWindowingImageFilter< Log10AdaptorType, OutputImageType >
-    IntensityWindowingFilterType;
+  using OutputPixelType = unsigned char;
+  using OutputImageType = itk::Image< OutputPixelType, InputImageType::ImageDimension >;
+  using IntensityWindowingFilterType = itk::IntensityWindowingImageFilter< Log10AdaptorType, OutputImageType >;
   typename IntensityWindowingFilterType::Pointer
     intensityWindowingFilter = IntensityWindowingFilterType::New();
   intensityWindowingFilter->SetWindowMinimum( -5.0 );
   intensityWindowingFilter->SetWindowMaximum( 2.0 );
   intensityWindowingFilter->SetInput( log10Adaptor );
 
-  typedef itk::ImageFileWriter< OutputImageType > WriterType;
+  using WriterType = itk::ImageFileWriter< OutputImageType >;
   typename WriterType::Pointer writer = WriterType::New();
   writer->SetInput( intensityWindowingFilter->GetOutput() );
   writer->SetFileName( fileName );
@@ -108,17 +103,16 @@ int itkAcousticImpulseResponseImageFilterTest( int argc, char * argv[] )
   // Types
   enum { Dimension = 2 };
 
-  typedef float                              PixelType;
-  typedef itk::Image< PixelType, Dimension > ImageType;
+  using PixelType = float;
+  using ImageType = itk::Image< PixelType, Dimension >;
 
   // Reader
-  typedef itk::ImageFileReader< ImageType > ReaderType;
+  using ReaderType = itk::ImageFileReader< ImageType >;
   ReaderType::Pointer reader = ReaderType::New();
   reader->SetFileName( inputImage );
 
   // Calculate the angle of incidence
-  typedef itk::GradientBasedAngleOfIncidenceImageFilter< ImageType, ImageType >
-    AngleOfIncidenceFilterType;
+  using AngleOfIncidenceFilterType = itk::GradientBasedAngleOfIncidenceImageFilter< ImageType, ImageType >;
   AngleOfIncidenceFilterType::Pointer angleOfIncidenceFilter =
     AngleOfIncidenceFilterType::New();
   angleOfIncidenceFilter->SetInput( reader->GetOutput() );
@@ -132,8 +126,7 @@ int itkAcousticImpulseResponseImageFilterTest( int argc, char * argv[] )
   angleOfIncidenceFilter->SetUltrasoundProbeOrigin( probeOrigin );
 
   // Calculate the acoustic impulse response
-  typedef itk::AcousticImpulseResponseImageFilter< ImageType, ImageType >
-    AcousticImpulseResponseFilterType;
+  using AcousticImpulseResponseFilterType = itk::AcousticImpulseResponseImageFilter< ImageType, ImageType >;
   AcousticImpulseResponseFilterType::Pointer acousticImpulseResponseFilter =
     AcousticImpulseResponseFilterType::New();
   acousticImpulseResponseFilter->SetInput( 0,

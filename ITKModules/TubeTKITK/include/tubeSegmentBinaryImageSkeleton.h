@@ -46,16 +46,16 @@ class SegmentBinaryImageSkeleton:
   public itk::ProcessObject
 {
 public:
-  /** Standard class typedefs. */
-  typedef SegmentBinaryImageSkeleton                 Self;
-  typedef itk::ProcessObject                         Superclass;
-  typedef itk::SmartPointer< Self >                  Pointer;
-  typedef itk::SmartPointer< const Self >            ConstPointer;
+  /** Standard class type alias. */
+  using Self = SegmentBinaryImageSkeleton;
+  using Superclass = itk::ProcessObject;
+  using Pointer = itk::SmartPointer< Self >;
+  using ConstPointer = itk::SmartPointer< const Self >;
 
-  typedef itk::tube::SegmentBinaryImageSkeleton<
-    TPixel, VDimension >                             FilterType;
+  using FilterType = itk::tube::SegmentBinaryImageSkeleton<
+    TPixel, VDimension >;
 
-  typedef typename FilterType::ImageType             ImageType;
+  using ImageType = typename FilterType::ImageType;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );

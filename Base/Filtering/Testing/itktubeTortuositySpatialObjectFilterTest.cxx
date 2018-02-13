@@ -37,8 +37,8 @@ GenerateStraightTube( itk::VesselTubeSpatialObject<3>::VectorType
   start, itk::VesselTubeSpatialObject<3>::VectorType increment,
   int numberOfPoints )
 {
-  typedef itk::VesselTubeSpatialObject<3>  VesselTubeType;
-  typedef VesselTubeType::VectorType       VectorType;
+  using VesselTubeType = itk::VesselTubeSpatialObject<3>;
+  using VectorType = VesselTubeType::VectorType;
 
   VesselTubeType::Pointer vessel = VesselTubeType::New();
   VesselTubeType::PointListType pointList;
@@ -72,8 +72,8 @@ void
 GenerateCosTube( double length, double amplitude, double frequency,
   itk::VesselTubeSpatialObject<3>::Pointer & vessel )
 {
-  typedef itk::VesselTubeSpatialObject<3>  VesselTubeType;
-  typedef VesselTubeType::VectorType       VectorType;
+  using VesselTubeType = itk::VesselTubeSpatialObject<3>;
+  using VectorType = VesselTubeType::VectorType;
 
   vessel = VesselTubeType::New();
   VesselTubeType::PointListType pointList;
@@ -102,11 +102,9 @@ GenerateCosTube( double length, double amplitude, double frequency,
 bool TestVesselMetrics( itk::VesselTubeSpatialObject<3>::Pointer
   vessel, double results[] )
 {
-  typedef itk::VesselTubeSpatialObject<3>
-    VesselTubeType;
+  using VesselTubeType = itk::VesselTubeSpatialObject<3>;
 
-  typedef itk::tube::TortuositySpatialObjectFilter<VesselTubeType>
-    FilterType;
+  using FilterType = itk::tube::TortuositySpatialObjectFilter<VesselTubeType>;
 
   // Run the metrics
   FilterType::Pointer filter = FilterType::New();
@@ -209,7 +207,7 @@ bool TestVesselMetrics( itk::VesselTubeSpatialObject<3>::Pointer
 //--------------------------------------------------------------------------
 int itktubeTortuositySpatialObjectFilterTest( int, char*[] )
 {
-  typedef itk::VesselTubeSpatialObject<3> VesselTubeType;
+  using VesselTubeType = itk::VesselTubeSpatialObject<3>;
 
   //
   // Test straight spatial objects

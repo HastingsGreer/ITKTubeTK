@@ -36,9 +36,9 @@ limitations under the License.
 class CommandIterationUpdate : public itk::Command
 {
 public:
-  typedef  CommandIterationUpdate   Self;
-  typedef  itk::Command             Superclass;
-  typedef itk::SmartPointer<Self>   Pointer;
+  using Self = CommandIterationUpdate;
+  using Superclass = itk::Command;
+  using Pointer = itk::SmartPointer<Self>;
   itkNewMacro( Self );
 
 protected:
@@ -54,8 +54,8 @@ protected:
   std::ofstream measuresFileStream;
 
 public:
-  typedef itk::GradientDescentOptimizer OptimizerType;
-  typedef const OptimizerType *         OptimizerPointer;
+  using OptimizerType = itk::GradientDescentOptimizer;
+  using OptimizerPointer = const OptimizerType *;
 
   void Execute( itk::Object *caller, const itk::EventObject & event )
     {
@@ -96,13 +96,12 @@ int itktubeImageToTubeRigidRegistrationPerformanceTest( int argc, char * argv[] 
     return EXIT_FAILURE;
     }
 
-  typedef itk::VesselTubeSpatialObject< 3 >              TubeType;
-  typedef itk::GroupSpatialObject<3>                     TubeNetType;
-  typedef itk::SpatialObjectReader<3>                    TubeNetReaderType;
-  typedef itk::Image<double, 3>                          ImageType;
-  typedef itk::ImageFileReader<ImageType>                ImageReaderType;
-  typedef itk::tube::ImageToTubeRigidRegistration<ImageType, TubeNetType, TubeType>
-                                                         RegistrationMethodType;
+  using TubeType = itk::VesselTubeSpatialObject< 3 >;
+  using TubeNetType = itk::GroupSpatialObject<3>;
+  using TubeNetReaderType = itk::SpatialObjectReader<3>;
+  using ImageType = itk::Image<double, 3>;
+  using ImageReaderType = itk::ImageFileReader<ImageType>;
+  using RegistrationMethodType = itk::tube::ImageToTubeRigidRegistration<ImageType, TubeNetType, TubeType>;
 
   // read image
   ImageReaderType::Pointer imageReader = ImageReaderType::New();
@@ -120,8 +119,8 @@ int itktubeImageToTubeRigidRegistrationPerformanceTest( int argc, char * argv[] 
   // Gaussian blur the original input image to increase the likelihood of vessel
   // spatial object overlapping with the vessel image at their initial alignment.
   // this enlarges the convergence zone.
-  typedef itk::RecursiveGaussianImageFilter
-    <ImageType, ImageType> GaussianBlurFilterType;
+  using GaussianBlurFilterType = itk::RecursiveGaussianImageFilter
+    <ImageType, ImageType>;
 
   GaussianBlurFilterType::Pointer blurFilters[3];
   for( int i = 0; i < 3; i++ )
@@ -160,8 +159,7 @@ int itktubeImageToTubeRigidRegistrationPerformanceTest( int argc, char * argv[] 
     }
 
   // subsample points in vessel
-  typedef itk::tube::SubSampleTubeTreeSpatialObjectFilter< TubeNetType, TubeType >
-    SubSampleTubeNetFilterType;
+  using SubSampleTubeNetFilterType = itk::tube::SubSampleTubeTreeSpatialObjectFilter< TubeNetType, TubeType >;
   SubSampleTubeNetFilterType::Pointer subSampleTubeNetFilter =
     SubSampleTubeNetFilterType::New();
   subSampleTubeNetFilter->SetInput( vesselReader->GetGroup() );

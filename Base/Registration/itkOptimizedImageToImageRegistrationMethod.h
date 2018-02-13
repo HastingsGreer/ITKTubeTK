@@ -32,10 +32,10 @@ class OptimizedImageToImageRegistrationMethod
 
 public:
 
-  typedef OptimizedImageToImageRegistrationMethod Self;
-  typedef ImageToImageRegistrationMethod<TImage>  Superclass;
-  typedef SmartPointer<Self>                      Pointer;
-  typedef SmartPointer<const Self>                ConstPointer;
+  using Self = OptimizedImageToImageRegistrationMethod;
+  using Superclass = ImageToImageRegistrationMethod<TImage>;
+  using Pointer = SmartPointer<Self>;
+  using ConstPointer = SmartPointer<const Self>;
 
   itkTypeMacro( OptimizedImageToImageRegistrationMethod,
                 ImageToImageRegistrationMethod );
@@ -45,18 +45,17 @@ public:
   //
   // Typedefs from Superclass
   //
-  typedef TImage ImageType;
+  using ImageType = TImage;
 
-  typedef typename ImageType::PixelType PixelType;
+  using PixelType = typename ImageType::PixelType;
 
-  typedef typename Superclass::TransformType TransformType;
+  using TransformType = typename Superclass::TransformType;
 
-  typedef typename TransformType::ParametersType TransformParametersType;
+  using TransformParametersType = typename TransformType::ParametersType;
 
-  typedef typename TransformType::ParametersType TransformParametersScalesType;
+  using TransformParametersScalesType = typename TransformType::ParametersType;
 
-  itkStaticConstMacro( ImageDimension, unsigned int,
-                       TImage::ImageDimension );
+  static constexpr unsigned int ImageDimension = TImage::ImageDimension;
 
   //
   // Custom Typedefs
@@ -139,8 +138,8 @@ protected:
 
   itkSetMacro( TransformMethodEnum, TransformMethodEnumType );
 
-  typedef InterpolateImageFunction<TImage, double> InterpolatorType;
-  typedef ImageToImageMetric<TImage, TImage>       MetricType;
+  using InterpolatorType = InterpolateImageFunction<TImage, double>;
+  using MetricType = ImageToImageMetric<TImage, TImage>;
 
   virtual void Optimize( MetricType * metric, InterpolatorType * interpolator );
 

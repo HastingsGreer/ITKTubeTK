@@ -379,7 +379,7 @@ AnisotropicDiffusiveRegistrationFilter
   // itk::ImageSource
   // because we might be calculating the normals and weights of a high res
   // template, where the image extent will not match that of the output
-  typedef itk::ImageRegionSplitter< ImageDimension > SplitterType;
+  using SplitterType = itk::ImageRegionSplitter< ImageDimension >;
   typename SplitterType::Pointer splitter = SplitterType::New();
 
   int normalTotal = splitter->GetNumberOfSplits(
@@ -532,8 +532,8 @@ AnisotropicDiffusiveRegistrationFilter
   if( computeWeights )
     {
     double weightSmoothingSigma = 1.0;
-    typedef itk::tube::SmoothingRecursiveGaussianImageFilter
-        < WeightImageType, WeightImageType > WeightSmoothingFilterType;
+    using WeightSmoothingFilterType = itk::tube::SmoothingRecursiveGaussianImageFilter
+        < WeightImageType, WeightImageType >;
     typename WeightSmoothingFilterType::Pointer weightSmooth
         = WeightSmoothingFilterType::New();
     weightSmooth->SetInput( m_WeightImage );
@@ -622,11 +622,9 @@ AnisotropicDiffusiveRegistrationFilter
   // tangentialMatrix = tangentialDiffusionTensor = P^TP
   // normalMatrix = normalDiffusionTensor = w^2nn^T
 
-  typedef itk::ImageRegionIterator< DiffusionTensorImageType >
-      DiffusionTensorImageRegionType;
-  typedef itk::Matrix
-      < DeformationVectorComponentType, ImageDimension, ImageDimension >
-      MatrixType;
+  using DiffusionTensorImageRegionType = itk::ImageRegionIterator< DiffusionTensorImageType >;
+  using MatrixType = itk::Matrix
+      < DeformationVectorComponentType, ImageDimension, ImageDimension >;
 
   NormalVectorType       n;
   WeightType             w;

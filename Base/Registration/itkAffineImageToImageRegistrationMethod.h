@@ -32,28 +32,26 @@ class AffineImageToImageRegistrationMethod
 
 public:
 
-  typedef AffineImageToImageRegistrationMethod            Self;
-  typedef OptimizedImageToImageRegistrationMethod<TImage> Superclass;
-  typedef SmartPointer<Self>                              Pointer;
-  typedef SmartPointer<const Self>                        ConstPointer;
+  using Self = AffineImageToImageRegistrationMethod;
+  using Superclass = OptimizedImageToImageRegistrationMethod<TImage>;
+  using Pointer = SmartPointer<Self>;
+  using ConstPointer = SmartPointer<const Self>;
 
   itkTypeMacro( AffineImageToImageRegistrationMethod,
                 OptimizedImageToImageRegistrationMethod );
 
   itkNewMacro( Self );
 
-  itkStaticConstMacro( ImageDimension, unsigned int,
-                       TImage::ImageDimension );
+  static constexpr unsigned int ImageDimension = TImage::ImageDimension;
 
   //
   // Typedefs from Superclass
   //
 
   // Overrides the superclass' TransformType typedef
-  typedef AffineTransform<double, itkGetStaticConstMacro( ImageDimension )>
-  AffineTransformType;
-  typedef typename AffineTransformType::Pointer AffineTransformPointer;
-  typedef AffineTransformType                   TransformType;
+  using AffineTransformType = AffineTransform<double, itkGetStaticConstMacro( ImageDimension )>;
+  using AffineTransformPointer = typename AffineTransformType::Pointer;
+  using TransformType = AffineTransformType;
 
   //
   // Superclass Methods

@@ -105,7 +105,7 @@ ImageToImageRegistrationHelper<TImage>
 
   m_MinimizeMemory = false;
   // Optimizer
-  m_UseEvolutionaryOptimization = true ;
+  m_UseEvolutionaryOptimization = true;
   // Loaded
   m_LoadedMatrixTransform = NULL;
   m_LoadedBSplineTransform = NULL;
@@ -161,7 +161,7 @@ void
 ImageToImageRegistrationHelper<TImage>
 ::LoadFixedImage( const std::string & filename )
 {
-  typedef ImageFileReader<TImage> ImageReaderType;
+  using ImageReaderType = ImageFileReader<TImage>;
 
   typename ImageReaderType::Pointer imageReader = ImageReaderType::New();
 
@@ -182,7 +182,7 @@ void
 ImageToImageRegistrationHelper<TImage>
 ::LoadMovingImage( const std::string & filename )
 {
-  typedef ImageFileReader<TImage> ImageReaderType;
+  using ImageReaderType = ImageFileReader<TImage>;
 
   typename ImageReaderType::Pointer imageReader = ImageReaderType::New();
 
@@ -203,7 +203,7 @@ void
 ImageToImageRegistrationHelper<TImage>
 ::SaveImage( const std::string & filename, const TImage * image )
 {
-  typedef ImageFileWriter<TImage> FileWriterType;
+  using FileWriterType = ImageFileWriter<TImage>;
 
   typename FileWriterType::Pointer fileWriter = FileWriterType::New();
   fileWriter->SetUseCompression( true );
@@ -467,7 +467,7 @@ ImageToImageRegistrationHelper<TImage>
       }
     if( m_SampleIntensityPortion > 0 )
       {
-      typedef MinimumMaximumImageCalculator<ImageType> MinMaxCalcType;
+      using MinMaxCalcType = MinimumMaximumImageCalculator<ImageType>;
       typename MinMaxCalcType::Pointer calc = MinMaxCalcType::New();
       calc->SetImage( m_FixedImage );
       calc->Compute();
@@ -612,7 +612,7 @@ ImageToImageRegistrationHelper<TImage>
       }
     if( m_SampleIntensityPortion > 0 )
       {
-      typedef MinimumMaximumImageCalculator<ImageType> MinMaxCalcType;
+      using MinMaxCalcType = MinimumMaximumImageCalculator<ImageType>;
       typename MinMaxCalcType::Pointer calc = MinMaxCalcType::New();
       calc->SetImage( m_FixedImage );
       calc->Compute();
@@ -746,7 +746,7 @@ ImageToImageRegistrationHelper<TImage>
       }
     if( m_SampleIntensityPortion > 0 )
       {
-      typedef MinimumMaximumImageCalculator<ImageType> MinMaxCalcType;
+      using MinMaxCalcType = MinimumMaximumImageCalculator<ImageType>;
       typename MinMaxCalcType::Pointer calc = MinMaxCalcType::New();
       calc->SetImage( m_FixedImage );
       calc->Compute();
@@ -791,20 +791,14 @@ ImageToImageRegistrationHelper<TImage>
                  const BSplineTransformType * bsplineTransform,
                  PixelType defaultPixelValue)
 {
-  typedef InterpolateImageFunction<TImage, double>
-    InterpolatorType;
-  typedef NearestNeighborInterpolateImageFunction<TImage, double>
-    NearestNeighborInterpolatorType;
-  typedef LinearInterpolateImageFunction<TImage, double>
-    LinearInterpolatorType;
-  typedef BSplineInterpolateImageFunction<TImage, double>
-    BSplineInterpolatorType;
-  typedef WindowedSincInterpolateImageFunction<TImage, 4,
+  using InterpolatorType = InterpolateImageFunction<TImage, double>;
+  using NearestNeighborInterpolatorType = NearestNeighborInterpolateImageFunction<TImage, double>;
+  using LinearInterpolatorType = LinearInterpolateImageFunction<TImage, double>;
+  using BSplineInterpolatorType = BSplineInterpolateImageFunction<TImage, double>;
+  using SincInterpolatorType = WindowedSincInterpolateImageFunction<TImage, 4,
     Function::HammingWindowFunction<4>, ConstantBoundaryCondition<TImage>,
-    double>
-    SincInterpolatorType;
-  typedef ResampleImageFilter<TImage, TImage, double>
-    ResampleImageFilterType;
+    double>;
+  using ResampleImageFilterType = ResampleImageFilter<TImage, TImage, double>;
 
   typename InterpolatorType::Pointer interpolator = 0;
 
@@ -1089,7 +1083,7 @@ void
 ImageToImageRegistrationHelper<TImage>
 ::LoadBaselineImage( const std::string & filename )
 {
-  typedef ImageFileReader<TImage> ImageReaderType;
+  using ImageReaderType = ImageFileReader<TImage>;
 
   typename ImageReaderType::Pointer imageReader = ImageReaderType::New();
 
@@ -1117,8 +1111,7 @@ ImageToImageRegistrationHelper<TImage>
     return;
     }
 
-  typedef Testing::ComparisonImageFilter<TImage, TImage>
-    ComparisonFilterType;
+  using ComparisonFilterType = Testing::ComparisonImageFilter<TImage, TImage>;
 
   typename TImage::ConstPointer imTemp = this->GetFixedImage();
   this->SetFixedImage( this->m_BaselineImage );
@@ -1167,8 +1160,8 @@ void
 ImageToImageRegistrationHelper<TImage>
 ::LoadTransform( const std::string & filename )
 {
-  typedef TransformFileReader                    TransformReaderType;
-  typedef TransformReaderType::TransformListType TransformListType;
+  using TransformReaderType = TransformFileReader;
+  using TransformListType = TransformReaderType::TransformListType;
 
   TransformReaderType::Pointer transformReader = TransformReaderType::New();
   transformReader->SetFileName( filename );
@@ -1209,7 +1202,7 @@ void
 ImageToImageRegistrationHelper<TImage>
 ::SaveTransform( const std::string & filename )
 {
-  typedef TransformFileWriter TransformWriterType;
+  using TransformWriterType = TransformFileWriter;
 
   TransformWriterType::Pointer transformWriter = TransformWriterType::New();
   transformWriter->SetFileName( filename );
@@ -1237,9 +1230,9 @@ void
 ImageToImageRegistrationHelper<TImage>
 ::SaveDisplacementField( const std::string &filename )
 {
-  typedef itk::Vector<PixelType,TImage::ImageDimension>  VectorType;
-  typedef itk::Image<VectorType,TImage::ImageDimension>  DisplacementFieldType;
-  typedef itk::ImageRegionIterator< DisplacementFieldType > FieldIterator;
+  using VectorType = itk::Vector<PixelType,TImage::ImageDimension>;
+  using DisplacementFieldType = itk::Image<VectorType,TImage::ImageDimension>;
+  using FieldIterator = itk::ImageRegionIterator< DisplacementFieldType >;
 
   typename TImage::RegionType fixedImageRegion =
     m_FixedImage->GetBufferedRegion();
@@ -1287,7 +1280,7 @@ ImageToImageRegistrationHelper<TImage>
     ++it;
     }
 
-  typedef itk::ImageFileWriter< DisplacementFieldType >  FieldWriterType;
+  using FieldWriterType = itk::ImageFileWriter< DisplacementFieldType >;
   typename FieldWriterType::Pointer fieldWriter = FieldWriterType::New();
 
   fieldWriter->SetInput( field );

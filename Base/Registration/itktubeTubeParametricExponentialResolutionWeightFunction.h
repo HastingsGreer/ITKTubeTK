@@ -54,10 +54,10 @@ template< class TTubePoint, class TOperatorValue = double >
 class TubeParametricExponentialResolutionWeightFunction
 {
 public:
-  typedef TubeParametricExponentialResolutionWeightFunction Self;
+  using Self = TubeParametricExponentialResolutionWeightFunction;
 
-  typedef TOperatorValue OperatorValueType;
-  typedef TTubePoint     TubePointType;
+  using OperatorValueType = TOperatorValue;
+  using TubePointType = TTubePoint;
 
   TubeParametricExponentialResolutionWeightFunction( void )
     : m_Alpha( 2.0 )

@@ -82,7 +82,7 @@ RidgeFFTFeatureVectorGenerator< TImage >
   ValueListType featureStdDev;
   featureStdDev.resize( numFeatureImages );
 
-  typedef ImageRegionIterator< FeatureImageType >  IterType;
+  using IterType = ImageRegionIterator< FeatureImageType >;
   for( unsigned int i=0; i<numFeatureImages; ++i )
     {
     IterType iter( m_FeatureImageList[i],
@@ -119,7 +119,7 @@ void
 RidgeFFTFeatureVectorGenerator< TImage >
 ::Update( void )
 {
-  typedef RidgeFFTFilter< TImage > RidgeFilterType;
+  using RidgeFilterType = RidgeFFTFilter< TImage >;
   typename RidgeFilterType::Pointer ridgeF = RidgeFilterType::New();
   ridgeF->SetInput( this->m_InputImageList[0] );
 
@@ -165,7 +165,7 @@ RidgeFFTFeatureVectorGenerator< TImage >
       ++feat;
       }
 
-    typedef ImageRegionIterator< FeatureImageType >  IterType;
+    using IterType = ImageRegionIterator< FeatureImageType >;
     std::vector< IterType > iterF( numFeatures );
     for( unsigned int f=0; f<numFeatures; ++f )
       {
@@ -205,7 +205,7 @@ RidgeFFTFeatureVectorGenerator< TImage >
     {
     unsigned int featureForOptimalScale = 1;
 
-    typedef ImageRegionIterator< FeatureImageType >  IterType;
+    using IterType = ImageRegionIterator< FeatureImageType >;
 
     typename FeatureImageType::RegionType region =
       this->m_InputImageList[0]->GetLargestPossibleRegion();

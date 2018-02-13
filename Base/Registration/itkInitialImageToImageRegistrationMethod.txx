@@ -67,10 +67,9 @@ InitialImageToImageRegistrationMethod<TImage>
 
     if( TImage::ImageDimension == 3 )
       {
-      typedef AnisotropicSimilarity3DTransform<double> LandmarkTransformType;
-      typedef AnisotropicSimilarityLandmarkBasedTransformInitializer<LandmarkTransformType,
-                                                                     TImage, TImage>
-      LandmarkTransformCalculatorType;
+      using LandmarkTransformType = AnisotropicSimilarity3DTransform<double>;
+      using LandmarkTransformCalculatorType = AnisotropicSimilarityLandmarkBasedTransformInitializer<LandmarkTransformType,
+                                                                     TImage, TImage>;
 
       typename LandmarkTransformCalculatorType::Pointer landmarkCalc;
       landmarkCalc = LandmarkTransformCalculatorType::New();
@@ -94,10 +93,9 @@ InitialImageToImageRegistrationMethod<TImage>
       }
     else if( TImage::ImageDimension == 2 )
       {
-      typedef Rigid2DTransform<double> LandmarkTransformType;
-      typedef AnisotropicSimilarityLandmarkBasedTransformInitializer<LandmarkTransformType,
-                                                                     TImage, TImage>
-      LandmarkTransformCalculatorType;
+      using LandmarkTransformType = Rigid2DTransform<double>;
+      using LandmarkTransformCalculatorType = AnisotropicSimilarityLandmarkBasedTransformInitializer<LandmarkTransformType,
+                                                                     TImage, TImage>;
 
       typename LandmarkTransformCalculatorType::Pointer landmarkCalc;
       landmarkCalc = LandmarkTransformCalculatorType::New();
@@ -155,7 +153,7 @@ InitialImageToImageRegistrationMethod<TImage>
     return;
     }
 
-  typedef ImageRegionMomentsCalculator<TImage> MomentsCalculatorType;
+  using MomentsCalculatorType = ImageRegionMomentsCalculator<TImage>;
 
   typename MomentsCalculatorType::AffineTransformType::Pointer newTransform;
   newTransform = MomentsCalculatorType::AffineTransformType::New();

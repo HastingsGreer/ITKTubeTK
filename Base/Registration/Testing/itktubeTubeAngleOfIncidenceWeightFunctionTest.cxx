@@ -47,13 +47,13 @@ int itktubeTubeAngleOfIncidenceWeightFunctionTest( int argc, char * argv[] )
   const char * outputDirectory = argv[2];
 
   enum { Dimension = 3 };
-  typedef itk::VesselTubeSpatialObject< Dimension > TubeSpatialObjectType;
-  typedef itk::GroupSpatialObject< Dimension >      GroupSpatialObjectType;
-  typedef itk::TubeSpatialObjectPoint< Dimension >  TubePointType;
-  typedef float                                     WeightType;
+  using TubeSpatialObjectType = itk::VesselTubeSpatialObject< Dimension >;
+  using GroupSpatialObjectType = itk::GroupSpatialObject< Dimension >;
+  using TubePointType = itk::TubeSpatialObjectPoint< Dimension >;
+  using WeightType = float;
 
   // Read input tube tree.
-  typedef itk::SpatialObjectReader< Dimension >  ReaderType;
+  using ReaderType = itk::SpatialObjectReader< Dimension >;
   ReaderType::Pointer reader = ReaderType::New();
   reader->SetFileName( inputTubeNetwork );
   try
@@ -71,9 +71,8 @@ int itktubeTubeAngleOfIncidenceWeightFunctionTest( int argc, char * argv[] )
     << std::endl;
 
   // Sub-sample the tube tree.
-  typedef itk::tube::SubSampleTubeTreeSpatialObjectFilter< GroupSpatialObjectType,
-    TubeSpatialObjectType >
-      SubSampleTubeTreeFilterType;
+  using SubSampleTubeTreeFilterType = itk::tube::SubSampleTubeTreeSpatialObjectFilter< GroupSpatialObjectType,
+    TubeSpatialObjectType >;
   SubSampleTubeTreeFilterType::Pointer subSampleTubeTreeFilter =
     SubSampleTubeTreeFilterType::New();
   subSampleTubeTreeFilter->SetInput( reader->GetGroup() );
@@ -88,8 +87,8 @@ int itktubeTubeAngleOfIncidenceWeightFunctionTest( int argc, char * argv[] )
     return EXIT_FAILURE;
     }
 
-  typedef itk::tube::Function::TubeAngleOfIncidenceWeightFunction<
-    TubePointType, WeightType > WeightFunctionType;
+  using WeightFunctionType = itk::tube::Function::TubeAngleOfIncidenceWeightFunction<
+    TubePointType, WeightType >;
   WeightFunctionType::Pointer weightFunction = WeightFunctionType::New();
   weightFunction->SetFractionalImportance( 0.8 );
   weightFunction->SetAngleDependence( 2.5 );
@@ -99,10 +98,10 @@ int itktubeTubeAngleOfIncidenceWeightFunctionTest( int argc, char * argv[] )
   probeOrigin[2] = 185.739;
   weightFunction->SetUltrasoundProbeOrigin( probeOrigin );
 
-  typedef itk::OptimizerParameters< WeightType > PointWeightsType;
-  typedef itk::tube::TubePointWeightsCalculator< Dimension,
+  using PointWeightsType = itk::OptimizerParameters< WeightType >;
+  using PointWeightsCalculatorType = itk::tube::TubePointWeightsCalculator< Dimension,
     TubeSpatialObjectType, WeightFunctionType,
-    PointWeightsType > PointWeightsCalculatorType;
+    PointWeightsType >;
   PointWeightsCalculatorType::Pointer weightsCalculator
     = PointWeightsCalculatorType::New();
   weightsCalculator->SetTubeTreeSpatialObject(

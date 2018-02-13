@@ -46,28 +46,26 @@ class ResampleTubesFilter
     GroupSpatialObject< VDimension >, GroupSpatialObject< VDimension > >
 {
 public:
-  /** Standard class typedefs. */
-  typedef itk::GroupSpatialObject< VDimension >      TubeGroupType;
-  typedef itk::VesselTubeSpatialObject< VDimension > TubeSpatialObjectType;
+  /** Standard class type alias. */
+  using TubeGroupType = itk::GroupSpatialObject< VDimension >;
+  using TubeSpatialObjectType = itk::VesselTubeSpatialObject< VDimension >;
 
-  typedef ResampleTubesFilter< VDimension >     Self;
-  typedef SpatialObjectToSpatialObjectFilter< TubeGroupType, TubeGroupType >
-                                                Superclass;
-  typedef SmartPointer< Self >                  Pointer;
-  typedef SmartPointer< const Self >            ConstPointer;
+  using Self = ResampleTubesFilter< VDimension >;
+  using Superclass = SpatialObjectToSpatialObjectFilter< TubeGroupType, TubeGroupType >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
-  typedef char                                  PixelType;
-  typedef itk::Image< PixelType, VDimension >   ImageType;
+  using PixelType = char;
+  using ImageType = itk::Image< PixelType, VDimension >;
 
   /** Typedefs for Displacement field tranform.    */
-  typedef itk::DisplacementFieldTransform< double, VDimension >
-    DisplacementFieldTransformType;
+  using DisplacementFieldTransformType = itk::DisplacementFieldTransform< double, VDimension >;
   typedef typename DisplacementFieldTransformType::DisplacementFieldType
     DisplacementFieldType;
 
   /** Typedefs for transform read from a file    */
-  typedef itk::TransformBaseTemplate< double >        BaseTransformType;
-  typedef std::list< BaseTransformType::Pointer >     BaseTransformListType;
+  using BaseTransformType = itk::TransformBaseTemplate< double >;
+  using BaseTransformListType = std::list< BaseTransformType::Pointer >;
 
   /** Run-time type information ( and related methods ).   */
   itkTypeMacro( ResampleTubesFilter,

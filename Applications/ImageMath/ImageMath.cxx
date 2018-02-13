@@ -32,18 +32,18 @@ limitations under the License.
 template< class TPixel, unsigned int VDimension >
 int DoIt( MetaCommand & command )
 {
-  typedef float                                    PixelType;
-  typedef itk::Image< PixelType, VDimension >      ImageType;
-  typedef itk::Image< unsigned char, VDimension >  ImageTypeUChar;
-  typedef itk::Image< unsigned short, VDimension > ImageTypeUShort;
-  typedef itk::Image< short, VDimension >          ImageTypeShort;
+  using PixelType = float;
+  using ImageType = itk::Image< PixelType, VDimension >;
+  using ImageTypeUChar = itk::Image< unsigned char, VDimension >;
+  using ImageTypeUShort = itk::Image< unsigned short, VDimension >;
+  using ImageTypeShort = itk::Image< short, VDimension >;
 
   MetaCommand::OptionVector parsed = command.GetParsedOptions();
 
 
   int CurrentSeed = 42;
 
-  typedef itk::ImageFileReader< ImageType >       VolumeReaderType;
+  using VolumeReaderType = itk::ImageFileReader< ImageType >;
 
   // Declare a reader
   typename VolumeReaderType::Pointer reader = VolumeReaderType::New();
@@ -75,7 +75,7 @@ int DoIt( MetaCommand & command )
         command.GetValueAsString( *it, "filename" );
       std::cout << "Writing output1 ( " << outFilename.c_str()
                 << " )" << std::endl;
-      typedef itk::ImageFileWriter< ImageType > VolumeWriterType;
+      using VolumeWriterType = itk::ImageFileWriter< ImageType >;
       typename VolumeWriterType::Pointer writer = VolumeWriterType::New();
       writer->SetFileName( outFilename.c_str() );
       writer->SetInput( imIn );
@@ -103,14 +103,12 @@ int DoIt( MetaCommand & command )
         case 0:
         case 4:
           {
-          typedef itk::CastImageFilter< ImageType, ImageTypeUChar>
-            CastFilterType;
+          using CastFilterType = itk::CastImageFilter< ImageType, ImageTypeUChar>;
           typename CastFilterType::Pointer castFilter =
             CastFilterType::New();
           castFilter->SetInput( imIn );
 
-          typedef itk::ImageFileWriter< ImageTypeUChar >
-            VolumeWriterType;
+          using VolumeWriterType = itk::ImageFileWriter< ImageTypeUChar >;
           typename VolumeWriterType::Pointer writer =
             VolumeWriterType::New();
           writer->SetFileName( outFilename.c_str() );
@@ -125,14 +123,12 @@ int DoIt( MetaCommand & command )
         case 1:
         case 5:
           {
-          typedef itk::CastImageFilter< ImageType, ImageTypeUShort>
-            CastFilterType;
+          using CastFilterType = itk::CastImageFilter< ImageType, ImageTypeUShort>;
           typename CastFilterType::Pointer castFilter =
             CastFilterType::New();
           castFilter->SetInput( imIn );
 
-          typedef itk::ImageFileWriter< ImageTypeUShort >
-            VolumeWriterType;
+          using VolumeWriterType = itk::ImageFileWriter< ImageTypeUShort >;
           typename VolumeWriterType::Pointer writer =
             VolumeWriterType::New();
           writer->SetFileName( outFilename.c_str() );
@@ -147,14 +143,12 @@ int DoIt( MetaCommand & command )
         case 2:
         case 6:
           {
-          typedef itk::CastImageFilter< ImageType, ImageTypeShort>
-            CastFilterType;
+          using CastFilterType = itk::CastImageFilter< ImageType, ImageTypeShort>;
           typename CastFilterType::Pointer castFilter =
             CastFilterType::New();
           castFilter->SetInput( imIn );
 
-          typedef itk::ImageFileWriter< ImageTypeShort >
-            VolumeWriterType;
+          using VolumeWriterType = itk::ImageFileWriter< ImageTypeShort >;
           typename VolumeWriterType::Pointer writer =
             VolumeWriterType::New();
           writer->SetFileName( outFilename.c_str() );
@@ -168,14 +162,12 @@ int DoIt( MetaCommand & command )
           }
         case 3:
           {
-          typedef itk::CastImageFilter< ImageType, ImageTypeShort>
-            CastFilterType;
+          using CastFilterType = itk::CastImageFilter< ImageType, ImageTypeShort>;
           typename CastFilterType::Pointer castFilter =
             CastFilterType::New();
           castFilter->SetInput( imIn );
 
-          typedef itk::ImageFileWriter< ImageTypeShort >
-            VolumeWriterType;
+          using VolumeWriterType = itk::ImageFileWriter< ImageTypeShort >;
           typename VolumeWriterType::Pointer writer =
             VolumeWriterType::New();
 
@@ -201,7 +193,7 @@ int DoIt( MetaCommand & command )
           }
         case 7:
           {
-          typedef itk::ImageFileWriter< ImageType > VolumeWriterType;
+          using VolumeWriterType = itk::ImageFileWriter< ImageType >;
           typename VolumeWriterType::Pointer writer =
             VolumeWriterType::New();
           writer->SetFileName( outFilename.c_str() );
@@ -725,7 +717,7 @@ int main( int argc, char * argv[] )
     "Correction", "referenceVolume", MetaCommand::STRING, true );
 
   command.SetOption( "Normalize", "d", false,
-    "Normalize: 0 = mean/std; 1 = FWHM ; 2 = FWHM mean ( shift ) only" );
+    "Normalize: 0 = mean/std; 1 = FWHM; 2 = FWHM mean ( shift ) only" );
   command.AddOptionField( "Normalize", "type", MetaCommand::INT, true );
 
   command.SetOption( "Fuse", "f", false,

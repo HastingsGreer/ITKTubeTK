@@ -309,10 +309,10 @@ GeneralizedDistanceTransformImageFilter<
   //
   // To make better use of L1 cache, a few scanlines are read and written in
   // parallel for dimensions 1 and upward. See below for details.
-  typedef itk::ImageLinearIteratorWithIndex<DistanceImageType> DIt;
+  using DIt = itk::ImageLinearIteratorWithIndex<DistanceImageType>;
   DIt distanceIt(distance, distance->GetRequestedRegion());
 
-  typedef itk::ImageLinearIteratorWithIndex<LabelImageType> LIt;
+  using LIt = itk::ImageLinearIteratorWithIndex<LabelImageType>;
   LIt voronoiMapIt;
   if (this->m_CreateVoronoiMap)
     {
@@ -324,7 +324,7 @@ GeneralizedDistanceTransformImageFilter<
   // Compute the maximal extent in number of pixels, rounded up to fill full
   // cache lines.
   // This is used to set up various vectors, buffers, and a division table
-  typedef typename DistanceImageType::SizeValueType DistSizeValueType;
+  using DistSizeValueType = typename DistanceImageType::SizeValueType;
   DistSizeValueType maxSize = 0;
 
   for (unsigned int d = 0; d < FunctionImageType::ImageDimension; ++d)
@@ -606,7 +606,7 @@ GeneralizedDistanceTransformImageFilter<
             }
           else
             {
-            // No wait, this one! ;-)
+            // No wait, this one!;-)
             for (size_t line = 0; line < parallelLines; ++line, ++offset)
               {
               addParabola(

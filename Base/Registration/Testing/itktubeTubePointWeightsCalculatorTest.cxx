@@ -43,10 +43,10 @@ int itktubeTubePointWeightsCalculatorTest( int argc, char * argv[] )
   const char * outputCSV = argv[1];
 
   enum { Dimension = 2 };
-  typedef itk::GroupSpatialObject< Dimension >      GroupType;
-  typedef itk::TubeSpatialObject< Dimension >       TubeType;
-  typedef TubeType::TubePointType                   TubePointType;
-  typedef TubeType::PointListType                   TubePointContainerType;
+  using GroupType = itk::GroupSpatialObject< Dimension >;
+  using TubeType = itk::TubeSpatialObject< Dimension >;
+  using TubePointType = TubeType::TubePointType;
+  using TubePointContainerType = TubeType::PointListType;
 
   // Create tube points with increasing radius.
   const unsigned int numberOfPoints = 100;
@@ -75,15 +75,15 @@ int itktubeTubePointWeightsCalculatorTest( int argc, char * argv[] )
     return EXIT_FAILURE;
     }
 
-  typedef itk::tube::Function::TubeExponentialResolutionWeightFunction<
-    TubePointType, float > WeightFunctionType;
+  using WeightFunctionType = itk::tube::Function::TubeExponentialResolutionWeightFunction<
+    TubePointType, float >;
   WeightFunctionType::Pointer weightFunction = WeightFunctionType::New();
 
-  typedef itk::OptimizerParameters< float > PointWeightsType;
+  using PointWeightsType = itk::OptimizerParameters< float >;
 
-  typedef itk::tube::TubePointWeightsCalculator< Dimension,
+  using PointWeightsCalculatorType = itk::tube::TubePointWeightsCalculator< Dimension,
     TubeType, WeightFunctionType,
-    PointWeightsType > PointWeightsCalculatorType;
+    PointWeightsType >;
   PointWeightsCalculatorType::Pointer resolutionWeightsCalculator
     = PointWeightsCalculatorType::New();
   resolutionWeightsCalculator->SetTubeTreeSpatialObject( group );

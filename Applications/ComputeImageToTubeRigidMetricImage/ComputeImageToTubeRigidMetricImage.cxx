@@ -62,16 +62,16 @@ int DoIt( int argc, char * argv[] )
   progressReporter.Start();
 
   const unsigned int Dimension = 3;
-  typedef double     FloatType;
+  using FloatType = double;
 
-  typedef itk::VesselTubeSpatialObject< Dimension >  TubeType;
-  typedef itk::GroupSpatialObject< Dimension >       TubeNetType;
-  typedef itk::Image< FloatType, Dimension >         ImageType;
-  typedef itk::tube::ImageToTubeRigidRegistration< ImageType, TubeNetType,
-    TubeType >                                       RegistrationMethodType;
+  using TubeType = itk::VesselTubeSpatialObject< Dimension >;
+  using TubeNetType = itk::GroupSpatialObject< Dimension >;
+  using ImageType = itk::Image< FloatType, Dimension >;
+  using RegistrationMethodType = itk::tube::ImageToTubeRigidRegistration< ImageType, TubeNetType,
+    TubeType >;
 
-  typedef typename RegistrationMethodType::TransformType TransformType;
-  typedef RegistrationMethodType::FeatureWeightsType     PointWeightsType;
+  using TransformType = typename RegistrationMethodType::TransformType;
+  using PointWeightsType = RegistrationMethodType::FeatureWeightsType;
 
   typename ImageType::Pointer currentImage;
   typename TubeNetType::Pointer tubeNet;
@@ -96,9 +96,9 @@ int DoIt( int argc, char * argv[] )
 
   timeCollector.Start( "Sample parameter space" );
 
-  typedef itk::tube::ImageToTubeRigidMetric< ImageType,
+  using CostFunctionType = itk::tube::ImageToTubeRigidMetric< ImageType,
     TubeNetType,
-    TubeType > CostFunctionType;
+    TubeType >;
   CostFunctionType::Pointer costFunction = CostFunctionType::New();
   costFunction->SetFixedImage( currentImage );
   costFunction->SetMovingSpatialObject( tubeNet );
@@ -108,13 +108,13 @@ int DoIt( int argc, char * argv[] )
   costFunction->Initialize();
 
   const unsigned int NumberOfParameters = 6;
-  typedef itk::tube::SingleValuedCostFunctionImageSource< CostFunctionType,
-    NumberOfParameters > CostFunctionImageSourceType;
+  using CostFunctionImageSourceType = itk::tube::SingleValuedCostFunctionImageSource< CostFunctionType,
+    NumberOfParameters >;
   CostFunctionImageSourceType::Pointer costFunctionImageSource =
     CostFunctionImageSourceType::New();
   costFunctionImageSource->SetCostFunction( costFunction );
 
-  typedef CostFunctionImageSourceType::ParametersType ParametersType;
+  using ParametersType = CostFunctionImageSourceType::ParametersType;
 
   ParametersType parametersLowerBound( NumberOfParameters );
   parametersLowerBound[0] = -0.3;
@@ -163,14 +163,13 @@ int DoIt( int argc, char * argv[] )
 
   timeCollector.Start( "Save data" );
 
-  typedef itk::Image< float, NumberOfParameters > OutputImageType;
-  typedef itk::CastImageFilter< CostFunctionImageSourceType::OutputImageType,
-    OutputImageType > CasterType;
+  using OutputImageType = itk::Image< float, NumberOfParameters >;
+  using CasterType = itk::CastImageFilter< CostFunctionImageSourceType::OutputImageType,
+    OutputImageType >;
   CasterType::Pointer caster = CasterType::New();
   caster->SetInput( costFunctionImageSource->GetOutput() );
 
-  typedef itk::ImageFileWriter< OutputImageType >
-    WriterType;
+  using WriterType = itk::ImageFileWriter< OutputImageType >;
   WriterType::Pointer writer = WriterType::New();
   writer->SetFileName( outputMetricImage.c_str() );
   writer->SetInput( caster->GetOutput() );

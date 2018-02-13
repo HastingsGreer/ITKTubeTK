@@ -137,7 +137,7 @@ GaussianDerivativeImageSource< TOutputImage >
   outputPtr->Allocate();
 
   // Create an iterator that will walk the output region
-  typedef itk::ImageRegionIterator< TOutputImage > OutputIterator;
+  using OutputIterator = itk::ImageRegionIterator< TOutputImage >;
   OutputIterator outIt = OutputIterator( outputPtr,
                                          outputPtr->GetRequestedRegion() );
 

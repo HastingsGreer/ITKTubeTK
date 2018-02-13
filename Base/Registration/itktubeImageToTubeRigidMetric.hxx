@@ -48,8 +48,7 @@ ImageToTubeRigidMetric< TFixedImage, TMovingSpatialObject,
 
   m_DerivativeImageFunction = DerivativeImageFunctionType::New();
 
-  typedef LinearInterpolateImageFunction< FixedImageType >
-    DefaultInterpolatorType;
+  using DefaultInterpolatorType = LinearInterpolateImageFunction< FixedImageType >;
 
   this->m_Interpolator = DefaultInterpolatorType::New();
 }
@@ -153,7 +152,7 @@ ImageToTubeRigidMetric< TFixedImage, TMovingSpatialObject, TTubeSpatialObject >
   CompensatedSummationType featureWeightSum;
 
   SizeValueType weightCount = 0;
-  typedef typename TubeTreeType::ChildrenListType::iterator TubesIteratorType;
+  using TubesIteratorType = typename TubeTreeType::ChildrenListType::iterator;
   for( TubesIteratorType tubeIterator = tubeList->begin();
        tubeIterator != tubeList->end();
        ++tubeIterator )
@@ -423,11 +422,11 @@ ImageToTubeRigidMetric< TFixedImage, TMovingSpatialObject, TTubeSpatialObject >
   VnlVectorType v1T( TubeDimension );
   VnlVectorType v2T( TubeDimension );
 
-  typedef std::vector< OutputPointType > TubePointsContainerType;
+  using TubePointsContainerType = std::vector< OutputPointType >;
   TubePointsContainerType transformedTubePoints;
   transformedTubePoints.reserve( m_FeatureWeights.GetSize() );
 
-  typedef std::vector< VectorType >      dTubePointsContainerType;
+  using dTubePointsContainerType = std::vector< VectorType >;
   dTubePointsContainerType dtransformedTubePoints;
   dtransformedTubePoints.reserve( m_FeatureWeights.GetSize() );
 

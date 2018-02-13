@@ -150,7 +150,7 @@ TubeSpatialObjectToImageFilter< ObjectDimension, TOutputImage, TRadiusImage,
   OutputImage->Allocate();
   OutputImage->FillBuffer( 0 );
 
-  typedef itk::ContinuousIndex<double, ObjectDimension> ContinuousIndexType;
+  using ContinuousIndexType = itk::ContinuousIndex<double, ObjectDimension>;
   ContinuousIndexType point;
 
   m_RadiusImage = this->GetRadiusImage();
@@ -186,7 +186,7 @@ TubeSpatialObjectToImageFilter< ObjectDimension, TOutputImage, TRadiusImage,
 
   //int size = tubeList->size();
 
-  typedef typename ChildrenListType::iterator ChildrenIteratorType;
+  using ChildrenIteratorType = typename ChildrenListType::iterator;
   ChildrenIteratorType TubeIterator = tubeList->begin();
 
   typename OutputImageType::IndexType index2;
@@ -209,7 +209,7 @@ TubeSpatialObjectToImageFilter< ObjectDimension, TOutputImage, TRadiusImage,
 
     for( unsigned int k=0; k < tube->GetNumberOfPoints(); k++ )
       {
-      typedef typename TubeType::TubePointType TubePointType;
+      using TubePointType = typename TubeType::TubePointType;
       const TubePointType* tubePoint = static_cast<const TubePointType*>(
         tube->GetPoint( k ) );
       OutputImage->TransformPhysicalPointToContinuousIndex(
@@ -308,7 +308,7 @@ TubeSpatialObjectToImageFilter< ObjectDimension, TOutputImage, TRadiusImage,
                   if( OutputImage->GetLargestPossibleRegion().IsInside(
                     index2 ) )
                     {
-                    typedef typename OutputImageType::PixelType PixelType;
+                    using PixelType = typename OutputImageType::PixelType;
                     if( m_Cumulative )
                       {
                       OutputImage->SetPixel( index2,

@@ -52,10 +52,10 @@ int DoIt( int argc, char * argv[] )
                                                  CLPProcessInformation );
   progressReporter.Start();
 
-  typedef itk::Image< TPixel, VDimension >         MaskType;
-  typedef itk::ImageFileReader< MaskType >         MaskReaderType;
+  using MaskType = itk::Image< TPixel, VDimension >;
+  using MaskReaderType = itk::ImageFileReader< MaskType >;
 
-  typedef itk::Image< unsigned int, VDimension >   ConnCompType;
+  using ConnCompType = itk::Image< unsigned int, VDimension >;
 
   //
   //
@@ -85,8 +85,7 @@ int DoIt( int argc, char * argv[] )
   //
   timeCollector.Start( "Connected Components" );
 
-  typedef itk::ConnectedComponentImageFilter< MaskType, ConnCompType >
-    FilterType;
+  using FilterType = itk::ConnectedComponentImageFilter< MaskType, ConnCompType >;
   typename FilterType::Pointer filter;
 
   filter = FilterType::New();
@@ -232,7 +231,7 @@ int DoIt( int argc, char * argv[] )
 
   timeCollector.Stop( "Connected Components" );
 
-  typedef itk::ImageFileWriter< ConnCompType  >   ImageWriterType;
+  using ImageWriterType = itk::ImageFileWriter< ConnCompType  >;
 
   timeCollector.Start( "Save data" );
   typename ImageWriterType::Pointer writer = ImageWriterType::New();

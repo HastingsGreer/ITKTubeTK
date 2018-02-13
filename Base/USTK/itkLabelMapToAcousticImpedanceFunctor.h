@@ -41,9 +41,9 @@ class LabelMapToAcousticImpedanceFunctor
 {
 public:
   /** Pixel types of the label map and acoustic impedance output. */
-  typedef TLabelPixel     LabelPixelType;
-  typedef TImpedancePixel ImpedancePixelType;
-  typedef TLookupTable    LookupTableType;
+  using LabelPixelType = TLabelPixel;
+  using ImpedancePixelType = TImpedancePixel;
+  using LookupTableType = TLookupTable;
 
   /** Set/Get the lookup table.  It must be persistent throughout the life
    * of the functor. */

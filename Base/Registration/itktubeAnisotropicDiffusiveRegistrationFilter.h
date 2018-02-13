@@ -75,13 +75,13 @@ class AnisotropicDiffusiveRegistrationFilter
                                         TDeformationField >
 {
 public:
-  /** Standard class typedefs. */
-  typedef AnisotropicDiffusiveRegistrationFilter            Self;
-  typedef DiffusiveRegistrationFilter< TFixedImage,
+  /** Standard class type alias. */
+  using Self = AnisotropicDiffusiveRegistrationFilter;
+  using Superclass = DiffusiveRegistrationFilter< TFixedImage,
                                        TMovingImage,
-                                       TDeformationField >  Superclass;
-  typedef SmartPointer< Self >                              Pointer;
-  typedef SmartPointer< const Self >                        ConstPointer;
+                                       TDeformationField >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
@@ -91,10 +91,9 @@ public:
                 DiffusiveRegistrationFilter );
 
   /** Inherit some parameters from the superclass. */
-  itkStaticConstMacro( ImageDimension, unsigned int,
-    Superclass::ImageDimension );
+  static constexpr unsigned int ImageDimension = Superclass::ImageDimension;
 
-  /** Convenient typedefs from the superclass. */
+  /** Convenient type alias from the superclass. */
   typedef typename Superclass::FixedImageType
       FixedImageType;
   typedef typename Superclass::FixedImagePointer
@@ -157,32 +156,28 @@ public:
       DeformationVectorImageRegionType;
 
   /** Normal vector types */
-  typedef double NormalVectorComponentType;
-  typedef itk::Vector< NormalVectorComponentType, ImageDimension >
-      NormalVectorType;
-  typedef itk::Image< NormalVectorType, ImageDimension >
-      NormalVectorImageType;
+  using NormalVectorComponentType = double;
+  using NormalVectorType = itk::Vector< NormalVectorComponentType, ImageDimension >;
+  using NormalVectorImageType = itk::Image< NormalVectorType, ImageDimension >;
   typedef typename NormalVectorImageType::Pointer
       NormalVectorImagePointer;
-  typedef ZeroFluxNeumannBoundaryCondition< NormalVectorImageType >
-      NormalVectorImageBoundaryConditionType;
-  typedef itk::ImageRegionIterator< NormalVectorImageType >
-      NormalVectorImageRegionType;
+  using NormalVectorImageBoundaryConditionType = ZeroFluxNeumannBoundaryCondition< NormalVectorImageType >;
+  using NormalVectorImageRegionType = itk::ImageRegionIterator< NormalVectorImageType >;
   typedef typename NormalVectorImageType::RegionType
       ThreadNormalVectorImageRegionType;
 
   /** Types for weighting between the anisotropic and diffusive ( Gaussian )
     * regularization */
-  typedef double                                      WeightType;
-  typedef itk::Image< WeightType, ImageDimension >    WeightImageType;
-  typedef typename WeightImageType::Pointer           WeightImagePointer;
-  typedef itk::ImageRegionIterator< WeightImageType > WeightImageRegionType;
+  using WeightType = double;
+  using WeightImageType = itk::Image< WeightType, ImageDimension >;
+  using WeightImagePointer = typename WeightImageType::Pointer;
+  using WeightImageRegionType = itk::ImageRegionIterator< WeightImageType >;
 
-  typedef typename WeightImageType::RegionType ThreadWeightImageRegionType;
+  using ThreadWeightImageRegionType = typename WeightImageType::RegionType;
 
   /** Organ boundary surface types */
-  typedef vtkPolyData                                 BorderSurfaceType;
-  typedef vtkSmartPointer< BorderSurfaceType >        BorderSurfacePointer;
+  using BorderSurfaceType = vtkPolyData;
+  using BorderSurfacePointer = vtkSmartPointer< BorderSurfaceType >;
 
   /** The number of div( Tensor \grad u )v terms we sum for the regularizer.
    *  Reimplement in derived classes. */

@@ -59,11 +59,11 @@ template< class TInputImage >
 class UltrasoundProbeGeometryCalculator : public ProcessObject
 {
 public:
-  /** Standard class typedefs. */
-  typedef UltrasoundProbeGeometryCalculator  Self;
-  typedef ProcessObject                      Superclass;
-  typedef SmartPointer< Self >               Pointer;
-  typedef SmartPointer< const Self >         ConstPointer;
+  /** Standard class type alias. */
+  using Self = UltrasoundProbeGeometryCalculator;
+  using Superclass = ProcessObject;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
@@ -71,14 +71,14 @@ public:
   /** Run-time type information ( and related methods ). */
   itkTypeMacro( UltrasoundProbeGeometryCalculator, ProcessObject );
 
-  /** Some convenient typedefs. */
-  typedef TInputImage                             InputImageType;
-  typedef typename InputImageType::PixelType      InputPixelType;
-  typedef typename InputImageType::PointType      OriginType;
-  typedef double                                  RadiusType;
+  /** Some convenient type alias. */
+  using InputImageType = TInputImage;
+  using InputPixelType = typename InputImageType::PixelType;
+  using OriginType = typename InputImageType::PointType;
+  using RadiusType = double;
 
-  typedef SimpleDataObjectDecorator< OriginType > DecoratedOriginType;
-  typedef SimpleDataObjectDecorator< RadiusType > DecoratedRadiusType;
+  using DecoratedOriginType = SimpleDataObjectDecorator< OriginType >;
+  using DecoratedRadiusType = SimpleDataObjectDecorator< RadiusType >;
 
   /** Set/Get the general beam direction.  This is the approximate direction
    * that the beam is orientated in the sector image. Defaults to zero.  */

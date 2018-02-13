@@ -155,7 +155,7 @@ TubeToTubeTransformFilter< TTransformType, TDimension >
     outputSOAsTube->GetObjectToWorldTransform()->GetInverse(
       outputInverseObjectToWorldTransform );
 
-    typedef typename TubeType::PointListType      TubePointListType;
+    using TubePointListType = typename TubeType::PointListType;
     TubePointListType tubePointList = inputSOAsTube->GetPoints();
     typename TubePointListType::const_iterator tubePointIterator =
       tubePointList.begin();

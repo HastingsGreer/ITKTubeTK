@@ -108,8 +108,7 @@ MinimizeImageSizeFilter<TInputImage>
     }
 
   // resample image to given region parameters
-  typedef ResampleImageFilter< InputImageType, OutputImageType >
-    ResampleFilterType;
+  using ResampleFilterType = ResampleImageFilter< InputImageType, OutputImageType >;
   typename ResampleFilterType::Pointer resampleFilter =
     ResampleFilterType::New();
 
@@ -135,8 +134,7 @@ MinimizeImageSizeFilter< TInputImage >
   InputPixelType  threshold = GetThresholdValue();
   bool            isThresAbove = this->GetThresholdAbove();
 
-  typedef ImageSliceConstIteratorWithIndex< InputImageType >
-    ImageSliceConstIteratorType;
+  using ImageSliceConstIteratorType = ImageSliceConstIteratorWithIndex< InputImageType >;
   SizeType  size = region.GetSize();
 
   // Run sweep for back end
@@ -204,8 +202,7 @@ MinimizeImageSizeFilter< TInputImage >
   InputPixelType  threshold = GetThresholdValue();
   bool            isThresAbove = this->GetThresholdAbove();
 
-  typedef ImageSliceConstIteratorWithIndex< InputImageType>
-    ImageSliceConstIteratorType;
+  using ImageSliceConstIteratorType = ImageSliceConstIteratorWithIndex< InputImageType>;
   IndexType index = region.GetIndex();
   SizeType  size = region.GetSize();
 

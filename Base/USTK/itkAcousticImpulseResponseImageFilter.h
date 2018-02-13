@@ -68,11 +68,11 @@ class AcousticImpulseResponseImageFilter
   : public ImageToImageFilter< TInputImage, TOutputImage >
 {
 public:
-  /** Standard class typedefs. */
-  typedef AcousticImpulseResponseImageFilter                  Self;
-  typedef ImageToImageFilter< TInputImage, TOutputImage >     Superclass;
-  typedef SmartPointer< Self >                                Pointer;
-  typedef SmartPointer< const Self >                          ConstPointer;
+  /** Standard class type alias. */
+  using Self = AcousticImpulseResponseImageFilter;
+  using Superclass = ImageToImageFilter< TInputImage, TOutputImage >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
@@ -80,21 +80,18 @@ public:
   /** Run-time type information ( and related methods ). */
   itkTypeMacro( AcousticImpulseResponseImageFilter, ImageToImageFilter );
 
-  /** Some convenient typedefs. */
-  typedef TInputImage                           InputImageType;
-  typedef typename InputImageType::PointType    OriginType;
-  typedef TOutputImage                          OutputImageType;
-  typedef typename OutputImageType::RegionType  OutputImageRegionType;
+  /** Some convenient type alias. */
+  using InputImageType = TInputImage;
+  using OriginType = typename InputImageType::PointType;
+  using OutputImageType = TOutputImage;
+  using OutputImageRegionType = typename OutputImageType::RegionType;
 
-  itkStaticConstMacro( ImageDimension, unsigned int,
-    InputImageType::ImageDimension );
+  static constexpr unsigned int ImageDimension = InputImageType::ImageDimension;
 
   typedef TOperatorValue
     OperatorValueType;
-  typedef Image< OperatorValueType, ImageDimension >
-    OperatorImageType;
-  typedef ImageToImageFilter< OperatorImageType, OperatorImageType >
-    GradientMagnitudeFilterType;
+  using OperatorImageType = Image< OperatorValueType, ImageDimension >;
+  using GradientMagnitudeFilterType = ImageToImageFilter< OperatorImageType, OperatorImageType >;
 
   /** Set/Get the angle dependence term \c n in the class documentation. */
   itkSetMacro( AngleDependence, double );
@@ -124,8 +121,7 @@ private:
 
   double m_AngleDependence;
 
-  typedef CastImageFilter< InputImageType, OperatorImageType >
-    CastImageFilterType;
+  using CastImageFilterType = CastImageFilter< InputImageType, OperatorImageType >;
   typename CastImageFilterType::Pointer m_CastImageFilter;
 
 }; // End class AcousticImpulseResponseImageFilter

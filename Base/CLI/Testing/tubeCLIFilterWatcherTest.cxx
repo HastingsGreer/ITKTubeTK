@@ -48,15 +48,14 @@ int tubeCLIFilterWatcherTest( int argc, char * argv[] )
     }
 
 
-  typedef itk::Image< float, 2 >              ImageType;
-  typedef itk::ImageFileReader< ImageType >   ReaderType;
+  using ImageType = itk::Image< float, 2 >;
+  using ReaderType = itk::ImageFileReader< ImageType >;
 
   ReaderType::Pointer reader = ReaderType::New();
   reader->SetFileName( argv[1] );
   reader->Update();
 
-  typedef itk::RecursiveGaussianImageFilter< ImageType, ImageType >
-  FilterType;
+  using FilterType = itk::RecursiveGaussianImageFilter< ImageType, ImageType >;
   FilterType::Pointer filter = FilterType::New();
   filter->SetInput( reader->GetOutput() );
 

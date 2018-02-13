@@ -62,10 +62,10 @@ void convertArrayFireImageToITK ( af::array &afArr,
   typename ImageType::Pointer &pItkImage,
   const ImageType * pItkReferenceImage )
 {
-  typedef typename ImageType::PixelType PixelType;
+  using PixelType = typename ImageType::PixelType;
   const unsigned int Dimension = ImageType::ImageDimension;
 
-  typedef itk::ImportImageFilter< PixelType, Dimension > ImportFilterType;
+  using ImportFilterType = itk::ImportImageFilter< PixelType, Dimension >;
   typename ImportFilterType::Pointer pImportFilter = ImportFilterType::New();
 
   pImportFilter->SetRegion ( pItkReferenceImage->GetLargestPossibleRegion() );

@@ -42,11 +42,11 @@ template< typename TImage >
 class ComputeTrainingMask : public itk::ProcessObject
 {
 public:
-  /** Standard class typedefs. */
-  typedef ComputeTrainingMask                             Self;
-  typedef itk::ProcessObject                              Superclass;
-  typedef itk::SmartPointer< Self >                       Pointer;
-  typedef itk::SmartPointer< const Self >                 ConstPointer;
+  /** Standard class type alias. */
+  using Self = ComputeTrainingMask;
+  using Superclass = itk::ProcessObject;
+  using Pointer = itk::SmartPointer< Self >;
+  using ConstPointer = itk::SmartPointer< const Self >;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
@@ -56,14 +56,12 @@ public:
 
 
   /** Typedef to images */
-  typedef TImage                                          ImageType;
+  using ImageType = TImage;
 
-  itkStaticConstMacro( ImageDimension, unsigned int,
-    ImageType::ImageDimension );
+  static constexpr unsigned int ImageDimension = ImageType::ImageDimension;
 
-  typedef typename itk::tube::ComputeTrainingMaskFilter< ImageType >
-                                                          FilterType;
-  typedef typename FilterType::ImageTypeShort             ImageTypeShort;
+  using FilterType = typename itk::tube::ComputeTrainingMaskFilter< ImageType >;
+  using ImageTypeShort = typename FilterType::ImageTypeShort;
 
   tubeWrapSetMacro( Gap, double, ComputeTrainingMaskFilter );
   tubeWrapGetMacro( Gap, double, ComputeTrainingMaskFilter );

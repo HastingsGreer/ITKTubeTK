@@ -401,8 +401,7 @@ RobustMeanAndSigmaImageBuilder< TInputImageType, TOutputMeanImageType,
 
   Superclass::UpdateOutputImageSize( inputSize );
 
-  typedef ResampleImageFilter<InputImageType, InputImageType>
-    ResampleInputImageType;
+  using ResampleInputImageType = ResampleImageFilter<InputImageType, InputImageType>;
 
   InputImageListType  lowerList = this->GetLowerOutlierImages();
 

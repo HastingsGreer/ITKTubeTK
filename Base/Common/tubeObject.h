@@ -41,9 +41,9 @@ class Object
 {
 public:
 
-  typedef Object        Self;
-  typedef Self *        Pointer;
-  typedef const Self *  ConstPointer;
+  using Self = Object;
+  using Pointer = Self *;
+  using ConstPointer = const Self *;
 
   tubeTypeMacro( Object );
 

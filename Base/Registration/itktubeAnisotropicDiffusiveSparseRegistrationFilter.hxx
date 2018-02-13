@@ -618,7 +618,7 @@ AnisotropicDiffusiveSparseRegistrationFilter
   // itk::ImageSource
   // because we might be calculating the normals and weights of a high res
   // template, where the image extent will not match that of the output
-  typedef itk::ImageRegionSplitter< ImageDimension > SplitterType;
+  using SplitterType = itk::ImageRegionSplitter< ImageDimension >;
   typename SplitterType::Pointer splitter = SplitterType::New();
 
   int normalTotal = splitter->GetNumberOfSplits(
@@ -942,9 +942,8 @@ AnisotropicDiffusiveSparseRegistrationFilter
   if( computeWeightRegularizations )
     {
     double weightSmoothingSigma = 1.0;
-    typedef itk::tube::SmoothingRecursiveGaussianImageFilter
-        < WeightComponentImageType, WeightComponentImageType >
-        WeightSmoothingFilterType;
+    using WeightSmoothingFilterType = itk::tube::SmoothingRecursiveGaussianImageFilter
+        < WeightComponentImageType, WeightComponentImageType >;
     typename WeightSmoothingFilterType::Pointer weightSmooth
         = WeightSmoothingFilterType::New();
     weightSmooth->SetInput( m_WeightRegularizationsImage );
@@ -1043,11 +1042,9 @@ AnisotropicDiffusiveSparseRegistrationFilter
   // Used to compute the tangential and normal diffusion tensor images:
   // P = NAN^T
 
-  typedef itk::ImageRegionIterator< DiffusionTensorImageType >
-      DiffusionTensorImageRegionType;
-  typedef itk::Matrix
-      < DeformationVectorComponentType, ImageDimension, ImageDimension >
-      MatrixType;
+  using DiffusionTensorImageRegionType = itk::ImageRegionIterator< DiffusionTensorImageType >;
+  using MatrixType = itk::Matrix
+      < DeformationVectorComponentType, ImageDimension, ImageDimension >;
 
   NormalMatrixType        N;
   NormalMatrixType        N_transpose;
@@ -1431,8 +1428,7 @@ AnisotropicDiffusiveSparseRegistrationFilter
         m_NormalMatrixImage,
         m_NormalMatrixImage->GetLargestPossibleRegion() );
     }
-  typedef itk::ImageRegionIterator< NormalVectorImageType >
-      NormalVectorImageRegionType;
+  using NormalVectorImageRegionType = itk::ImageRegionIterator< NormalVectorImageType >;
   NormalVectorImageRegionType normalVectorIt = NormalVectorImageRegionType(
       normalImage, normalImage->GetLargestPossibleRegion() );
 

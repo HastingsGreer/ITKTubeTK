@@ -59,16 +59,15 @@ int DoIt( int argc, char * argv[] )
     CLPProcessInformation );
   progressReporter.Start();
 
-  typedef TPixel                                    InputPixelType;
-  typedef itk::Image< InputPixelType, VDimension >  InputImageType;
-  typedef itk::ImageFileReader< InputImageType >    ReaderType;
+  using InputPixelType = TPixel;
+  using InputImageType = itk::Image< InputPixelType, VDimension >;
+  using ReaderType = itk::ImageFileReader< InputImageType >;
 
-  typedef TPixel                                    OutputPixelType;
-  typedef itk::Image< OutputPixelType, 3 >          OutputImageType;
-  typedef itk::ImageFileWriter< OutputImageType  >  WriterType;
+  using OutputPixelType = TPixel;
+  using OutputImageType = itk::Image< OutputPixelType, 3 >;
+  using WriterType = itk::ImageFileWriter< OutputImageType  >;
 
-  typedef itk::ExtractImageFilter< InputImageType, OutputImageType  >
-                                                    FilterType;
+  using FilterType = itk::ExtractImageFilter< InputImageType, OutputImageType  >;
 
   timeCollector.Start( "Load data" );
   typename ReaderType::Pointer reader = ReaderType::New();
@@ -159,8 +158,8 @@ int main( int argc, char * argv[] )
 {
   PARSE_ARGS;
 
-  typedef itk::ImageIOBase              ImageIOType;
-  typedef ImageIOType::IOComponentType  IOComponentType;
+  using ImageIOType = itk::ImageIOBase;
+  using IOComponentType = ImageIOType::IOComponentType;
 
   IOComponentType componentType = ImageIOType::UNKNOWNCOMPONENTTYPE;
   unsigned int dimension = 0;

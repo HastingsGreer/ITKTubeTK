@@ -53,19 +53,17 @@ int itktubeImageToTubeRigidRegistrationTest( int argc, char * argv[] )
   const char * outputImage = argv[4];
 
   enum { Dimension = 3 };
-  typedef double            FloatType;
+  using FloatType = double;
 
-  typedef itk::VesselTubeSpatialObject< Dimension >      TubeType;
-  typedef itk::GroupSpatialObject< Dimension >           TubeTreeType;
-  typedef itk::SpatialObjectReader< Dimension >          TubeTreeReaderType;
-  typedef itk::Image< FloatType, Dimension >             ImageType;
-  typedef itk::ImageFileReader< ImageType >              ImageReaderType;
-  typedef itk::ImageFileWriter< ImageType >              ImageWriterType;
-  typedef itk::tube::ImageToTubeRigidRegistration< ImageType, TubeTreeType, TubeType >
-                                                         RegistrationMethodType;
-  typedef RegistrationMethodType::TransformType          TransformType;
-  typedef itk::tube::TubeToTubeTransformFilter< TransformType, Dimension >
-                                                         TubeTransformFilterType;
+  using TubeType = itk::VesselTubeSpatialObject< Dimension >;
+  using TubeTreeType = itk::GroupSpatialObject< Dimension >;
+  using TubeTreeReaderType = itk::SpatialObjectReader< Dimension >;
+  using ImageType = itk::Image< FloatType, Dimension >;
+  using ImageReaderType = itk::ImageFileReader< ImageType >;
+  using ImageWriterType = itk::ImageFileWriter< ImageType >;
+  using RegistrationMethodType = itk::tube::ImageToTubeRigidRegistration< ImageType, TubeTreeType, TubeType >;
+  using TransformType = RegistrationMethodType::TransformType;
+  using TubeTransformFilterType = itk::tube::TubeToTubeTransformFilter< TransformType, Dimension >;
 
   // read image
   ImageReaderType::Pointer imageReader = ImageReaderType::New();
@@ -74,8 +72,7 @@ int itktubeImageToTubeRigidRegistrationTest( int argc, char * argv[] )
   // Gaussian blur the original input image to increase the likelihood of vessel
   // spatial object overlapping with the vessel image at their initial alignment.
   // this enlarges the convergence zone.
-  typedef itk::RecursiveGaussianImageFilter<ImageType, ImageType>
-                                                           GaussianBlurFilterType;
+  using GaussianBlurFilterType = itk::RecursiveGaussianImageFilter<ImageType, ImageType>;
   GaussianBlurFilterType::Pointer blurFilters[Dimension];
   for( unsigned int ii = 0; ii < Dimension; ++ii )
     {
@@ -111,8 +108,7 @@ int itktubeImageToTubeRigidRegistrationTest( int argc, char * argv[] )
     }
 
   // subsample points in vessel
-  typedef itk::tube::SubSampleTubeTreeSpatialObjectFilter< TubeTreeType, TubeType >
-    SubSampleTubeTreeFilterType;
+  using SubSampleTubeTreeFilterType = itk::tube::SubSampleTubeTreeSpatialObjectFilter< TubeTreeType, TubeType >;
   SubSampleTubeTreeFilterType::Pointer subSampleTubeTreeFilter =
     SubSampleTubeTreeFilterType::New();
   subSampleTubeTreeFilter->SetInput( vesselReader->GetGroup() );
@@ -128,13 +124,13 @@ int itktubeImageToTubeRigidRegistrationTest( int argc, char * argv[] )
     }
 
 
-  typedef itk::tube::Function::TubeExponentialResolutionWeightFunction<
-    TubeType::TubePointType, double >                WeightFunctionType;
-  typedef RegistrationMethodType::FeatureWeightsType PointWeightsType;
+  using WeightFunctionType = itk::tube::Function::TubeExponentialResolutionWeightFunction<
+    TubeType::TubePointType, double >;
+  using PointWeightsType = RegistrationMethodType::FeatureWeightsType;
   WeightFunctionType::Pointer weightFunction = WeightFunctionType::New();
-  typedef itk::tube::TubePointWeightsCalculator< Dimension,
+  using PointWeightsCalculatorType = itk::tube::TubePointWeightsCalculator< Dimension,
     TubeType, WeightFunctionType,
-    PointWeightsType > PointWeightsCalculatorType;
+    PointWeightsType >;
   PointWeightsCalculatorType::Pointer resolutionWeightsCalculator
     = PointWeightsCalculatorType::New();
   resolutionWeightsCalculator->SetTubeTreeSpatialObject(
@@ -236,7 +232,7 @@ int itktubeImageToTubeRigidRegistrationTest( int argc, char * argv[] )
   std::cout << " done.\n";
 
   // Write the transformed tube to file.
-  typedef itk::SpatialObjectWriter< Dimension > TubeTreeWriterType;
+  using TubeTreeWriterType = itk::SpatialObjectWriter< Dimension >;
   TubeTreeWriterType::Pointer tubesWriter = TubeTreeWriterType::New();
   tubesWriter->SetInput( transformFilter->GetOutput() );
   tubesWriter->SetFileName( outputTubes );
@@ -250,8 +246,7 @@ int itktubeImageToTubeRigidRegistrationTest( int argc, char * argv[] )
     return EXIT_FAILURE;
     }
 
-  typedef itk::SpatialObjectToImageFilter< TubeTreeType, ImageType>
-                                              SpatialObjectToImageFilterType;
+  using SpatialObjectToImageFilterType = itk::SpatialObjectToImageFilter< TubeTreeType, ImageType>;
   SpatialObjectToImageFilterType::Pointer vesselToImageFilter =
     SpatialObjectToImageFilterType::New();
 

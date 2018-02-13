@@ -58,36 +58,36 @@ int DoIt( int argc, char * argv[] )
     CLPProcessInformation );
   progressReporter.Start();
 
-  typedef TPixel                                     PixelType;
-  typedef itk::Image< PixelType, VDimension >        ImageType;
-  typedef itk::ImageFileReader< ImageType >          ReaderType;
+  using PixelType = TPixel;
+  using ImageType = itk::Image< PixelType, VDimension >;
+  using ReaderType = itk::ImageFileReader< ImageType >;
 
-  typedef itk::tube::SegmentTubes< ImageType >       SegmentTubesFilterType;
+  using SegmentTubesFilterType = itk::tube::SegmentTubes< ImageType >;
   typename SegmentTubesFilterType::Pointer segmentTubesFilter
     = SegmentTubesFilterType::New();
 
   typedef typename SegmentTubesFilterType::TubeMaskImageType
     MaskImageType;
 
-  typedef itk::ImageFileReader< MaskImageType >      MaskReaderType;
-  typedef itk::ImageFileWriter< MaskImageType >      MaskWriterType;
+  using MaskReaderType = itk::ImageFileReader< MaskImageType >;
+  using MaskWriterType = itk::ImageFileWriter< MaskImageType >;
 
   typedef typename SegmentTubesFilterType::ScaleType
     ScaleType;
 
-  typedef typename ImageType::PointType              PointType;
-  typedef itk::Image< ScaleType, VDimension >        ScaleImageType;
-  typedef itk::ImageFileReader< ScaleImageType >     ScaleReaderType;
+  using PointType = typename ImageType::PointType;
+  using ScaleImageType = itk::Image< ScaleType, VDimension >;
+  using ScaleReaderType = itk::ImageFileReader< ScaleImageType >;
 
   typedef typename SegmentTubesFilterType::ContinuousIndexType
     IndexType;
 
-  typedef std::vector< IndexType >                   IndexListType;
-  typedef std::vector< ScaleType >                   ScaleListType;
-  typedef std::vector< PointType >                   PointListType;
+  using IndexListType = std::vector< IndexType >;
+  using ScaleListType = std::vector< ScaleType >;
+  using PointListType = std::vector< PointType >;
 
-  typedef itk::SpatialObjectWriter< VDimension >     TubesWriterType;
-  typedef itk::SpatialObjectReader< VDimension >     TubesReaderType;
+  using TubesWriterType = itk::SpatialObjectWriter< VDimension >;
+  using TubesReaderType = itk::SpatialObjectReader< VDimension >;
 
   timeCollector.Start( "Load data" );
   typename ReaderType::Pointer reader = ReaderType::New();

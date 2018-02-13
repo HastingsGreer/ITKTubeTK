@@ -56,7 +56,7 @@ SubSampleTubeSpatialObjectFilter< TTubeSpatialObject >
   output->CopyInformation( input );
   output->Clear();
 
-  typedef typename TubeSpatialObjectType::PointListType PointListType;
+  using PointListType = typename TubeSpatialObjectType::PointListType;
   const PointListType & inputPoints = input->GetPoints();
   PointListType & outputPoints = output->GetPoints();
   const unsigned int numberOfInputPoints = inputPoints.size();

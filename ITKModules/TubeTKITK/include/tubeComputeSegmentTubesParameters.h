@@ -38,17 +38,16 @@ class ComputeSegmentTubesParameters:
   public itk::ProcessObject
 {
 public:
-  /** Standard class typedefs. */
-  typedef ComputeSegmentTubesParameters                Self;
-  typedef itk::ProcessObject                           Superclass;
-  typedef itk::SmartPointer< Self >                    Pointer;
-  typedef itk::SmartPointer< const Self >              ConstPointer;
-  typedef itk::tube::ComputeSegmentTubesParameters< TPixel, VDimension >
-    FilterType;
+  /** Standard class type alias. */
+  using Self = ComputeSegmentTubesParameters;
+  using Superclass = itk::ProcessObject;
+  using Pointer = itk::SmartPointer< Self >;
+  using ConstPointer = itk::SmartPointer< const Self >;
+  using FilterType = itk::tube::ComputeSegmentTubesParameters< TPixel, VDimension >;
 
-  typedef typename FilterType::InputImageType     InputImageType;
-  typedef typename FilterType::MaskImageType      MaskImageType;
-  typedef typename FilterType::ScaleImageType     ScaleImageType;
+  using InputImageType = typename FilterType::InputImageType;
+  using MaskImageType = typename FilterType::MaskImageType;
+  using ScaleImageType = typename FilterType::ScaleImageType;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );

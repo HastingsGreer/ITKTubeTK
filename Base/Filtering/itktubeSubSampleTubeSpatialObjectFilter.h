@@ -47,14 +47,14 @@ class SubSampleTubeSpatialObjectFilter
     TTubeSpatialObject >
 {
 public:
-  /** Standard class typedefs. */
-  typedef SubSampleTubeSpatialObjectFilter  Self;
-  typedef SpatialObjectToSpatialObjectFilter< TTubeSpatialObject,
-    TTubeSpatialObject >                    Superclass;
-  typedef SmartPointer< Self >              Pointer;
-  typedef SmartPointer< const Self >        ConstPointer;
+  /** Standard class type alias. */
+  using Self = SubSampleTubeSpatialObjectFilter;
+  using Superclass = SpatialObjectToSpatialObjectFilter< TTubeSpatialObject,
+    TTubeSpatialObject >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
-  typedef TTubeSpatialObject TubeSpatialObjectType;
+  using TubeSpatialObjectType = TTubeSpatialObject;
 
   /** Run-time type information ( and related methods ).   */
   itkTypeMacro( SubSampleTubeSpatialObjectFilter,

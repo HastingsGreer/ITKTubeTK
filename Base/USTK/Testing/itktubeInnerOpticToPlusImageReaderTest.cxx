@@ -42,15 +42,15 @@ int itktubeInnerOpticToPlusImageReaderTest( int argc, char * argv[] )
   const char * innerOpticMetadata = argv[1];
   const char * outputImageFile = argv[2];
 
-  typedef itk::tube::InnerOpticToPlusImageReader ReaderType;
+  using ReaderType = itk::tube::InnerOpticToPlusImageReader;
   ReaderType::Pointer reader = ReaderType::New();
 
   TRY_EXPECT_EXCEPTION( reader->Update() );
   reader->SetFileName( innerOpticMetadata );
 
-  typedef ReaderType::OutputImageType RGBImageType;
+  using RGBImageType = ReaderType::OutputImageType;
 
-  typedef itk::ImageFileWriter< RGBImageType > WriterType;
+  using WriterType = itk::ImageFileWriter< RGBImageType >;
   WriterType::Pointer writer = WriterType::New();
   writer->SetFileName( outputImageFile );
   writer->SetInput( reader->GetOutput() );

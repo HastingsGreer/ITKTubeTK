@@ -47,20 +47,20 @@ int itktubeImageToTubeRigidMetricTest( int argc, char * argv[] )
     return EXIT_FAILURE;
     }
 
-  typedef double            FloatType;
+  using FloatType = double;
   static const unsigned int ImageDimension = 3;
   static const unsigned int TubeDimension = 3;
 
-  typedef itk::Image< FloatType, ImageDimension >         ImageType;
-  typedef itk::VesselTubeSpatialObject< TubeDimension >   TubeType;
-  typedef itk::GroupSpatialObject< TubeDimension >        TubeNetType;
+  using ImageType = itk::Image< FloatType, ImageDimension >;
+  using TubeType = itk::VesselTubeSpatialObject< TubeDimension >;
+  using TubeNetType = itk::GroupSpatialObject< TubeDimension >;
 
-  typedef itk::ImageFileReader< ImageType >               ImageReaderType;
-  typedef itk::SpatialObjectReader< TubeDimension >       TubeNetReaderType;
+  using ImageReaderType = itk::ImageFileReader< ImageType >;
+  using TubeNetReaderType = itk::SpatialObjectReader< TubeDimension >;
 
-  typedef itk::tube::ImageToTubeRigidMetric< ImageType, TubeNetType,
-    TubeType >                                            MetricType;
-  typedef MetricType::TransformType                       TransformType;
+  using MetricType = itk::tube::ImageToTubeRigidMetric< ImageType, TubeNetType,
+    TubeType >;
+  using TransformType = MetricType::TransformType;
 
   // read image ( fixedImage )
   ImageReaderType::Pointer imageReader = ImageReaderType::New();
@@ -89,8 +89,7 @@ int itktubeImageToTubeRigidMetricTest( int argc, char * argv[] )
     }
 
   // subsample points in vessel
-  typedef itk::tube::SubSampleTubeTreeSpatialObjectFilter< TubeNetType, TubeType >
-    SubSampleTubeNetFilterType;
+  using SubSampleTubeNetFilterType = itk::tube::SubSampleTubeTreeSpatialObjectFilter< TubeNetType, TubeType >;
   SubSampleTubeNetFilterType::Pointer subSampleTubeNetFilter =
     SubSampleTubeNetFilterType::New();
   subSampleTubeNetFilter->SetInput( tubeReader->GetGroup() );

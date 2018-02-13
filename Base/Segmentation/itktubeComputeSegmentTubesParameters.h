@@ -55,29 +55,28 @@ class ComputeSegmentTubesParameters : public Object
 public:
 
   /**
-   * Standard self typedef */
-  typedef ComputeSegmentTubesParameters Self;
-  typedef Object                        Superclass;
-  typedef SmartPointer< Self >          Pointer;
-  typedef SmartPointer< const Self >    ConstPointer;
+   * Standard self type alias */
+  using Self = ComputeSegmentTubesParameters;
+  using Superclass = Object;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
-  typedef Image< TPixel, VDimension >         InputImageType;
-  typedef typename InputImageType::Pointer    InputImagePointer;
-  typedef short                               MaskPixelType;
-  typedef Image< MaskPixelType, VDimension >  MaskImageType;
-  typedef typename MaskImageType::Pointer     MaskImagePointer;
-  typedef float                               ScalePixelType;
-  typedef Image< ScalePixelType, VDimension > ScaleImageType;
-  typedef typename ScaleImageType::Pointer    ScaleImagePointer;
+  using InputImageType = Image< TPixel, VDimension >;
+  using InputImagePointer = typename InputImageType::Pointer;
+  using MaskPixelType = short;
+  using MaskImageType = Image< MaskPixelType, VDimension >;
+  using MaskImagePointer = typename MaskImageType::Pointer;
+  using ScalePixelType = float;
+  using ScaleImageType = Image< ScalePixelType, VDimension >;
+  using ScaleImagePointer = typename ScaleImageType::Pointer;
 
-  typedef vnl_vector< double >                MetricVectorType;
-  typedef std::vector< MetricVectorType >     SampleListType;
+  using MetricVectorType = vnl_vector< double >;
+  using SampleListType = std::vector< MetricVectorType >;
 
-  typedef itk::ContinuousIndex< double, VDimension > IndexType;
-  typedef std::vector< IndexType >                   IndexListType;
+  using IndexType = itk::ContinuousIndex< double, VDimension >;
+  using IndexListType = std::vector< IndexType >;
 
-  typedef itk::tube::RidgeExtractor< InputImageType >
-  RidgeExtractorType;
+  using RidgeExtractorType = itk::tube::RidgeExtractor< InputImageType >;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );

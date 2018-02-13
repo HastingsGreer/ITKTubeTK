@@ -54,11 +54,11 @@ class TubeExtractor : public Object
 public:
 
   /**
-   * Standard self typedef */
-  typedef TubeExtractor               Self;
-  typedef Object                      Superclass;
-  typedef SmartPointer< Self >        Pointer;
-  typedef SmartPointer< const Self >  ConstPointer;
+   * Standard self type alias */
+  using Self = TubeExtractor;
+  using Superclass = Object;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /**
    * Run-time type information ( and related methods ). */
@@ -68,7 +68,7 @@ public:
 
   /**
    * Type definition for the input image. */
-  typedef TInputImage                                   ImageType;
+  using ImageType = TInputImage;
 
   typedef typename RidgeExtractor<ImageType>::TubeMaskImageType
                                                         TubeMaskImageType;
@@ -76,31 +76,30 @@ public:
   /**
    * Standard for the number of dimension
    */
-  itkStaticConstMacro( ImageDimension, unsigned int,
-    TInputImage::ImageDimension );
+  static constexpr unsigned int ImageDimension = TInputImage::ImageDimension;
 
   /**
    * Type definition for the input image pixel type. */
-  typedef typename ImageType::PixelType                 PixelType;
+  using PixelType = typename ImageType::PixelType;
 
   /**  Type definition for VesselTubeSpatialObject */
-  typedef VesselTubeSpatialObject< ImageDimension >     TubeType;
-  typedef typename TubeType::TubePointType              TubePointType;
+  using TubeType = VesselTubeSpatialObject< ImageDimension >;
+  using TubePointType = typename TubeType::TubePointType;
 
-  typedef itk::GroupSpatialObject< ImageDimension >     TubeGroupType;
+  using TubeGroupType = itk::GroupSpatialObject< ImageDimension >;
 
-  typedef RidgeExtractor<ImageType>                     RidgeOpType;
-  typedef RadiusExtractor2<ImageType>                   RadiusOpType;
+  using RidgeOpType = RidgeExtractor<ImageType>;
+  using RadiusOpType = RadiusExtractor2<ImageType>;
 
   /**
    * Type definition for the input image pixel type. */
-  typedef ContinuousIndex<double, ImageDimension >      ContinuousIndexType;
+  using ContinuousIndexType = ContinuousIndex<double, ImageDimension >;
 
-  typedef typename ImageType::IndexType                 IndexType;
+  using IndexType = typename ImageType::IndexType;
 
   /**
    * Defines the type of vectors used */
-  typedef itk::Vector<double, ImageDimension >         VectorType;
+  using VectorType = itk::Vector<double, ImageDimension >;
 
 
   /**

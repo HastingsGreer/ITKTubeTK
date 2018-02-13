@@ -53,12 +53,11 @@ class TubeParametricExponentialWithBoundsResolutionWeightFunction
 public:
   typedef TubeParametricExponentialWithBoundsResolutionWeightFunction
       Self;
-  typedef TubeParametricExponentialResolutionWeightFunction< TTubePoint,
-    TOperatorValue >
-      Superclass;
+  using Superclass = TubeParametricExponentialResolutionWeightFunction< TTubePoint,
+    TOperatorValue >;
 
-  typedef typename Superclass::OperatorValueType OperatorValueType;
-  typedef typename Superclass::TubePointType     TubePointType;
+  using OperatorValueType = typename Superclass::OperatorValueType;
+  using TubePointType = typename Superclass::TubePointType;
 
   TubeParametricExponentialWithBoundsResolutionWeightFunction( void )
     : m_LowerBound( NumericTraits< OperatorValueType >::min() ),

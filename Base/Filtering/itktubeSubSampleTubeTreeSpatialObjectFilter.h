@@ -49,15 +49,15 @@ class SubSampleTubeTreeSpatialObjectFilter
     TSpatialObject >
 {
 public:
-  /** Standard class typedefs. */
-  typedef SubSampleTubeTreeSpatialObjectFilter      Self;
-  typedef SpatialObjectToSpatialObjectFilter< TSpatialObject,
-    TSpatialObject >                                Superclass;
-  typedef SmartPointer< Self >                      Pointer;
-  typedef SmartPointer< const Self >                ConstPointer;
+  /** Standard class type alias. */
+  using Self = SubSampleTubeTreeSpatialObjectFilter;
+  using Superclass = SpatialObjectToSpatialObjectFilter< TSpatialObject,
+    TSpatialObject >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
-  typedef TSpatialObject     SpatialObjectType;
-  typedef TTubeSpatialObject TubeSpatialObjectType;
+  using SpatialObjectType = TSpatialObject;
+  using TubeSpatialObjectType = TTubeSpatialObject;
 
   /** Run-time type information ( and related methods ).   */
   itkTypeMacro( SubSampleTubeTreeSpatialObjectFilter,
@@ -66,8 +66,7 @@ public:
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
 
-  itkStaticConstMacro( ObjectDimension, unsigned int,
-    SpatialObjectType::ObjectDimension );
+  static constexpr unsigned int ObjectDimension = SpatialObjectType::ObjectDimension;
 
   /** Set the sampling factor.  The output points taken every sampling
   * factor from the input points. */
@@ -76,7 +75,7 @@ public:
   itkGetConstMacro( Sampling, SizeValueType );
 
 protected:
-  typedef SpatialObject< ObjectDimension > SpatialObjectBaseType;
+  using SpatialObjectBaseType = SpatialObject< ObjectDimension >;
 
   SubSampleTubeTreeSpatialObjectFilter( void );
   virtual ~SubSampleTubeTreeSpatialObjectFilter( void );

@@ -45,23 +45,22 @@ class SingleValuedCostFunctionImageSource
   VNumberOfParameters > >
 {
 public:
-  typedef Image< typename TCostFunction::MeasureType, VNumberOfParameters >
-    CostFunctionImageType;
+  using CostFunctionImageType = Image< typename TCostFunction::MeasureType, VNumberOfParameters >;
 
-  typedef SingleValuedCostFunctionImageSource       Self;
-  typedef ImageSource< CostFunctionImageType >      Superclass;
-  typedef SmartPointer< Self >                      Pointer;
-  typedef SmartPointer< const Self >                ConstPointer;
+  using Self = SingleValuedCostFunctionImageSource;
+  using Superclass = ImageSource< CostFunctionImageType >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
-  typedef TCostFunction                             CostFunctionType;
-  typedef typename CostFunctionType::MeasureType    MeasureType;
-  typedef typename CostFunctionType::ParametersType ParametersType;
+  using CostFunctionType = TCostFunction;
+  using MeasureType = typename CostFunctionType::MeasureType;
+  using ParametersType = typename CostFunctionType::ParametersType;
 
-  typedef typename Superclass::OutputImageType       OutputImageType;
-  typedef typename Superclass::OutputImageRegionType OutputImageRegionType;
+  using OutputImageType = typename Superclass::OutputImageType;
+  using OutputImageRegionType = typename Superclass::OutputImageRegionType;
 
   /** Dimensionality of the output image. */
-  itkStaticConstMacro( NumberOfParameters, unsigned int, VNumberOfParameters );
+  static constexpr unsigned int NumberOfParameters = VNumberOfParameters;
 
   /** Run-time type information ( and related methods ). */
   itkTypeMacro( SingleValuedCostFunctionImageSource, ImageSource );

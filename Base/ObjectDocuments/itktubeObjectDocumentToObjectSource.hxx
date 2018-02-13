@@ -154,7 +154,7 @@ ObjectDocumentToObjectSource< TObjectDocument, VDimension >
 ::ComposeTransforms( ConstDocumentPointer document, int startIndex,
                      int endIndex ) const
 {
-  typedef typename DocumentType::TransformNameListType  TransformNameListType;
+  using TransformNameListType = typename DocumentType::TransformNameListType;
 
   TransformNameListType transformNames = document->GetTransformNames();
   typename TransformNameListType::const_iterator iter = transformNames.begin();

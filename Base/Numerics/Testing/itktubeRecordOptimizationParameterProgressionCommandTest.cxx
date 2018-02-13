@@ -63,18 +63,18 @@ limitations under the License.
 class RSGCostFunction: public itk::SingleValuedCostFunction
 {
 public:
-  typedef RSGCostFunction               Self;
-  typedef itk::SingleValuedCostFunction Superclass;
-  typedef itk::SmartPointer<Self>       Pointer;
-  typedef itk::SmartPointer<const Self> ConstPointer;
+  using Self = RSGCostFunction;
+  using Superclass = itk::SingleValuedCostFunction;
+  using Pointer = itk::SmartPointer<Self>;
+  using ConstPointer = itk::SmartPointer<const Self>;
 
   itkNewMacro( Self );
 
   enum { SpaceDimension = 2 };
 
-  typedef Superclass::ParametersType      ParametersType;
-  typedef Superclass::DerivativeType      DerivativeType;
-  typedef Superclass::MeasureType         MeasureType;
+  using ParametersType = Superclass::ParametersType;
+  using DerivativeType = Superclass::DerivativeType;
+  using MeasureType = Superclass::MeasureType;
 
   RSGCostFunction()
   {
@@ -127,10 +127,10 @@ int itktubeRecordOptimizationParameterProgressionCommandTest( int argc, char * a
     }
   const char * optimizationParameterProgressionFile = argv[1];
 
-  typedef RSGCostFunction CostFunctionType;
+  using CostFunctionType = RSGCostFunction;
   CostFunctionType::Pointer costFunction = CostFunctionType::New();
 
-  typedef itk::RegularStepGradientDescentOptimizer OptimizerType;
+  using OptimizerType = itk::RegularStepGradientDescentOptimizer;
   OptimizerType::Pointer optimizer = OptimizerType::New();
   optimizer->SetCostFunction( costFunction );
 
@@ -138,12 +138,12 @@ int itktubeRecordOptimizationParameterProgressionCommandTest( int argc, char * a
                       costFunction->GetNumberOfParameters();
 
   // We start not so far from  | 2 -2 |
-  typedef CostFunctionType::ParametersType ParametersType;
+  using ParametersType = CostFunctionType::ParametersType;
   ParametersType  initialPosition( spaceDimension );
   initialPosition[0] =  100;
   initialPosition[1] = -100;
 
-  typedef OptimizerType::ScalesType ScalesType;
+  using ScalesType = OptimizerType::ScalesType;
   ScalesType    parametersScale( spaceDimension );
   parametersScale[0] = 1.0;
   parametersScale[1] = 1.0;
@@ -159,8 +159,7 @@ int itktubeRecordOptimizationParameterProgressionCommandTest( int argc, char * a
 
   // Record the optimization parameter progression and write to a file.
   const unsigned int NumberOfParameters = CostFunctionType::SpaceDimension;
-  typedef itk::tube::RecordOptimizationParameterProgressionCommand< NumberOfParameters >
-    RecordOptimizationParameterProgressionCommandType;
+  using RecordOptimizationParameterProgressionCommandType = itk::tube::RecordOptimizationParameterProgressionCommand< NumberOfParameters >;
   RecordOptimizationParameterProgressionCommandType::Pointer
     recordOptimizationParameterProgressionCommand =
     RecordOptimizationParameterProgressionCommandType::New();

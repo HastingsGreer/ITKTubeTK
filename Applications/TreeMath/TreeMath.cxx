@@ -47,7 +47,7 @@ int DoIt( MetaCommand & command )
   // Load TRE File
   tubeStandardOutputMacro( << "\n>> Loading TRE File" );
 
-  typedef itk::SpatialObjectReader< VDimension > TubesReaderType;
+  using TubesReaderType = itk::SpatialObjectReader< VDimension >;
   typename TubesReaderType::Pointer tubeFileReader = TubesReaderType::New();
   try
     {
@@ -72,7 +72,7 @@ int DoIt( MetaCommand & command )
       {
       tubeStandardOutputMacro( << "\n>> Writing TRE File" );
 
-      typedef itk::SpatialObjectWriter< VDimension > TubeWriterType;
+      using TubeWriterType = itk::SpatialObjectWriter< VDimension >;
       typename TubeWriterType::Pointer tubeWriter = TubeWriterType::New();
       try
         {

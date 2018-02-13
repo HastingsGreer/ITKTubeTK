@@ -69,11 +69,11 @@ void
 AngleOfIncidenceImageFilter< TInputImage, TOutputImage >
 ::GenerateData( void )
 {
-  typedef typename TInputImage::PointType         InputImagePointType;
-  typedef typename TInputImage::SpacingType       InputImageSpacingType;
-  typedef ImageRegionConstIterator< TInputImage > InputImageConstIteratorType;
+  using InputImagePointType = typename TInputImage::PointType;
+  using InputImageSpacingType = typename TInputImage::SpacingType;
+  using InputImageConstIteratorType = ImageRegionConstIterator< TInputImage >;
 
-  typedef ImageRegionIterator< TOutputImage > OutputImageIteratorType;
+  using OutputImageIteratorType = ImageRegionIterator< TOutputImage >;
 
 
   typename TInputImage::ConstPointer inputImagePtr(

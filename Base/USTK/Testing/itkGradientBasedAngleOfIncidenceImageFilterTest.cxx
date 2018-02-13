@@ -51,17 +51,16 @@ int itkGradientBasedAngleOfIncidenceImageFilterTest( int argc, char * argv[] )
   // Types
   enum { Dimension = 2 };
 
-  typedef float                              PixelType;
-  typedef itk::Image< PixelType, Dimension > ImageType;
+  using PixelType = float;
+  using ImageType = itk::Image< PixelType, Dimension >;
 
   // Reader
-  typedef itk::ImageFileReader< ImageType > ReaderType;
+  using ReaderType = itk::ImageFileReader< ImageType >;
   ReaderType::Pointer reader = ReaderType::New();
   reader->SetFileName( inputImage );
 
   // Calculate the angle of incidence
-  typedef itk::GradientBasedAngleOfIncidenceImageFilter< ImageType, ImageType >
-    AngleOfIncidenceFilterType;
+  using AngleOfIncidenceFilterType = itk::GradientBasedAngleOfIncidenceImageFilter< ImageType, ImageType >;
   AngleOfIncidenceFilterType::Pointer angleOfIncidenceFilter =
     AngleOfIncidenceFilterType::New();
   angleOfIncidenceFilter->SetInput( reader->GetOutput() );
@@ -97,7 +96,7 @@ int itkGradientBasedAngleOfIncidenceImageFilterTest( int argc, char * argv[] )
     }
 
   // Writer
-  typedef itk::ImageFileWriter< ImageType > ImageWriterType;
+  using ImageWriterType = itk::ImageFileWriter< ImageType >;
   ImageWriterType::Pointer writer = ImageWriterType::New();
   writer->SetFileName( outputImage );
   writer->SetInput( angleOfIncidenceFilter->GetOutput() );

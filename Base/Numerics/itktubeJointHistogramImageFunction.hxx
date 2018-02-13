@@ -123,7 +123,7 @@ JointHistogramImageFunction<TInputImage, TCoordRep>
 {
   this->Superclass::SetInputImage( ptr );
 
-  typedef itk::MinimumMaximumImageCalculator<InputImageType> MinMaxType;
+  using MinMaxType = itk::MinimumMaximumImageCalculator<InputImageType>;
   typename MinMaxType::Pointer calculator = MinMaxType::New();
   calculator->SetImage( this->GetInputImage() );
   calculator->Compute();
@@ -140,7 +140,7 @@ JointHistogramImageFunction<TInputImage, TCoordRep>
 {
   m_InputMask = mask;
 
-  typedef itk::MinimumMaximumImageCalculator<InputImageType> MinMaxType;
+  using MinMaxType = itk::MinimumMaximumImageCalculator<InputImageType>;
   typename MinMaxType::Pointer calculator = MinMaxType::New();
   calculator->SetImage( m_InputMask );
   calculator->Compute();
@@ -204,8 +204,8 @@ void
 JointHistogramImageFunction<TInputImage, TCoordRep>
 ::ComputeMeanAndStandardDeviation( void ) const
 {
-  typedef itk::DiscreteGaussianImageFilter< HistogramType,
-          HistogramType > SmootherType;
+  using SmootherType = itk::DiscreteGaussianImageFilter< HistogramType,
+          HistogramType >;
 
   SmootherType::Pointer sumSmoother = SmootherType::New();
   sumSmoother->SetInput( m_SumHistogram );
@@ -222,7 +222,7 @@ JointHistogramImageFunction<TInputImage, TCoordRep>
   m_SumOfSquaresHistogram = sumSquaresSmoother->GetOutput();
 
     // Calculate the mean
-  typedef itk::ImageRegionIterator<HistogramType>  HistIteratorType;
+  using HistIteratorType = itk::ImageRegionIterator<HistogramType>;
   HistIteratorType sumItr( m_SumHistogram,
     m_SumHistogram->GetLargestPossibleRegion() );
   HistIteratorType sumOfSquaresItr( m_SumOfSquaresHistogram,
@@ -292,7 +292,7 @@ JointHistogramImageFunction<TInputImage, TCoordRep>
   typename HistogramType::Pointer hist;
   hist = this->ComputeHistogramAtIndex( index, true );
 
-  typedef itk::ImageRegionConstIterator<HistogramType>  HistIteratorType;
+  using HistIteratorType = itk::ImageRegionConstIterator<HistogramType>;
   HistIteratorType histItr( hist, hist->GetLargestPossibleRegion() );
   HistIteratorType meanItr( m_MeanHistogram,
                              m_MeanHistogram->GetLargestPossibleRegion() );
@@ -334,7 +334,7 @@ JointHistogramImageFunction<TInputImage, TCoordRep>
 {
   m_Histogram->FillBuffer( 0 );
 
-  typedef itk::ImageRegionConstIterator<InputImageType> ConstIteratorType;
+  using ConstIteratorType = itk::ImageRegionConstIterator<InputImageType>;
 
   typename InputImageType::IndexType minIndex;
   typename InputImageType::IndexType maxIndex;
@@ -402,8 +402,8 @@ JointHistogramImageFunction<TInputImage, TCoordRep>
 
   if( blur )
     {
-    typedef itk::DiscreteGaussianImageFilter< HistogramType,
-            HistogramType > SmootherType;
+    using SmootherType = itk::DiscreteGaussianImageFilter< HistogramType,
+            HistogramType >;
     SmootherType::Pointer smoother = SmootherType::New();
     smoother->SetInput( m_Histogram );
     smoother->SetVariance( 2 );

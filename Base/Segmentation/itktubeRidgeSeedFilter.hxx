@@ -490,8 +490,7 @@ RidgeSeedFilter< TImage, TLabelMap >
 
   if( m_Skeletonize )
     {
-    typedef itk::BinaryThinningImageFilter< LabelMapType, LabelMapType >
-      FilterType;
+    using FilterType = itk::BinaryThinningImageFilter< LabelMapType, LabelMapType >;
 
     typename FilterType::Pointer filter;
 

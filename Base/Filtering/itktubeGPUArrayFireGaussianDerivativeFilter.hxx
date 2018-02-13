@@ -51,8 +51,7 @@ GPUArrayFireGaussianDerivativeFilter<TInputImage, TOutputImage>
   // std::cout << "ArrayFireGPUGaussianDerivative: ComputeInputImageFFT"
   // << std::endl;
 
-  typedef PadImageFilter< InputImageType, RealImageType >
-  PadFilterType;
+  using PadFilterType = PadImageFilter< InputImageType, RealImageType >;
   typename PadFilterType::Pointer padFilter = PadFilterType::New();
   padFilter->SetInput( this->GetInput() );
   padFilter->SetGreatestPrimeFactor( 5 );
@@ -231,8 +230,7 @@ GPUArrayFireGaussianDerivativeFilter<TInputImage, TOutputImage>
       pPaddedConvolvedImage,
       m_PaddedInputImage );
 
-  typedef RegionFromReferenceImageFilter< RealImageType, TOutputImage >
-  RegionFromFilterType;
+  using RegionFromFilterType = RegionFromReferenceImageFilter< RealImageType, TOutputImage >;
   typename RegionFromFilterType::Pointer regionFrom =
     RegionFromFilterType::New();
 
@@ -274,8 +272,7 @@ GPUArrayFireGaussianDerivativeFilter<TInputImage, TOutputImage>
     ComputeInputImageFFT();
     }
 
-  typedef RegionFromReferenceImageFilter< RealImageType, TOutputImage >
-  RegionFromFilterType;
+  using RegionFromFilterType = RegionFromReferenceImageFilter< RealImageType, TOutputImage >;
 
   if( dX.size() != ImageDimension )
     {

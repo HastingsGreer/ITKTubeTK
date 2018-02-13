@@ -53,15 +53,15 @@ class SegmentTubes : public Object
 public:
 
   /**
-   * Standard self typedef */
-  typedef SegmentTubes                  Self;
-  typedef Object                        Superclass;
-  typedef SmartPointer< Self >          Pointer;
-  typedef SmartPointer< const Self >    ConstPointer;
+   * Standard self type alias */
+  using Self = SegmentTubes;
+  using Superclass = Object;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
-  typedef TInputImage                   ImageType;
-  typedef typename ImageType::PixelType PixelType;
-  typedef typename ImageType::IndexType IndexType;
+  using ImageType = TInputImage;
+  using PixelType = typename ImageType::PixelType;
+  using IndexType = typename ImageType::IndexType;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
@@ -70,25 +70,24 @@ public:
   itkTypeMacro( SegmentTubes, Object );
 
   /** Standard for the number of dimension */
-  itkStaticConstMacro( ImageDimension, unsigned int,
-    TInputImage::ImageDimension );
+  static constexpr unsigned int ImageDimension = TInputImage::ImageDimension;
 
-  typedef itk::tube::TubeExtractor< ImageType >        TubeExtractorFilterType;
-  typedef float                                        ScaleType;
+  using TubeExtractorFilterType = itk::tube::TubeExtractor< ImageType >;
+  using ScaleType = float;
   typedef typename TubeExtractorFilterType::ContinuousIndexType
     ContinuousIndexType;
-  typedef typename ImageType::PointType                PointType;
+  using PointType = typename ImageType::PointType;
   typedef typename TubeExtractorFilterType::TubeMaskImageType
   TubeMaskImageType;
-  typedef itk::Image< ScaleType, ImageDimension >      ScaleImageType;
+  using ScaleImageType = itk::Image< ScaleType, ImageDimension >;
 
   /**  Type definition for VesselTubeSpatialObject */
-  typedef itk::GroupSpatialObject< ImageDimension >    TubeGroupType;
-  typedef typename TubeExtractorFilterType::TubeType   TubeType;
-  typedef typename TubeType::TransformType             TubeTransformType;
+  using TubeGroupType = itk::GroupSpatialObject< ImageDimension >;
+  using TubeType = typename TubeExtractorFilterType::TubeType;
+  using TubeTransformType = typename TubeType::TransformType;
   /* Parameters file type*/
-  typedef itk::tube::TubeExtractorIO< ImageType >      TubeExtractorIOType;
-  typedef itk::tube::RidgeExtractor< ImageType >       RidgeExtractorFilterType;
+  using TubeExtractorIOType = itk::tube::TubeExtractorIO< ImageType >;
+  using RidgeExtractorFilterType = itk::tube::RidgeExtractor< ImageType >;
 
   /** Set/Get the input image */
   itkSetObjectMacro( InputImage, ImageType );

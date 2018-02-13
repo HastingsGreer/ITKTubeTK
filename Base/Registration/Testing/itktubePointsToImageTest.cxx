@@ -39,14 +39,14 @@ int itktubePointsToImageTest( int argc, char * argv[] )
 
   enum { Dimension = 3 };
 
-  typedef itk::SpatialObjectReader< Dimension >      ReaderType;
+  using ReaderType = itk::SpatialObjectReader< Dimension >;
   typedef itk::SpatialObject< Dimension >::ChildrenListType
       ObjectListType;
-  typedef itk::GroupSpatialObject< Dimension >       GroupType;
-  typedef itk::VesselTubeSpatialObject< Dimension >  TubeType;
-  typedef TubeType::PointListType                    PointListType;
-  typedef TubeType::TubePointType                    TubePointType;
-  typedef itk::Image< float, Dimension >             ImageType;
+  using GroupType = itk::GroupSpatialObject< Dimension >;
+  using TubeType = itk::VesselTubeSpatialObject< Dimension >;
+  using PointListType = TubeType::PointListType;
+  using TubePointType = TubeType::TubePointType;
+  using ImageType = itk::Image< float, Dimension >;
 
   // Read the tube
   ReaderType::Pointer tubeReader = ReaderType::New();
@@ -119,8 +119,7 @@ int itktubePointsToImageTest( int argc, char * argv[] )
     }
   delete tubeList;
 
-  typedef itk::SpatialObjectToImageFilter<GroupType, ImageType>
-                                              SpatialObjectToImageFilterType;
+  using SpatialObjectToImageFilterType = itk::SpatialObjectToImageFilter<GroupType, ImageType>;
   SpatialObjectToImageFilterType::Pointer tubeToImageFilter =
     SpatialObjectToImageFilterType::New();
 
@@ -135,7 +134,7 @@ int itktubePointsToImageTest( int argc, char * argv[] )
   tubeToImageFilter->SetInsideValue( 1.0 );
   tubeToImageFilter->SetOutsideValue( 0.0 );
   tubeToImageFilter->Update();
-  typedef itk::ImageFileWriter< ImageType > ImageWriterType;
+  using ImageWriterType = itk::ImageFileWriter< ImageType >;
 
   ImageWriterType::Pointer imageWriter = ImageWriterType::New();
   imageWriter->SetFileName( argv[2] );

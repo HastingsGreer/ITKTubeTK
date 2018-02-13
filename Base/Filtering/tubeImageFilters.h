@@ -32,9 +32,9 @@ template< unsigned int VDimension >
 class ImageFilters
 {
 public:
-  typedef float                                    PixelType;
-  typedef itk::Image< PixelType, VDimension >      ImageType;
-  typedef itk::ImageFileReader< ImageType >        VolumeReaderType;
+  using PixelType = float;
+  using ImageType = itk::Image< PixelType, VDimension >;
+  using VolumeReaderType = itk::ImageFileReader< ImageType >;
 
   /** Intensity window inVal range to outValRange. */
   static void ApplyIntensityWindowing( typename ImageType::Pointer imIn,
@@ -71,7 +71,7 @@ public:
   static void MirrorAndPadImage( typename ImageType::Pointer & imIn,
     int numPadVoxels );
 
-  /** Normalize: = mean/std; 1 = FWHM ; 2 = FWHM mean ( shift ) only */
+  /** Normalize: = mean/std; 1 = FWHM; 2 = FWHM mean ( shift ) only */
   template< typename TPixel >
   static void NormalizeImage( typename ImageType::Pointer & imIn,
     int normType );

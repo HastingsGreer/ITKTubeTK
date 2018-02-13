@@ -109,9 +109,8 @@ ResampleTubesFilter< VDimension >
   const TubeGroupType * inputTubeGroup = this->GetInput();
 
   /** Typedefs for Displacement field tranform filter.    */
-  typedef itk::tube::TubeToTubeTransformFilter<
-    DisplacementFieldTransformType, VDimension >
-    DisplacementFieldTransformFilterType;
+  using DisplacementFieldTransformFilterType = itk::tube::TubeToTubeTransformFilter<
+    DisplacementFieldTransformType, VDimension >;
 
   // Create new transform
   typename DisplacementFieldTransformType::Pointer transform =
@@ -142,11 +141,9 @@ ResampleTubesFilter< VDimension >
   tmpTubes = m_InputSpatialObject;
 
   /** Typedefs for transform read from a file    */
-  typedef itk::MatrixOffsetTransformBase< double, VDimension, VDimension >
-    MatrixOffsetTransformType;
-  typedef itk::tube::TubeToTubeTransformFilter< MatrixOffsetTransformType,
-    VDimension >
-    MatrixOffsetTransformFilterType;
+  using MatrixOffsetTransformType = itk::MatrixOffsetTransformBase< double, VDimension, VDimension >;
+  using MatrixOffsetTransformFilterType = itk::tube::TubeToTubeTransformFilter< MatrixOffsetTransformType,
+    VDimension >;
 
   BaseTransformListType::const_iterator tListIt;
   for( tListIt = m_ReadTransformList->begin();
@@ -183,11 +180,9 @@ ResampleTubesFilter< VDimension >
   const TubeGroupType * inputTubeGroup = this->GetInput();
 
   /** Typedefs for Affine Transform */
-  typedef itk::AffineTransform< double, VDimension >
-    AffineTransformType;
-  typedef itk::tube::TubeToTubeTransformFilter< AffineTransformType,
-    VDimension >
-    AffineTransformFilterType;
+  using AffineTransformType = itk::AffineTransform< double, VDimension >;
+  using AffineTransformFilterType = itk::tube::TubeToTubeTransformFilter< AffineTransformType,
+    VDimension >;
 
   typename AffineTransformType::Pointer identityAffineTransform =
     AffineTransformType::New();
@@ -248,8 +243,8 @@ ResampleTubesFilter< VDimension >
   if( m_SamplingFactor != 1 )
     {
     /** Typedefs for Sub samppling filter     */
-    typedef itk::tube::SubSampleTubeTreeSpatialObjectFilter< TubeGroupType,
-      TubeSpatialObjectType > SubSampleTubeTreeFilterType;
+    using SubSampleTubeTreeFilterType = itk::tube::SubSampleTubeTreeSpatialObjectFilter< TubeGroupType,
+      TubeSpatialObjectType >;
 
     typename SubSampleTubeTreeFilterType::Pointer subSampleTubeTreeFilter =
       SubSampleTubeTreeFilterType::New();

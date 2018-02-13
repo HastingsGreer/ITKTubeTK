@@ -42,25 +42,24 @@ class ConvertSpatialGraphToImageFilter
 {
 public:
 
-  /** Standard class typedefs. */
-  typedef ConvertSpatialGraphToImageFilter                Self;
-  typedef ImageToImageFilter< TInputImage, TOutputImage>  Superclass;
-  typedef SmartPointer< Self >                            Pointer;
-  typedef SmartPointer< const Self >                      ConstPointer;
+  /** Standard class type alias. */
+  using Self = ConvertSpatialGraphToImageFilter;
+  using Superclass = ImageToImageFilter< TInputImage, TOutputImage>;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
 
   itkTypeMacro( ConvertSpatialGraphToImageFilter, ImageToImageFilter );
 
-  itkStaticConstMacro( ImageDimension, unsigned int,
-                       TInputImage::ImageDimension );
+  static constexpr unsigned int ImageDimension = TInputImage::ImageDimension;
 
-  typedef TInputImage                                   InputImageType;
-  typedef typename InputImageType::PixelType            InputPixelType;
-  typedef TOutputImage                                  OutputImageType;
-  typedef typename InputImageType::Pointer              InputImagePointer;
-  typedef typename OutputImageType::Pointer             OutputImagePointer;
+  using InputImageType = TInputImage;
+  using InputPixelType = typename InputImageType::PixelType;
+  using OutputImageType = TOutputImage;
+  using InputImagePointer = typename InputImageType::Pointer;
+  using OutputImagePointer = typename OutputImageType::Pointer;
 
   itkGetMacro( AdjacencyMatrixImage, OutputImagePointer );
   itkGetMacro( BranchnessImage, OutputImagePointer );

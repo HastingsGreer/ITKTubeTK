@@ -154,7 +154,7 @@ UltrasoundProbeGeometryCalculator< TInputImage >
   // Number of points to examine on each side of the imaged sector.  This
   // could be a class parameter.
   const unsigned int pointsToExamine = 8;
-  typedef std::vector< OriginType > PointsContainerType;
+  using PointsContainerType = std::vector< OriginType >;
   PointsContainerType pointsOnSide1( pointsToExamine );
   PointsContainerType pointsOnSide2( pointsToExamine );
 
@@ -213,7 +213,7 @@ UltrasoundProbeGeometryCalculator< TInputImage >
       lineRegion.SetSize( regionSize );
 
       // Walk in from one edge.
-      typedef ImageRegionConstIterator< InputImageType > ImageIteratorType;
+      using ImageIteratorType = ImageRegionConstIterator< InputImageType >;
       ImageIteratorType imageIt( inputImage, lineRegion );
       for( imageIt.GoToBegin(); !imageIt.IsAtEnd(); ++imageIt )
         {
@@ -244,10 +244,10 @@ UltrasoundProbeGeometryCalculator< TInputImage >
 
     // Compute the line slope and intercept for each pair of points that
     // were previously detected.
-    typedef typename OriginType::RealType    MeasurementType;
-    typedef Vector< MeasurementType, 2 >     MeasurementVectorType;
+    using MeasurementType = typename OriginType::RealType;
+    using MeasurementVectorType = Vector< MeasurementType, 2 >;
 
-    typedef Statistics::ListSample< MeasurementVectorType > SampleType;
+    using SampleType = Statistics::ListSample< MeasurementVectorType >;
 
     typename SampleType::Pointer side1LineParameters = SampleType::New();
     typename SampleType::Pointer side2LineParameters = SampleType::New();
@@ -297,7 +297,7 @@ UltrasoundProbeGeometryCalculator< TInputImage >
     // parameters will be wrong -- it will have the wrong slope.  These
     // outliers
     // are avoided by taking the median value.
-    typedef Statistics::Subsample< SampleType > SubsampleType;
+    using SubsampleType = Statistics::Subsample< SampleType >;
     typename SubsampleType::Pointer side1LineParametersSS =
       SubsampleType::New();
     typename SubsampleType::Pointer side2LineParametersSS =
@@ -321,17 +321,17 @@ UltrasoundProbeGeometryCalculator< TInputImage >
         side2LineParametersSS->Size() / 2 );
 
     // Get the intersection of the lines -- defines the ProbeOrigin
-    typedef vnl_vector< MeasurementType > VnlVectorType;
+    using VnlVectorType = vnl_vector< MeasurementType >;
     VnlVectorType bVector( 2 );
     bVector[0] = side1MedianLineParameter[1];
     bVector[1] = side2MedianLineParameter[1];
-    typedef vnl_matrix< MeasurementType > VnlMatrixType;
+    using VnlMatrixType = vnl_matrix< MeasurementType >;
     VnlMatrixType mMatrix( 2, 2 );
     mMatrix[0][0] = 1.0;
     mMatrix[0][1] = -side1MedianLineParameter[0];
     mMatrix[1][0] = 1.0;
     mMatrix[1][1] = -side2MedianLineParameter[0];
-    typedef vnl_qr< MeasurementType > VnlQRType;
+    using VnlQRType = vnl_qr< MeasurementType >;
     VnlQRType qr( mMatrix );
     const VnlVectorType planeOrigin = qr.solve( bVector );
 
@@ -371,9 +371,8 @@ UltrasoundProbeGeometryCalculator< TInputImage >
 
   // Compute the radius for each point found by casting along the beam
   // direction.
-  typedef Vector< RadiusType, 1 > RadiusMeasurementVectorType;
-  typedef Statistics::ListSample< RadiusMeasurementVectorType >
-    RadiusSampleType;
+  using RadiusMeasurementVectorType = Vector< RadiusType, 1 >;
+  using RadiusSampleType = Statistics::ListSample< RadiusMeasurementVectorType >;
   typename RadiusSampleType::Pointer radiiSamples = RadiusSampleType::New();
   for( unsigned int pointIndex = 0; pointIndex < radiusPointsToExamine;
     ++pointIndex )
@@ -400,7 +399,7 @@ UltrasoundProbeGeometryCalculator< TInputImage >
 
     // Walk along the beam direction and locate the sector as the first
     // non-BackgroundValue pixel.
-    typedef ImageRegionConstIterator< InputImageType > ImageIteratorType;
+    using ImageIteratorType = ImageRegionConstIterator< InputImageType >;
     ImageIteratorType imageIt( inputImage, lineRegion );
     for( imageIt.GoToBegin(); !imageIt.IsAtEnd(); ++imageIt )
       {
@@ -419,7 +418,7 @@ UltrasoundProbeGeometryCalculator< TInputImage >
 
   // Use the median radii to avoid outliers due to BackgroundValue pixels
   // in the sector.
-  typedef Statistics::Subsample< RadiusSampleType > RadiusSubsampleType;
+  using RadiusSubsampleType = Statistics::Subsample< RadiusSampleType >;
   typename RadiusSubsampleType::Pointer radiiSubsample =
     RadiusSubsampleType::New();
   radiiSubsample->SetSample( radiiSamples );

@@ -56,8 +56,8 @@ int DoIt( int argc, char * argv[] )
     return EXIT_FAILURE;
     }
 
-  typedef itk::Image< TPixel, VDimension >            ImageType;
-  typedef itk::ImageFileReader< ImageType >           ImageReaderType;
+  using ImageType = itk::Image< TPixel, VDimension >;
+  using ImageReaderType = itk::ImageFileReader< ImageType >;
 
   // The timeCollector to perform basic profiling of algorithmic components
   itk::TimeProbesCollectorBase timeCollector;
@@ -90,7 +90,7 @@ int DoIt( int argc, char * argv[] )
   progressReporter.Report( progress );
   timeCollector.Start( "Compute training mask" );
   tube::InfoMessage( "Compute training mask..." );
-  typedef tube::ComputeTrainingMask<ImageType> ComputeTrainingMaskType;
+  using ComputeTrainingMaskType = tube::ComputeTrainingMask<ImageType>;
   typename ComputeTrainingMaskType::Pointer filter =
     ComputeTrainingMaskType::New();
   filter->SetInput( imReader->GetOutput() );
@@ -100,8 +100,8 @@ int DoIt( int argc, char * argv[] )
   progress = 0.65;
   progressReporter.Report( progress );
   timeCollector.Stop( "Compute training mask" );
-  typedef typename ComputeTrainingMaskType::ImageTypeShort ImageTypeShort;
-  typedef itk::ImageFileWriter<ImageTypeShort>             VolumeWriterType;
+  using ImageTypeShort = typename ComputeTrainingMaskType::ImageTypeShort;
+  using VolumeWriterType = itk::ImageFileWriter<ImageTypeShort>;
 
   typename VolumeWriterType::Pointer writer = VolumeWriterType::New();
   if( !notVesselMask.empty() )

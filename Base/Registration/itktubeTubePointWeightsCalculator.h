@@ -51,21 +51,21 @@ template< unsigned int VDimension, class TTubeSpatialObject,
 class TubePointWeightsCalculator : public Object
 {
 public:
-  /** Standard class typedefs. */
-  typedef TubePointWeightsCalculator< VDimension,
+  /** Standard class type alias. */
+  using Self = TubePointWeightsCalculator< VDimension,
                                            TTubeSpatialObject,
                                            TPointWeightFunction,
-                                           TPointWeights > Self;
-  typedef Object                                           Superclass;
-  typedef SmartPointer< Self >                             Pointer;
-  typedef SmartPointer< const Self >                       ConstPointer;
+                                           TPointWeights >;
+  using Superclass = Object;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   static const unsigned int Dimension = VDimension;
 
-  typedef SpatialObject< Dimension > TubeTreeSpatialObjectType;
-  typedef TTubeSpatialObject         TubeSpatialObjectType;
-  typedef TPointWeightFunction       PointWeightFunctionType;
-  typedef TPointWeights              PointWeightsType;
+  using TubeTreeSpatialObjectType = SpatialObject< Dimension >;
+  using TubeSpatialObjectType = TTubeSpatialObject;
+  using PointWeightFunctionType = TPointWeightFunction;
+  using PointWeightsType = TPointWeights;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );

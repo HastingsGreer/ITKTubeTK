@@ -43,17 +43,17 @@ class SmoothingRecursiveGaussianImageFilter:
   public InPlaceImageFilter< TInputImage, TOutputImage >
 {
 public:
-  /** Standard class typedefs. */
-  typedef SmoothingRecursiveGaussianImageFilter           Self;
-  typedef InPlaceImageFilter< TInputImage, TOutputImage > Superclass;
-  typedef SmartPointer< Self >                            Pointer;
-  typedef SmartPointer< const Self >                      ConstPointer;
+  /** Standard class type alias. */
+  using Self = SmoothingRecursiveGaussianImageFilter;
+  using Superclass = InPlaceImageFilter< TInputImage, TOutputImage >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /** Pixel Type of the input image */
-  typedef TInputImage                                     InputImageType;
-  typedef TOutputImage                                    OutputImageType;
-  typedef typename TInputImage::PixelType                 PixelType;
-  typedef typename NumericTraits< PixelType >::RealType   RealType;
+  using InputImageType = TInputImage;
+  using OutputImageType = TOutputImage;
+  using PixelType = typename TInputImage::PixelType;
+  using RealType = typename NumericTraits< PixelType >::RealType;
 
   typedef typename NumericTraits< PixelType >::ScalarRealType
     ScalarRealType;
@@ -63,12 +63,11 @@ public:
     ImageToImageFilter );
 
   /** Image dimension. */
-  itkStaticConstMacro( ImageDimension, unsigned int,
-    TInputImage::ImageDimension );
+  static constexpr unsigned int ImageDimension = TInputImage::ImageDimension;
 
   /** Define the type for the sigma array */
-  typedef FixedArray< ScalarRealType,
-    itkGetStaticConstMacro( ImageDimension ) > SigmaArrayType;
+  using SigmaArrayType = FixedArray< ScalarRealType,
+    itkGetStaticConstMacro( ImageDimension ) >;
 
   /** Define the image type for internal computations
     RealType is usually 'double' in NumericTraits.
@@ -158,8 +157,7 @@ private:
 
   // implemented
 
-  typedef std::vector< typename InternalGaussianFilterType::Pointer >
-    SmoothingFiltersArrayType;
+  using SmoothingFiltersArrayType = std::vector< typename InternalGaussianFilterType::Pointer >;
   SmoothingFiltersArrayType m_SmoothingFilters;
 
   typename FirstGaussianFilterType::Pointer    m_FirstSmoothingFilter;

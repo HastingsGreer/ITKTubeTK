@@ -45,16 +45,16 @@ class MarkDuplicateFramesInvalidImageFilterThreader
 {
 public:
   const static unsigned int Dimension = 3;
-  typedef ThreadedImageRegionPartitioner< Dimension > PartitionerType;
+  using PartitionerType = ThreadedImageRegionPartitioner< Dimension >;
 
-  /** Standard class typedefs. */
-  typedef MarkDuplicateFramesInvalidImageFilterThreader Self;
-  typedef DomainThreader< PartitionerType, TAssociate > Superclass;
-  typedef SmartPointer< Self >                          Pointer;
-  typedef SmartPointer< const Self >                    ConstPointer;
+  /** Standard class type alias. */
+  using Self = MarkDuplicateFramesInvalidImageFilterThreader;
+  using Superclass = DomainThreader< PartitionerType, TAssociate >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
-  typedef TAssociate                      AssociateType;
-  typedef typename Superclass::DomainType DomainType;
+  using AssociateType = TAssociate;
+  using DomainType = typename Superclass::DomainType;
 
   itkNewMacro( Self );
 
@@ -70,8 +70,8 @@ private:
     const ThreadIdType threadId );
   virtual void AfterThreadedExecution( void );
 
-  typedef std::list< SizeValueType >       InvalidFramesType;
-  typedef std::vector< InvalidFramesType > InvalidFramesPerThreadType;
+  using InvalidFramesType = std::list< SizeValueType >;
+  using InvalidFramesPerThreadType = std::vector< InvalidFramesType >;
   InvalidFramesPerThreadType m_InvalidFramesPerThread;
 
 };
@@ -105,11 +105,11 @@ class MarkDuplicateFramesInvalidImageFilter
   : public ProcessObject
 {
 public:
-  /** Standard class typedefs. */
-  typedef MarkDuplicateFramesInvalidImageFilter Self;
-  typedef ProcessObject                         Superclass;
-  typedef SmartPointer< Self >                  Pointer;
-  typedef SmartPointer< const Self >            ConstPointer;
+  /** Standard class type alias. */
+  using Self = MarkDuplicateFramesInvalidImageFilter;
+  using Superclass = ProcessObject;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
@@ -117,16 +117,14 @@ public:
   /** Run-time type information ( and related methods ). */
   itkTypeMacro( MarkDuplicateFramesInvalidImageFilter, ProcessObject );
 
-  /** Some convenient typedefs. */
-  typedef TInputImage                         InputImageType;
-  typedef typename InputImageType::RegionType InputImageRegionType;
-  typedef typename InputImageType::PixelType  InputImagePixelType;
+  /** Some convenient type alias. */
+  using InputImageType = TInputImage;
+  using InputImageRegionType = typename InputImageType::RegionType;
+  using InputImagePixelType = typename InputImageType::PixelType;
 
-  itkStaticConstMacro( ImageDimension, unsigned int,
-    InputImageType::ImageDimension );
+  static constexpr unsigned int ImageDimension = InputImageType::ImageDimension;
 
-  typedef SimpleDataObjectDecorator< MetaDataDictionary >
-    DecoratedMetaDataDictionaryType;
+  using DecoratedMetaDataDictionaryType = SimpleDataObjectDecorator< MetaDataDictionary >;
 
   /** Set the tolerance which determines if a pixel is unchanged.  Noise
    * with
@@ -173,8 +171,7 @@ private:
   const MetaDataDictionary * m_InputMetaDataDictionary;
 
   friend class MarkDuplicateFramesInvalidImageFilterThreader< Self >;
-  typedef MarkDuplicateFramesInvalidImageFilterThreader< Self >
-    ThreaderType;
+  using ThreaderType = MarkDuplicateFramesInvalidImageFilterThreader< Self >;
   typename ThreaderType::Pointer m_Threader;
 
 }; // End class MarkDuplicateFramesInvalidImageFilter

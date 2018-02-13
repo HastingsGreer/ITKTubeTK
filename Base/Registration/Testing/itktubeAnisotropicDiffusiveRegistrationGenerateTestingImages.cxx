@@ -43,14 +43,14 @@ double radius,
 typename TImage::PixelType foregnd,
 typename TImage::PixelType backgnd )
 {
-  typedef itk::ImageRegionIteratorWithIndex<TImage> Iterator;
+  using Iterator = itk::ImageRegionIteratorWithIndex<TImage>;
   Iterator it( image, image->GetBufferedRegion() );
   it.GoToBegin();
 
   typename TImage::IndexType index;
   double r2 = vnl_math_sqr( radius );
 
-  for( ; !it.IsAtEnd(); ++it )
+  for(; !it.IsAtEnd(); ++it )
     {
     index = it.GetIndex();
     double distance = 0;
@@ -77,7 +77,7 @@ typename TImage::PixelType bottomEnd,
 typename TImage::PixelType topStart,
 typename TImage::PixelType topEnd )
 {
-  typedef itk::ImageRegionIteratorWithIndex<TImage> Iterator;
+  using Iterator = itk::ImageRegionIteratorWithIndex<TImage>;
   Iterator it( image, image->GetBufferedRegion() );
   it.GoToBegin();
 
@@ -86,7 +86,7 @@ typename TImage::PixelType topEnd )
   typename TImage::PixelType topRange = topEnd - topStart;
   double intensity;
 
-  for( ; !it.IsAtEnd(); ++it )
+  for(; !it.IsAtEnd(); ++it )
     {
     index = it.GetIndex();
     if( index[0] <= bottomBox[0]
@@ -165,13 +165,13 @@ typename TImage::PixelType backgnd,
 typename TImage::PixelType bottomIntensity,
 typename TImage::PixelType topIntensity )
 {
-  typedef itk::ImageRegionIteratorWithIndex<TImage> Iterator;
+  using Iterator = itk::ImageRegionIteratorWithIndex<TImage>;
   Iterator it( image, image->GetBufferedRegion() );
   it.GoToBegin();
 
   typename TImage::IndexType index;
 
-  for( ; !it.IsAtEnd(); ++it )
+  for(; !it.IsAtEnd(); ++it )
     {
     index = it.GetIndex();
     bool inTube = false;
@@ -317,15 +317,15 @@ int itkAnisotropicDiffusiveRegistrationGenerateTestingImages( int argc, char * a
 
   // Typedefs
   const unsigned int                                          ImageDimension = 3;
-  typedef double                                              PixelType;
-  typedef itk::Image< PixelType, ImageDimension >             ImageType;
-  typedef ImageType::IndexType                                IndexType;
-  typedef ImageType::SizeType                                 SizeType;
-  typedef ImageType::SpacingType                              SpacingType;
-  typedef ImageType::RegionType                               RegionType;
-  typedef itk::GroupSpatialObject< ImageDimension >           GroupType;
-  typedef itk::VesselTubeSpatialObjectPoint< ImageDimension > VectorTubePointType;
-  typedef itk::VesselTubeSpatialObject< ImageDimension >      VesselTubeType;
+  using PixelType = double;
+  using ImageType = itk::Image< PixelType, ImageDimension >;
+  using IndexType = ImageType::IndexType;
+  using SizeType = ImageType::SizeType;
+  using SpacingType = ImageType::SpacingType;
+  using RegionType = ImageType::RegionType;
+  using GroupType = itk::GroupSpatialObject< ImageDimension >;
+  using VectorTubePointType = itk::VesselTubeSpatialObjectPoint< ImageDimension >;
+  using VesselTubeType = itk::VesselTubeSpatialObject< ImageDimension >;
 
   //--------------------------------------------------------
   std::cout << "Generate registration input images" << std::endl;
@@ -557,7 +557,7 @@ int itkAnisotropicDiffusiveRegistrationGenerateTestingImages( int argc, char * a
   std::cout << "Saving the initial fixed and moving images" << std::endl;
 
   // Save the initial fixed and moving images
-  typedef itk::ImageFileWriter< ImageType > ImageWriterType;
+  using ImageWriterType = itk::ImageFileWriter< ImageType >;
   ImageWriterType::Pointer imageWriter = ImageWriterType::New();
   imageWriter->SetFileName( argv[1] );
   imageWriter->SetUseCompression( true );
@@ -613,7 +613,7 @@ int itkAnisotropicDiffusiveRegistrationGenerateTestingImages( int argc, char * a
     {
     std::cout << "Saving the tube spatial objects" << std::endl;
 
-    typedef itk::SpatialObjectWriter< ImageDimension > TubeWriterType;
+    using TubeWriterType = itk::SpatialObjectWriter< ImageDimension >;
     TubeWriterType::Pointer tubeWriter = TubeWriterType::New();
     tubeWriter->SetFileName( argv[3] );
     tubeWriter->SetInput( group );

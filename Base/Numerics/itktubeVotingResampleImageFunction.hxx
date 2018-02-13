@@ -81,8 +81,7 @@ VotingResampleImageFunction< TInputImage, TCoordRep >
 ::EvaluateAtContinuousIndex(
   const ContinuousIndexType& index ) const
 {
-  typedef itk::ConstNeighborhoodIterator< TInputImage >
-    NeighborhoodIteratorType;
+  using NeighborhoodIteratorType = itk::ConstNeighborhoodIterator< TInputImage >;
 
   typename NeighborhoodIteratorType::RadiusType radius;
   radius.Fill( 1 );

@@ -38,10 +38,10 @@ class InitialImageToImageRegistrationMethod
 
 public:
 
-  typedef InitialImageToImageRegistrationMethod  Self;
-  typedef ImageToImageRegistrationMethod<TImage> Superclass;
-  typedef SmartPointer<Self>                     Pointer;
-  typedef SmartPointer<const Self>               ConstPointer;
+  using Self = InitialImageToImageRegistrationMethod;
+  using Superclass = ImageToImageRegistrationMethod<TImage>;
+  using Pointer = SmartPointer<Self>;
+  using ConstPointer = SmartPointer<const Self>;
 
   itkTypeMacro( InitialImageToImageRegistrationMethod,
                 ImageToImageRegistrationMethod );
@@ -51,20 +51,17 @@ public:
   //
   // Typedefs from Superclass
   //
-  itkStaticConstMacro( ImageDimension, unsigned int,
-                       TImage::ImageDimension );
+  static constexpr unsigned int ImageDimension = TImage::ImageDimension;
 
-  typedef AffineTransform<double, itkGetStaticConstMacro( ImageDimension )>
-  TransformType;
+  using TransformType = AffineTransform<double, itkGetStaticConstMacro( ImageDimension )>;
 
-  typedef typename TransformType::Pointer TransformPointer;
+  using TransformPointer = typename TransformType::Pointer;
 
   //
   // Local Typedefs
   //
-  typedef Point<double, itkGetStaticConstMacro( ImageDimension )>
-  LandmarkPointType;
-  typedef std::vector<LandmarkPointType> LandmarkPointContainer;
+  using LandmarkPointType = Point<double, itkGetStaticConstMacro( ImageDimension )>;
+  using LandmarkPointContainer = std::vector<LandmarkPointType>;
 
   //
   // Custom Methods

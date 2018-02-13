@@ -47,21 +47,19 @@ template< unsigned int VNumberOfParameters, class TParametersValue = double >
 class RecordOptimizationParameterProgressionCommand : public Command
 {
 public:
-  typedef RecordOptimizationParameterProgressionCommand Self;
-  typedef Command                                       Superclass;
-  typedef SmartPointer< Self >                          Pointer;
-  typedef SmartPointer< const Self >                    ConstPointer;
+  using Self = RecordOptimizationParameterProgressionCommand;
+  using Superclass = Command;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   itkNewMacro( Self );
 
-  itkStaticConstMacro( NumberOfParameters,
-    unsigned int,
-    VNumberOfParameters );
-  typedef TParametersValue    ParametersValueType;
-  typedef ParametersValueType CostFunctionValueType;
-  typedef unsigned int        NumberOfIterationsType;
+  static constexpr unsigned int NumberOfParameters = VNumberOfParameters;
+  using ParametersValueType = TParametersValue;
+  using CostFunctionValueType = ParametersValueType;
+  using NumberOfIterationsType = unsigned int;
 
-  typedef OptimizerParameters< ParametersValueType > FixedParametersType;
+  using FixedParametersType = OptimizerParameters< ParametersValueType >;
 
   /** Set/Get fixed parameters associated with the optimization. */
   virtual void SetFixedParameters( const FixedParametersType &
@@ -99,9 +97,9 @@ protected:
     CostFunctionValueType     CostFunctionValue;
     CostFunctionValueType     CostFunctionDerivative[NumberOfParameters];
     };
-  typedef ParameterIteration ParameterIterationType;
+  using ParameterIterationType = ParameterIteration;
 
-  typedef std::vector< ParameterIterationType > ParameterProgressionType;
+  using ParameterProgressionType = std::vector< ParameterIterationType >;
 
 private:
   // Purposely not implemented

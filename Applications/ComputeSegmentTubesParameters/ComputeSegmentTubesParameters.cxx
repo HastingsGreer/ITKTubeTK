@@ -73,18 +73,17 @@ int DoIt( int argc, char * argv[] )
   tube::CLIProgressReporter    progressReporter(
     "ComputeSegmentTubesParameters", CLPProcessInformation );
   progressReporter.Start();
-  typedef tube::ComputeSegmentTubesParameters< TPixel, VDimension >
-    FilterType;
+  using FilterType = tube::ComputeSegmentTubesParameters< TPixel, VDimension >;
   typename FilterType::Pointer filter = FilterType::New();
 
-  typedef typename FilterType::InputImageType       InputImageType;
-  typedef itk::ImageFileReader< InputImageType >    ReaderType;
+  using InputImageType = typename FilterType::InputImageType;
+  using ReaderType = itk::ImageFileReader< InputImageType >;
 
-  typedef typename FilterType::MaskImageType        MaskImageType;
-  typedef itk::ImageFileReader< MaskImageType >     MaskReaderType;
+  using MaskImageType = typename FilterType::MaskImageType;
+  using MaskReaderType = itk::ImageFileReader< MaskImageType >;
 
-  typedef typename FilterType::ScaleImageType       ScaleImageType;
-  typedef itk::ImageFileReader< ScaleImageType >    ScaleReaderType;
+  using ScaleImageType = typename FilterType::ScaleImageType;
+  using ScaleReaderType = itk::ImageFileReader< ScaleImageType >;
 
   timeCollector.Start( "Load data" );
 

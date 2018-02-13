@@ -261,8 +261,8 @@ double SafeAcos( double x )
 template<typename VectorType >
 typename VectorType::RealValueType SafeNormalize( VectorType& v )
 {
-  typedef typename VectorType::RealValueType  RealType;
-  typedef typename VectorType::ValueType      ValueType;
+  using RealType = typename VectorType::RealValueType;
+  using ValueType = typename VectorType::ValueType;
 
   typename VectorType::RealValueType norm = v.GetNorm();
   if( norm != 0.0 )
@@ -661,11 +661,11 @@ TortuositySpatialObjectFilter< TPointBasedSpatialObject >
   if( p95m || chm || ic1m || ic2m )
     {
     // Histogram computation
-    typedef itk::Vector<double, 1> MeasurementVectorType;
-    typedef itk::Statistics::ListSample< MeasurementVectorType > SampleType;
+    using MeasurementVectorType = itk::Vector<double, 1>;
+    using SampleType = itk::Statistics::ListSample< MeasurementVectorType >;
 
-    typedef itk::Statistics::Histogram< double,
-      itk::Statistics::DenseFrequencyContainer2 > HistogramType;
+    using HistogramType = itk::Statistics::Histogram< double,
+      itk::Statistics::DenseFrequencyContainer2 >;
 
     SampleType::Pointer sample = SampleType::New();
     for( size_t i = 0; i < this->m_CurvatureScalar.size(); ++i )
@@ -675,8 +675,8 @@ TortuositySpatialObjectFilter< TPointBasedSpatialObject >
       sample->PushBack( mv );
       }
 
-    typedef itk::Statistics::SampleToHistogramFilter
-      <SampleType, HistogramType> SampleToHistogramFilterType;
+    using SampleToHistogramFilterType = itk::Statistics::SampleToHistogramFilter
+      <SampleType, HistogramType>;
     SampleToHistogramFilterType::Pointer sampleToHistogramFilter =
       SampleToHistogramFilterType::New();
     sampleToHistogramFilter->SetInput( sample );

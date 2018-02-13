@@ -43,19 +43,18 @@ class ResampleImage:
   public itk::ProcessObject
 {
 public:
-  /** Standard class typedefs. */
-  typedef ResampleImage                   Self;
-  typedef itk::ProcessObject              Superclass;
-  typedef itk::SmartPointer< Self >       Pointer;
-  typedef itk::SmartPointer< const Self > ConstPointer;
+  /** Standard class type alias. */
+  using Self = ResampleImage;
+  using Superclass = itk::ProcessObject;
+  using Pointer = itk::SmartPointer< Self >;
+  using ConstPointer = itk::SmartPointer< const Self >;
 
-  typedef itk::tube::ResampleImageFilter< TPixel, VDimension >
-    FilterType;
+  using FilterType = itk::tube::ResampleImageFilter< TPixel, VDimension >;
 
-  typedef typename FilterType::ImageType      ImageType;
-  typedef typename ImageType::ConstPointer    ConstImagePointer;
-  typedef typename ImageType::Pointer         ImagePointer;
-  typedef typename FilterType::TransformType  TransformType;
+  using ImageType = typename FilterType::ImageType;
+  using ConstImagePointer = typename ImageType::ConstPointer;
+  using ImagePointer = typename ImageType::Pointer;
+  using TransformType = typename FilterType::TransformType;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );

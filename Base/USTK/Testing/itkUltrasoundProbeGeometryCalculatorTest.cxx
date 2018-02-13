@@ -42,25 +42,24 @@ int itkUltrasoundProbeGeometryCalculatorTest( int argc, char * argv[] )
   // Types
   enum { Dimension = 2 };
 
-  typedef unsigned char                      PixelType;
-  typedef itk::Image< PixelType, Dimension > ImageType;
+  using PixelType = unsigned char;
+  using ImageType = itk::Image< PixelType, Dimension >;
 
   // Reader
-  typedef itk::ImageFileReader< ImageType > ReaderType;
+  using ReaderType = itk::ImageFileReader< ImageType >;
   ReaderType::Pointer reader = ReaderType::New();
   reader->SetFileName( inputImage );
 
   // The test input image was captured with a screen grabber, and some analog
   // noise was introduced, just using the input image with a BackgroundValue
   // will not work.  So, we threshold the input.
-  typedef itk::ThresholdImageFilter< ImageType > ThresholdFilterType;
+  using ThresholdFilterType = itk::ThresholdImageFilter< ImageType >;
   ThresholdFilterType::Pointer thresholdFilter = ThresholdFilterType::New();
   thresholdFilter->SetInput( reader->GetOutput() );
   thresholdFilter->ThresholdBelow( 5 );
 
   // Calculate the probe's geometry
-  typedef itk::tube::UltrasoundProbeGeometryCalculator< ImageType >
-    GeometryCalculatorType;
+  using GeometryCalculatorType = itk::tube::UltrasoundProbeGeometryCalculator< ImageType >;
   GeometryCalculatorType::Pointer geometryCalculator = GeometryCalculatorType::New();
   geometryCalculator->SetInput( thresholdFilter->GetOutput() );
   // The probe is oriented in the "vertical" direction in the image

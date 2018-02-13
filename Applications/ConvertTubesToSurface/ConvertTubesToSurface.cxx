@@ -73,11 +73,11 @@ int DoIt( int argc, char * argv[] )
 
   const unsigned int Dimension = 3;
 
-  typedef itk::VesselTubeSpatialObject< Dimension > TubeSpatialObjectType;
-  typedef itk::GroupSpatialObject< Dimension >      GroupSpatialObjectType;
+  using TubeSpatialObjectType = itk::VesselTubeSpatialObject< Dimension >;
+  using GroupSpatialObjectType = itk::GroupSpatialObject< Dimension >;
 
   timeCollector.Start( "Read tubes" );
-  typedef itk::SpatialObjectReader< Dimension >  ReaderType;
+  using ReaderType = itk::SpatialObjectReader< Dimension >;
   ReaderType::Pointer reader = ReaderType::New();
   reader->SetFileName( inputTubeFile );
   try
@@ -102,7 +102,7 @@ int DoIt( int argc, char * argv[] )
 
   timeCollector.Start( "Convert to surface" );
   char childName[] = "Tube";
-  typedef TubeSpatialObjectType::ChildrenListType ChildrenListType;
+  using ChildrenListType = TubeSpatialObjectType::ChildrenListType;
   ChildrenListType * tubeList =
     groupSpatialObject->GetChildren( groupSpatialObject->GetMaximumDepth(),
                                      childName );

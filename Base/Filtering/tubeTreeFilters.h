@@ -33,15 +33,15 @@ template< unsigned int VDimension >
 class TreeFilters
 {
 public:
-  //typedefs
-  typedef itk::GroupSpatialObject< VDimension >         TubeGroupType;
-  typedef typename TubeGroupType::ChildrenListPointer   TubeListPointerType;
-  typedef itk::VesselTubeSpatialObject< VDimension >    TubeType;
-  typedef typename TubeType::Pointer                    TubePointerType;
-  typedef typename TubeType::TubePointType              TubePointType;
-  typedef typename TubeType::PointType                  PositionType;
-  typedef itk::IndexValueType                           TubeIdType;
-  typedef typename TubeType::PointListType              TubePointListType;
+  //type alias
+  using TubeGroupType = itk::GroupSpatialObject< VDimension >;
+  using TubeListPointerType = typename TubeGroupType::ChildrenListPointer;
+  using TubeType = itk::VesselTubeSpatialObject< VDimension >;
+  using TubePointerType = typename TubeType::Pointer;
+  using TubePointType = typename TubeType::TubePointType;
+  using PositionType = typename TubeType::PointType;
+  using TubeIdType = itk::IndexValueType;
+  using TubePointListType = typename TubeType::PointListType;
 
   /** Run Fill Gap on the tube-tree. */
   static void FillGap( typename TubeGroupType::Pointer & pTubeGroup,

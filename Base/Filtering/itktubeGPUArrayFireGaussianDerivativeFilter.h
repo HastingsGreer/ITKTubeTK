@@ -40,28 +40,26 @@ class GPUArrayFireGaussianDerivativeFilter :
 {
 public:
 
-  typedef GPUArrayFireGaussianDerivativeFilter                  Self;
-  typedef GaussianDerivativeFilter< TInputImage,
-          TOutputImage >                                        Superclass;
-  typedef SmartPointer< Self >                                  Pointer;
-  typedef SmartPointer< const Self >                            ConstPointer;
+  using Self = GPUArrayFireGaussianDerivativeFilter;
+  using Superclass = GaussianDerivativeFilter< TInputImage,
+          TOutputImage >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   itkNewMacro ( Self );
 
   itkTypeMacro ( GPUArrayFireGaussianDerivativeFilter,
                  GaussianDerivativeFilter );
 
-  itkStaticConstMacro ( ImageDimension, unsigned int,
-                        TInputImage::ImageDimension );
+  static constexpr unsigned int ImageDimension = TInputImage::ImageDimension;
 
-  typedef TInputImage                      InputImageType;
-  typedef TOutputImage                     OutputImageType;
-  typedef Image< double, ImageDimension >  RealImageType;
-  typedef typename RealImageType::Pointer  RealImagePointerType;
-  typedef GaussianDerivativeImageSource< RealImageType >
-                                           GaussianDerivativeImageSourceType;
-  typedef typename Superclass::OrdersType  OrdersType;
-  typedef typename Superclass::SigmasType  SigmasType;
+  using InputImageType = TInputImage;
+  using OutputImageType = TOutputImage;
+  using RealImageType = Image< double, ImageDimension >;
+  using RealImagePointerType = typename RealImageType::Pointer;
+  using GaussianDerivativeImageSourceType = GaussianDerivativeImageSource< RealImageType >;
+  using OrdersType = typename Superclass::OrdersType;
+  using SigmasType = typename Superclass::SigmasType;
 
   void GenerateNJet ( typename OutputImageType::Pointer & D,
                       std::vector< typename TOutputImage::Pointer > & Dx,
@@ -69,8 +67,7 @@ public:
 
 protected:
 
-  typedef FFTShiftImageFilter< RealImageType, RealImageType >
-  FFTShiftFilterType;
+  using FFTShiftFilterType = FFTShiftImageFilter< RealImageType, RealImageType >;
 
   GPUArrayFireGaussianDerivativeFilter ( void );
   virtual ~GPUArrayFireGaussianDerivativeFilter ( void ) {}

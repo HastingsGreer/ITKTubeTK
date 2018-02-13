@@ -50,16 +50,16 @@ class TortuositySpatialObjectFilter : public
   TPointBasedSpatialObject >
 {
 public:
-  /** Standard class typedefs. */
-  typedef TortuositySpatialObjectFilter     Self;
-  typedef SpatialObjectToSpatialObjectFilter< TPointBasedSpatialObject,
-    TPointBasedSpatialObject >              Superclass;
-  typedef SmartPointer< Self >              Pointer;
-  typedef SmartPointer< const Self >        ConstPointer;
+  /** Standard class type alias. */
+  using Self = TortuositySpatialObjectFilter;
+  using Superclass = SpatialObjectToSpatialObjectFilter< TPointBasedSpatialObject,
+    TPointBasedSpatialObject >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
-  typedef TPointBasedSpatialObject          PointBasedSpatialObject;
+  using PointBasedSpatialObject = TPointBasedSpatialObject;
 
-  typedef typename TPointBasedSpatialObject::VectorType SOVectorType;
+  using SOVectorType = typename TPointBasedSpatialObject::VectorType;
 
   typedef typename PointBasedSpatialObject::Pointer
     PointBasedSpatialObjectPointer;

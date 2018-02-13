@@ -59,11 +59,11 @@ class GradientBasedAngleOfIncidenceImageFilter
   : public ImageToImageFilter< TInputImage, TOutputImage >
 {
 public:
-  /** Standard class typedefs. */
-  typedef GradientBasedAngleOfIncidenceImageFilter            Self;
-  typedef ImageToImageFilter< TInputImage, TOutputImage >     Superclass;
-  typedef SmartPointer< Self >                                Pointer;
-  typedef SmartPointer< const Self >                          ConstPointer;
+  /** Standard class type alias. */
+  using Self = GradientBasedAngleOfIncidenceImageFilter;
+  using Superclass = ImageToImageFilter< TInputImage, TOutputImage >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
@@ -72,27 +72,21 @@ public:
   itkTypeMacro( GradientBasedAngleOfIncidenceImageFilter,
     ImageToImageFilter );
 
-  /** Some convenient typedefs. */
-  typedef TInputImage                           InputImageType;
-  typedef typename InputImageType::PointType    OriginType;
-  typedef TOutputImage                          OutputImageType;
-  typedef typename OutputImageType::RegionType  OutputImageRegionType;
+  /** Some convenient type alias. */
+  using InputImageType = TInputImage;
+  using OriginType = typename InputImageType::PointType;
+  using OutputImageType = TOutputImage;
+  using OutputImageRegionType = typename OutputImageType::RegionType;
 
-  itkStaticConstMacro( ImageDimension, unsigned int,
-    InputImageType::ImageDimension );
+  static constexpr unsigned int ImageDimension = InputImageType::ImageDimension;
 
   typedef TOperatorValue
     OperatorValueType;
-  typedef Image< OperatorValueType, ImageDimension >
-    OperatorImageType;
-  typedef CovariantVector< OperatorValueType, ImageDimension >
-    GradientOutputPixelType;
-  typedef Image< GradientOutputPixelType, ImageDimension >
-    GradientOutputImageType;
-  typedef ImageToImageFilter< OperatorImageType, GradientOutputImageType >
-    GradientFilterType;
-  typedef Vector< TOperatorValue, InputImageType::ImageDimension >
-    BeamDirectionType;
+  using OperatorImageType = Image< OperatorValueType, ImageDimension >;
+  using GradientOutputPixelType = CovariantVector< OperatorValueType, ImageDimension >;
+  using GradientOutputImageType = Image< GradientOutputPixelType, ImageDimension >;
+  using GradientFilterType = ImageToImageFilter< OperatorImageType, GradientOutputImageType >;
+  using BeamDirectionType = Vector< TOperatorValue, InputImageType::ImageDimension >;
 
   /** Probe type.  Determines how the beam angle is calculated.  For
    * CURVILINEAR or PHASED, the UltrasoundProbeOrigin must be set.  For
@@ -149,8 +143,7 @@ private:
   //purposely not implemented
   void operator=( const Self & );
 
-  typedef CastImageFilter< InputImageType, OperatorImageType >
-    CastImageFilterType;
+  using CastImageFilterType = CastImageFilter< InputImageType, OperatorImageType >;
   typename CastImageFilterType::Pointer m_CastImageFilter;
 
 

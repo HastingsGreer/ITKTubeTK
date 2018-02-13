@@ -40,10 +40,10 @@ int itktubeSubSampleTubeSpatialObjectFilterTest( int argc, char * argv[] )
   const char * outputTubeNetwork = argv[2];
 
   enum { Dimension = 3 };
-  typedef itk::VesselTubeSpatialObject< Dimension > TubeSpatialObjectType;
-  typedef itk::GroupSpatialObject< Dimension >      GroupSpatialObjectType;
+  using TubeSpatialObjectType = itk::VesselTubeSpatialObject< Dimension >;
+  using GroupSpatialObjectType = itk::GroupSpatialObject< Dimension >;
 
-  typedef itk::SpatialObjectReader< Dimension >  ReaderType;
+  using ReaderType = itk::SpatialObjectReader< Dimension >;
   ReaderType::Pointer reader = ReaderType::New();
   reader->SetFileName( inputTubeNetwork );
   try
@@ -74,8 +74,7 @@ int itktubeSubSampleTubeSpatialObjectFilterTest( int argc, char * argv[] )
       dynamic_cast< TubeSpatialObjectType * >( ( *it ).GetPointer() );
     if( pointBasedSpatialObject )
       {
-      typedef itk::tube::SubSampleTubeSpatialObjectFilter< TubeSpatialObjectType >
-        SubSampleFilterType;
+      using SubSampleFilterType = itk::tube::SubSampleTubeSpatialObjectFilter< TubeSpatialObjectType >;
       SubSampleFilterType::Pointer subSampleFilter = SubSampleFilterType::New();
       const unsigned int samplingFactor = 5;
       subSampleFilter->SetSampling( samplingFactor );
@@ -95,7 +94,7 @@ int itktubeSubSampleTubeSpatialObjectFilterTest( int argc, char * argv[] )
     }
 
 
-  typedef itk::SpatialObjectWriter< Dimension > WriterType;
+  using WriterType = itk::SpatialObjectWriter< Dimension >;
   WriterType::Pointer writer = WriterType::New();
   writer->SetFileName( outputTubeNetwork );
   writer->SetInput( output );

@@ -318,8 +318,7 @@ BasisFeatureVectorGenerator< TImage, TLabelMap >
 {
   if( featureNum < m_InputFeatureVectorGenerator->GetNumberOfFeatures() )
     {
-    typedef itk::ImageRegionIteratorWithIndex< FeatureImageType >
-      ImageIteratorType;
+    using ImageIteratorType = itk::ImageRegionIteratorWithIndex< FeatureImageType >;
 
     typename FeatureImageType::RegionType region;
     region = this->m_InputImageList[0]->GetLargestPossibleRegion();
@@ -336,8 +335,7 @@ BasisFeatureVectorGenerator< TImage, TLabelMap >
     if( m_LabelMap.IsNotNull() )
       {
       const unsigned int numClasses = this->GetNumberOfObjectIds();
-      typedef itk::ImageRegionConstIteratorWithIndex< LabelMapType >
-        ConstLabelMapIteratorType;
+      using ConstLabelMapIteratorType = itk::ImageRegionConstIteratorWithIndex< LabelMapType >;
       ConstLabelMapIteratorType itInMask( m_LabelMap,
         m_LabelMap->GetLargestPossibleRegion() );
       bool found = false;
@@ -459,8 +457,7 @@ void
 BasisFeatureVectorGenerator< TImage, TLabelMap >
 ::Update( void )
 {
-  typedef itk::ImageRegionConstIteratorWithIndex< LabelMapType >
-    ConstLabelMapIteratorType;
+  using ConstLabelMapIteratorType = itk::ImageRegionConstIteratorWithIndex< LabelMapType >;
   ConstLabelMapIteratorType itInMask( m_LabelMap,
     m_LabelMap->GetLargestPossibleRegion() );
 

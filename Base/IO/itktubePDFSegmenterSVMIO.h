@@ -49,9 +49,9 @@ class PDFSegmenterSVMIO
 {
 public:
 
-  typedef PDFSegmenterSVMIO< TImage, TLabelMap >  PDFSegmenterIOType;
+  using PDFSegmenterIOType = PDFSegmenterSVMIO< TImage, TLabelMap >;
 
-  typedef PDFSegmenterSVM< TImage, TLabelMap >    PDFSegmenterType;
+  using PDFSegmenterType = PDFSegmenterSVM< TImage, TLabelMap >;
 
   PDFSegmenterSVMIO( void );
 

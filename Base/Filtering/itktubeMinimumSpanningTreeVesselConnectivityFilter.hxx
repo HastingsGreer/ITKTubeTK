@@ -128,7 +128,7 @@ MinimumSpanningTreeVesselConnectivityFilter< VDimension >
   // build a map between tube id and tube object
   tubeDebugMacro( << "Computing Tube ID to Object Map" );
 
-  typedef typename TubeGroupType::ChildrenListPointer TubeListPointerType;
+  using TubeListPointerType = typename TubeGroupType::ChildrenListPointer;
 
   char tubeName[] = "Tube";
   TubeListPointerType pTubeList
@@ -148,10 +148,10 @@ MinimumSpanningTreeVesselConnectivityFilter< VDimension >
   // build graph
   tubeDebugMacro( << "Building tube graph" );
 
-  typedef typename TubeType::PointListType  TubePointListType;
-  typedef typename TubeType::TubePointType  TubePointType;
-  typedef typename TubeType::PointType      PositionType;
-  typedef typename PositionType::VectorType PositionVectorType;
+  using TubePointListType = typename TubeType::PointListType;
+  using TubePointType = typename TubeType::TubePointType;
+  using PositionType = typename TubeType::PointType;
+  using PositionVectorType = typename PositionType::VectorType;
 
   m_TubeGraph.clear();
 
@@ -590,7 +590,7 @@ MinimumSpanningTreeVesselConnectivityFilter< VDimension >
 
   tubeDebugMacro( << "Adding remaining tubes to the output spatial group" );
 
-  typedef typename TubeGroupType::ChildrenListPointer TubeListPointerType;
+  using TubeListPointerType = typename TubeGroupType::ChildrenListPointer;
 
   char tubeName[] = "Tube";
   TubeListPointerType pTubeList

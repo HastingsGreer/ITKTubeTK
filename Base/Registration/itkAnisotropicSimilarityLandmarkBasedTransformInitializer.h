@@ -59,11 +59,11 @@ class AnisotropicSimilarityLandmarkBasedTransformInitializer :
   public Object
 {
 public:
-  /** Standard class typedefs. */
-  typedef AnisotropicSimilarityLandmarkBasedTransformInitializer Self;
-  typedef Object                                                 Superclass;
-  typedef SmartPointer<Self>                                     Pointer;
-  typedef SmartPointer<const Self>                               ConstPointer;
+  /** Standard class type alias. */
+  using Self = AnisotropicSimilarityLandmarkBasedTransformInitializer;
+  using Superclass = Object;
+  using Pointer = SmartPointer<Self>;
+  using ConstPointer = SmartPointer<const Self>;
 
   /** New macro for creation of through a Smart Pointer. */
   itkNewMacro( Self );
@@ -73,24 +73,22 @@ public:
     Object );
 
   /** Type of the transform to initialize */
-  typedef TTransform                      TransformType;
-  typedef typename TransformType::Pointer TransformPointer;
+  using TransformType = TTransform;
+  using TransformPointer = typename TransformType::Pointer;
 
   /** Dimension of parameters. */
-  itkStaticConstMacro( InputSpaceDimension, unsigned int,
-                      TransformType::InputSpaceDimension );
-  itkStaticConstMacro( OutputSpaceDimension, unsigned int,
-                      TransformType::OutputSpaceDimension );
+  static constexpr unsigned int InputSpaceDimension = TransformType::InputSpaceDimension;
+  static constexpr unsigned int OutputSpaceDimension = TransformType::OutputSpaceDimension;
 
   /** Set the transform to be initialized */
   itkSetObjectMacro( Transform, TransformType );
 
   /** Image Types to use in the initialization of the transform */
-  typedef   TFixedImage  FixedImageType;
-  typedef   TMovingImage MovingImageType;
+  using FixedImageType = TFixedImage;
+  using MovingImageType = TMovingImage;
 
-  typedef   typename FixedImageType::ConstPointer  FixedImagePointer;
-  typedef   typename MovingImageType::ConstPointer MovingImagePointer;
+  using FixedImagePointer = typename FixedImageType::ConstPointer;
+  using MovingImagePointer = typename MovingImageType::ConstPointer;
 
   /** \deprecated
    * Set the fixed image.
@@ -117,18 +115,15 @@ public:
     }
 
   /** Determine the image dimension. */
-  itkStaticConstMacro( ImageDimension, unsigned int,
-    FixedImageType::ImageDimension );
+  static constexpr unsigned int ImageDimension = FixedImageType::ImageDimension;
 
-  /** Convenience typedefs */
+  /** Convenience type alias */
   typedef typename TransformType::InputPointType
     InputPointType;
   typedef typename TransformType::OutputVectorType
     OutputVectorType;
-  typedef Point<double, itkGetStaticConstMacro( ImageDimension )>
-    LandmarkPointType;
-  typedef std::vector<LandmarkPointType>
-    LandmarkPointContainer;
+  using LandmarkPointType = Point<double, itkGetStaticConstMacro( ImageDimension )>;
+  using LandmarkPointContainer = std::vector<LandmarkPointType>;
   typedef typename  LandmarkPointContainer::const_iterator
     PointsContainerConstIterator;
   typedef typename TransformType::ParametersType
@@ -148,10 +143,9 @@ public:
     this->m_MovingLandmarks = movingLandmarks;
     }
 
-  /**  Supported Transform typedefs */
-  typedef AnisotropicSimilarity3DTransform<ParameterValueType>
-  AnisotropicSimilarity3DTransformType;
-  typedef Rigid2DTransform<ParameterValueType> Rigid2DTransformType;
+  /**  Supported Transform type alias */
+  using AnisotropicSimilarity3DTransformType = AnisotropicSimilarity3DTransform<ParameterValueType>;
+  using Rigid2DTransformType = Rigid2DTransform<ParameterValueType>;
 
   /** Initialize the transform from the landmarks */
   virtual void InitializeTransform();

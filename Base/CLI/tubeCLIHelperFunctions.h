@@ -37,8 +37,8 @@ void GetImageInformation( const std::string & fileName,
                           itk::ImageIOBase::IOComponentType & componentType,
                           unsigned int & dimension )
 {
-  typedef itk::ImageIOBase     ImageIOType;
-  typedef itk::ImageIOFactory  ImageIOFactoryType;
+  using ImageIOType = itk::ImageIOBase;
+  using ImageIOFactoryType = itk::ImageIOFactory;
 
   ImageIOType::Pointer imageIO =
     ImageIOFactoryType::CreateImageIO( fileName.c_str(),
@@ -62,8 +62,8 @@ void GetImageInformation( const std::string & fileName,
 int ParseArgsAndCallDoIt( const std::string & inputImage, int argc,
                           char * argv[] )
 {
-  typedef itk::ImageIOBase              ImageIOType;
-  typedef ImageIOType::IOComponentType  IOComponentType;
+  using ImageIOType = itk::ImageIOBase;
+  using IOComponentType = ImageIOType::IOComponentType;
 
   IOComponentType componentType = ImageIOType::UNKNOWNCOMPONENTTYPE;
   unsigned int dimension = 0;

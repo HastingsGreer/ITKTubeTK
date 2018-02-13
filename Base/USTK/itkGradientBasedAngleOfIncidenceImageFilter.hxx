@@ -39,9 +39,8 @@ GradientBasedAngleOfIncidenceImageFilter< TInputImage,
   TOperatorValue >
 ::GradientBasedAngleOfIncidenceImageFilter( void )
 {
-  typedef GradientImageFilter<
-      OperatorImageType, OperatorValueType, OperatorValueType >
-    DefaultGradientFilterType;
+  using DefaultGradientFilterType = GradientImageFilter<
+      OperatorImageType, OperatorValueType, OperatorValueType >;
   this->m_GradientFilter = DefaultGradientFilterType::New().GetPointer();
 
   this->m_CastImageFilter = CastImageFilterType::New();
@@ -109,12 +108,9 @@ GradientBasedAngleOfIncidenceImageFilter< TInputImage,
   const double gradientMagnitudeTolerance =
     this->m_GradientMagnitudeTolerance;
 
-  typedef ImageRegionConstIteratorWithIndex< InputImageType >
-    InputIteratorType;
-  typedef ImageRegionConstIterator< GradientOutputImageType >
-    GradientIteratorType;
-  typedef ImageRegionIterator< OutputImageType >
-    OutputIteratorType;
+  using InputIteratorType = ImageRegionConstIteratorWithIndex< InputImageType >;
+  using GradientIteratorType = ImageRegionConstIterator< GradientOutputImageType >;
+  using OutputIteratorType = ImageRegionIterator< OutputImageType >;
 
   InputIteratorType inputIt( input, outputRegionForThread );
   GradientIteratorType gradientIt( gradient, outputRegionForThread );
@@ -146,7 +142,7 @@ GradientBasedAngleOfIncidenceImageFilter< TInputImage,
     gradientPixel /= gradientNorm;
 
     // output  scalar product of the two normalized vectors
-    typedef typename OutputImageType::PixelType OutputPixelType;
+    using OutputPixelType = typename OutputImageType::PixelType;
     const OutputPixelType outputPixel = gradientPixel * beamDirection;
     if( vnl_math_isnan( outputPixel )
       || gradientNorm < gradientMagnitudeTolerance )

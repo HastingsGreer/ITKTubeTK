@@ -42,17 +42,16 @@ int itkUltrasoundProbeGeometryCalculatorTest2( int argc, char * argv[] )
   // Types
   enum { Dimension = 3 };
 
-  typedef unsigned char                      PixelType;
-  typedef itk::Image< PixelType, Dimension > ImageType;
+  using PixelType = unsigned char;
+  using ImageType = itk::Image< PixelType, Dimension >;
 
   // Reader
-  typedef itk::ImageFileReader< ImageType > ReaderType;
+  using ReaderType = itk::ImageFileReader< ImageType >;
   ReaderType::Pointer reader = ReaderType::New();
   reader->SetFileName( inputImage );
 
   // Calculate the probe's geometry
-  typedef itk::tube::UltrasoundProbeGeometryCalculator< ImageType >
-    GeometryCalculatorType;
+  using GeometryCalculatorType = itk::tube::UltrasoundProbeGeometryCalculator< ImageType >;
   GeometryCalculatorType::Pointer geometryCalculator = GeometryCalculatorType::New();
   geometryCalculator->SetInput( reader->GetOutput() );
   // The probe is oriented in the "vertical" direction in the image

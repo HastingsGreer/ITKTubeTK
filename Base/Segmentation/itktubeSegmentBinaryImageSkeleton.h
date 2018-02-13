@@ -47,18 +47,16 @@ class SegmentBinaryImageSkeleton
       <itk::Image< TPixel, VDimension >, itk::Image< TPixel, VDimension > >
 {
 public:
-  /** custom typedefs */
-  typedef itk::Image< TPixel, VDimension > ImageType;
-  typedef itk::BinaryBallStructuringElement< TPixel, VDimension>
-                                           SEType;
-  typedef itk::BinaryDilateImageFilter< ImageType, ImageType, SEType >
-                                           DilateType;
+  /** custom type alias */
+  using ImageType = itk::Image< TPixel, VDimension >;
+  using SEType = itk::BinaryBallStructuringElement< TPixel, VDimension>;
+  using DilateType = itk::BinaryDilateImageFilter< ImageType, ImageType, SEType >;
 
-  /** Standard class typedefs. */
-  typedef SegmentBinaryImageSkeleton                             Self;
-  typedef itk::BinaryThinningImageFilter< ImageType, ImageType > Superclass;
-  typedef SmartPointer< Self >                                   Pointer;
-  typedef SmartPointer< const Self >                             ConstPointer;
+  /** Standard class type alias. */
+  using Self = SegmentBinaryImageSkeleton;
+  using Superclass = itk::BinaryThinningImageFilter< ImageType, ImageType >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
 
   /** Method for creation through the object factory. */

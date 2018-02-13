@@ -53,9 +53,9 @@ int DoIt( int argc, char * argv[] );
 template< class TImage >
 bool ReadAndOrientImageAxial( TImage & outputImage, std::string fileName )
 {
-  typedef typename TImage::ObjectType ObjectType;
+  using ObjectType = typename TImage::ObjectType;
 
-  typedef itk::ImageFileReader< ObjectType > FileReaderType;
+  using FileReaderType = itk::ImageFileReader< ObjectType >;
   typename FileReaderType::Pointer imageReader = FileReaderType::New();
   imageReader->SetFileName( fileName.c_str() );
   try
@@ -69,7 +69,7 @@ bool ReadAndOrientImageAxial( TImage & outputImage, std::string fileName )
     return false;
     }
 
-  typedef itk::OrientImageFilter< ObjectType, ObjectType > OrientFilterType;
+  using OrientFilterType = itk::OrientImageFilter< ObjectType, ObjectType >;
   typename OrientFilterType::Pointer orient = OrientFilterType::New();
   orient->UseImageDirectionOn();
   orient->SetDesiredCoordinateOrientationToAxial();
@@ -92,14 +92,14 @@ bool ReorientAndWriteImage( TImage * inputImage,
                             typename TImage::DirectionType dir,
                             std::string fileName )
 {
-  typedef itk::OrientImageFilter< TImage, TImage > OrientFilterType;
+  using OrientFilterType = itk::OrientImageFilter< TImage, TImage >;
   typename OrientFilterType::Pointer orient = OrientFilterType::New();
   orient->UseImageDirectionOn();
   orient->SetDesiredCoordinateDirection( dir );
   orient->SetInput( inputImage );
   orient->Update();
 
-  typedef itk::ImageFileWriter< TImage > FileWriterType;
+  using FileWriterType = itk::ImageFileWriter< TImage >;
   typename FileWriterType::Pointer imageWriter = FileWriterType::New();
   imageWriter->SetFileName( fileName );
   imageWriter->SetUseCompression( true );
@@ -139,24 +139,21 @@ int DoIt( int argc, char * argv[] )
   // Typedefs seeding definition of the anisotropic diffusive registration
   // filter
   const unsigned int                                      ImageDimension = 3;
-  typedef TPixel                                          FixedPixelType;
-  typedef TPixel                                          MovingPixelType;
-  typedef itk::Image< FixedPixelType, ImageDimension >    FixedImageType;
-  typedef itk::Image< MovingPixelType, ImageDimension >   MovingImageType;
-  typedef double                                          VectorScalarType;
-  typedef itk::Vector< VectorScalarType, ImageDimension > VectorType;
-  typedef itk::Image< VectorType, ImageDimension >        VectorImageType;
+  using FixedPixelType = TPixel;
+  using MovingPixelType = TPixel;
+  using FixedImageType = itk::Image< FixedPixelType, ImageDimension >;
+  using MovingImageType = itk::Image< MovingPixelType, ImageDimension >;
+  using VectorScalarType = double;
+  using VectorType = itk::Vector< VectorScalarType, ImageDimension >;
+  using VectorImageType = itk::Image< VectorType, ImageDimension >;
 
   // Initialize the registration filter
-  typedef itk::tube::DiffusiveRegistrationFilter
-      < FixedImageType, MovingImageType, VectorImageType >
-      DiffusiveRegistrationFilterType;
-  typedef itk::tube::AnisotropicDiffusiveRegistrationFilter
-      < FixedImageType, MovingImageType, VectorImageType >
-      AnisotropicDiffusiveRegistrationFilterType;
-  typedef itk::tube::AnisotropicDiffusiveSparseRegistrationFilter
-      < FixedImageType, MovingImageType, VectorImageType >
-      AnisotropicDiffusiveSparseRegistrationFilterType;
+  using DiffusiveRegistrationFilterType = itk::tube::DiffusiveRegistrationFilter
+      < FixedImageType, MovingImageType, VectorImageType >;
+  using AnisotropicDiffusiveRegistrationFilterType = itk::tube::AnisotropicDiffusiveRegistrationFilter
+      < FixedImageType, MovingImageType, VectorImageType >;
+  using AnisotropicDiffusiveSparseRegistrationFilterType = itk::tube::AnisotropicDiffusiveSparseRegistrationFilter
+      < FixedImageType, MovingImageType, VectorImageType >;
 
   typename DiffusiveRegistrationFilterType::Pointer registrator = 0;
   typename AnisotropicDiffusiveRegistrationFilterType::Pointer
@@ -196,7 +193,7 @@ int DoIt( int argc, char * argv[] )
 
   // Load the fixed image
   timeCollector.Start( "Loading fixed image" );
-  typedef itk::ImageFileReader< FixedImageType > FixedImageReaderType;
+  using FixedImageReaderType = itk::ImageFileReader< FixedImageType >;
   typename FixedImageReaderType::Pointer fixedImageReader
       = FixedImageReaderType::New();
   fixedImageReader->SetFileName( fixedImageFileName.c_str() );
@@ -215,7 +212,7 @@ int DoIt( int argc, char * argv[] )
 
   // Load the moving image
   timeCollector.Start( "Loading moving image" );
-  typedef itk::ImageFileReader< MovingImageType > MovingImageReaderType;
+  using MovingImageReaderType = itk::ImageFileReader< MovingImageType >;
   typename MovingImageReaderType::Pointer movingImageReader
       = MovingImageReaderType::New();
   movingImageReader->SetFileName( movingImageFileName.c_str() );
@@ -259,7 +256,7 @@ int DoIt( int argc, char * argv[] )
   // Preferably use an "initial transform" image, if given
   if( initialTransformImageFileName != "" )
     {
-    typedef itk::ImageFileReader< VectorImageType > InitFieldReaderType;
+    using InitFieldReaderType = itk::ImageFileReader< VectorImageType >;
     typename InitFieldReaderType::Pointer initFieldImageReader
         = InitFieldReaderType::New();
     initFieldImageReader->SetFileName( initialTransformImageFileName.c_str() );
@@ -295,7 +292,7 @@ int DoIt( int argc, char * argv[] )
     // Use the "initial transform" transform if given
     if( initialTransform != "" )
       {
-      typedef itk::TransformFileReader TransformReaderType;
+      using TransformReaderType = itk::TransformFileReader;
       TransformReaderType::Pointer transformReader = TransformReaderType::New();
       transformReader->SetFileName( initialTransform );
       try
@@ -315,8 +312,7 @@ int DoIt( int argc, char * argv[] )
             = *( transformReader->GetTransformList()->begin() );
 
         // Cast to transform pointer, so that we can use TransformPoint()
-        typedef itk::Transform< double, ImageDimension, ImageDimension >
-            TransformType;
+        using TransformType = itk::Transform< double, ImageDimension, ImageDimension >;
         typename TransformType::Pointer transform
             = dynamic_cast< TransformType* >( initial.GetPointer() );
 
@@ -337,8 +333,7 @@ int DoIt( int argc, char * argv[] )
           // Initial displacement vector
           VectorType initVector;
           initVector.Fill( 0 );
-          typedef itk::ImageRegionIterator< VectorImageType >
-              VectorImageRegionType;
+          using VectorImageRegionType = itk::ImageRegionIterator< VectorImageType >;
           VectorImageRegionType initIt = VectorImageRegionType(
               initField, initField->GetLargestPossibleRegion() );
           for( initIt.GoToBegin(); !initIt.IsAtEnd(); ++initIt )
@@ -387,8 +382,7 @@ int DoIt( int argc, char * argv[] )
   // reorientation affects the internal mapping from index to physical
   // coordinates.
   timeCollector.Start( "Orient fixed image" );
-  typedef itk::OrientImageFilter< FixedImageType, FixedImageType >
-      FixedOrientFilterType;
+  using FixedOrientFilterType = itk::OrientImageFilter< FixedImageType, FixedImageType >;
   typename FixedOrientFilterType::Pointer orientFixed
       = FixedOrientFilterType::New();
   orientFixed->UseImageDirectionOn();
@@ -398,8 +392,7 @@ int DoIt( int argc, char * argv[] )
   timeCollector.Stop( "Orient fixed image" );
 
   timeCollector.Start( "Orient moving image" );
-  typedef itk::OrientImageFilter< MovingImageType, MovingImageType >
-      MovingOrientFilterType;
+  using MovingOrientFilterType = itk::OrientImageFilter< MovingImageType, MovingImageType >;
   typename MovingOrientFilterType::Pointer orientMoving
       = MovingOrientFilterType::New();
   orientMoving->UseImageDirectionOn();
@@ -409,8 +402,7 @@ int DoIt( int argc, char * argv[] )
   timeCollector.Stop( "Orient moving image" );
 
   timeCollector.Start( "Orient initial deformation field" );
-  typedef itk::OrientImageFilter< VectorImageType, VectorImageType >
-      VectorOrientFilterType;
+  using VectorOrientFilterType = itk::OrientImageFilter< VectorImageType, VectorImageType >;
   typename VectorOrientFilterType::Pointer orientInitField
       = VectorOrientFilterType::New();
   orientInitField->UseImageDirectionOn();
@@ -500,7 +492,7 @@ int DoIt( int argc, char * argv[] )
   if( sparseAnisotropicRegistrator && tubeSpatialObjectFileName != "" )
     {
     timeCollector.Start( "Loading tube list" );
-    typedef itk::SpatialObjectReader< ImageDimension > TubeReaderType;
+    using TubeReaderType = itk::SpatialObjectReader< ImageDimension >;
     TubeReaderType::Pointer tubeReader = TubeReaderType::New();
     tubeReader->SetFileName( tubeSpatialObjectFileName.c_str() );
     try
@@ -514,7 +506,7 @@ int DoIt( int argc, char * argv[] )
       timeCollector.Report();
       return EXIT_FAILURE;
       }
-    typedef itk::GroupSpatialObject< ImageDimension > GroupType;
+    using GroupType = itk::GroupSpatialObject< ImageDimension >;
     typename GroupType::Pointer group = tubeReader->GetGroup();
     tubeList = group->GetChildren();
     sparseAnisotropicRegistrator->SetTubeList( tubeList );
@@ -725,19 +717,18 @@ int DoIt( int argc, char * argv[] )
   double maximumError = 0.01;
 
   // Setup the multiresolution pyramids
-  typedef TPixel MultiResolutionRealType;
-  typedef itk::Image< MultiResolutionRealType, ImageDimension >
-      MultiResolutionRealImageType;
-  typedef itk::RecursiveMultiResolutionPyramidImageFilter
-      < FixedImageType, MultiResolutionRealImageType > FixedImagePyramidType;
+  using MultiResolutionRealType = TPixel;
+  using MultiResolutionRealImageType = itk::Image< MultiResolutionRealType, ImageDimension >;
+  using FixedImagePyramidType = itk::RecursiveMultiResolutionPyramidImageFilter
+      < FixedImageType, MultiResolutionRealImageType >;
   typename FixedImagePyramidType::Pointer fixedImagePyramid =
       FixedImagePyramidType::New();
   fixedImagePyramid->SetNumberOfLevels( numberOfLevels );
   fixedImagePyramid->SetMaximumError( maximumError );
   fixedImagePyramid->UseShrinkImageFilterOff();
 
-  typedef itk::RecursiveMultiResolutionPyramidImageFilter
-      < MovingImageType, MultiResolutionRealImageType > MovingImagePyramidType;
+  using MovingImagePyramidType = itk::RecursiveMultiResolutionPyramidImageFilter
+      < MovingImageType, MultiResolutionRealImageType >;
   typename MovingImagePyramidType::Pointer movingImagePyramid
       = MovingImagePyramidType::New();
   movingImagePyramid->SetNumberOfLevels( numberOfLevels );
@@ -778,12 +769,12 @@ int DoIt( int argc, char * argv[] )
   // ( ex. consider when the fixed image is outside of the extent of the moving
   // image - the transformed moving image must be in the space of the fixed
   // image )
-  typedef itk::WarpImageFilter< MovingImageType,
+  using WarperType = itk::WarpImageFilter< MovingImageType,
                                 MovingImageType,
-                                VectorImageType > WarperType;
+                                VectorImageType >;
   typename WarperType::Pointer warper = WarperType::New();
-  typedef itk::LinearInterpolateImageFunction
-      < MovingImageType, typename WarperType::CoordRepType > InterpolatorType;
+  using InterpolatorType = itk::LinearInterpolateImageFunction
+      < MovingImageType, typename WarperType::CoordRepType >;
   typename InterpolatorType::Pointer interpolator = InterpolatorType::New();
   warper->SetInput( movingImageReader->GetOutput() );
   warper->SetDisplacementField( multires->GetOutput() );
@@ -815,7 +806,7 @@ int DoIt( int argc, char * argv[] )
   if( outputDeformationFieldFileName != "" )
     {
     timeCollector.Start( "Write deformation field" );
-    typedef itk::ImageFileWriter< VectorImageType > FieldWriterType;
+    using FieldWriterType = itk::ImageFileWriter< VectorImageType >;
     typename FieldWriterType::Pointer fieldWriter = FieldWriterType::New();
     fieldWriter->SetFileName( outputDeformationFieldFileName );
     fieldWriter->SetUseCompression( true );
@@ -843,7 +834,7 @@ int DoIt( int argc, char * argv[] )
   if( outputResampledImageFileName != "" )
     {
     timeCollector.Start( "Write resampled moving image" );
-    typedef itk::ImageFileWriter< MovingImageType > ImageWriterType;
+    using ImageWriterType = itk::ImageFileWriter< MovingImageType >;
     typename ImageWriterType::Pointer imageWriter = ImageWriterType::New();
     imageWriter->SetFileName( outputResampledImageFileName );
     imageWriter->SetUseCompression( true );

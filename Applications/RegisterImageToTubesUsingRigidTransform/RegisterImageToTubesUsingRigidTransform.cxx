@@ -60,18 +60,18 @@ int DoIt( int argc, char * argv[] )
   progressReporter.Start();
 
   const unsigned int Dimension = 3;
-  typedef double     FloatType;
+  using FloatType = double;
 
-  typedef itk::VesselTubeSpatialObject< Dimension >      TubeType;
-  typedef itk::GroupSpatialObject< Dimension >           TubeNetType;
-  typedef itk::Image< FloatType, Dimension >             ImageType;
+  using TubeType = itk::VesselTubeSpatialObject< Dimension >;
+  using TubeNetType = itk::GroupSpatialObject< Dimension >;
+  using ImageType = itk::Image< FloatType, Dimension >;
 
-  typedef itk::tube::ImageToTubeRigidRegistration< ImageType, TubeNetType,
-   TubeType >           RegistrationMethodType;
+  using RegistrationMethodType = itk::tube::ImageToTubeRigidRegistration< ImageType, TubeNetType,
+   TubeType >;
 
-  typedef typename RegistrationMethodType::TransformType TransformType;
+  using TransformType = typename RegistrationMethodType::TransformType;
 
-  typedef RegistrationMethodType::FeatureWeightsType     PointWeightsType;
+  using PointWeightsType = RegistrationMethodType::FeatureWeightsType;
 
   typename ImageType::Pointer currentImage;
   typename TubeNetType::Pointer tubeNet;
@@ -112,8 +112,8 @@ int DoIt( int argc, char * argv[] )
   // to the transform parameters in the future at compile time.
   const unsigned int NumberOfParameters = 6;
 
-  typedef itk::tube::RecordOptimizationParameterProgressionCommand<
-    NumberOfParameters > RecordParameterProgressionCommandType;
+  using RecordParameterProgressionCommandType = itk::tube::RecordOptimizationParameterProgressionCommand<
+    NumberOfParameters >;
   RecordParameterProgressionCommandType::Pointer
     recordParameterProgressionCommand =
     RecordParameterProgressionCommandType::New();

@@ -53,11 +53,11 @@ extern "C"
 
     // For now, just support 3D.
     const unsigned int Dimension = 3;
-    typedef itk::VesselTubeSpatialObject< Dimension > TubeSpatialObjectType;
-    typedef itk::GroupSpatialObject< Dimension >      GroupSpatialObjectType;
+    using TubeSpatialObjectType = itk::VesselTubeSpatialObject< Dimension >;
+    using GroupSpatialObjectType = itk::GroupSpatialObject< Dimension >;
 
     // Read input tube tree.
-    typedef itk::SpatialObjectReader< Dimension >  ReaderType;
+    using ReaderType = itk::SpatialObjectReader< Dimension >;
     ReaderType::Pointer reader = ReaderType::New();
     reader->SetFileName( inputTubeTree );
     try
@@ -72,8 +72,8 @@ extern "C"
     GroupSpatialObjectType::Pointer groupSpatialObject = reader->GetGroup();
 
     // Extract the tube points.
-    typedef itk::tube::ExtractTubePointsSpatialObjectFilter<
-      TubeSpatialObjectType > ExtractTubePointsSpatialObjectFilterType;
+    using ExtractTubePointsSpatialObjectFilterType = itk::tube::ExtractTubePointsSpatialObjectFilter<
+      TubeSpatialObjectType >;
     ExtractTubePointsSpatialObjectFilterType::Pointer
       extractTubePointsFilter =
       ExtractTubePointsSpatialObjectFilterType::New();

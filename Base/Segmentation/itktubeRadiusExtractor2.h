@@ -54,11 +54,11 @@ class RadiusExtractor2 : public Object
 public:
 
   /**
-   * Standard self typedef */
-  typedef RadiusExtractor2                                   Self;
-  typedef Object                                             Superclass;
-  typedef SmartPointer< Self >                               Pointer;
-  typedef SmartPointer< const Self >                         ConstPointer;
+   * Standard self type alias */
+  using Self = RadiusExtractor2;
+  using Superclass = Object;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   itkTypeMacro( RadiusExtractor2, Object );
   itkNewMacro( RadiusExtractor2 );
@@ -66,35 +66,34 @@ public:
   /**
    * Standard for the number of dimension
    */
-  itkStaticConstMacro( ImageDimension, unsigned int,
-    TInputImage::ImageDimension );
+  static constexpr unsigned int ImageDimension = TInputImage::ImageDimension;
 
-  typedef VesselTubeSpatialObject< TInputImage::ImageDimension > TubeType;
+  using TubeType = VesselTubeSpatialObject< TInputImage::ImageDimension >;
 
-  typedef typename TubeType::TubePointType                   TubePointType;
+  using TubePointType = typename TubeType::TubePointType;
 
-  typedef typename TubeType::PointType                       ITKPointType;
-  typedef typename TubeType::VectorType                      ITKVectorType;
+  using ITKPointType = typename TubeType::PointType;
+  using ITKVectorType = typename TubeType::VectorType;
 
   /**
    * Type definition for the input image. */
-  typedef TInputImage                                        ImageType;
+  using ImageType = TInputImage;
 
-  typedef typename ImageType::IndexType                      ITKIndexType;
+  using ITKIndexType = typename ImageType::IndexType;
 
   /**
    * Type definition for the input image pixel type. */
-  typedef typename TInputImage::PixelType                    PixelType;
+  using PixelType = typename TInputImage::PixelType;
 
   /**
    * Defines the type of vectors used
    */
-  typedef vnl_vector< double >                               VectorType;
+  using VectorType = vnl_vector< double >;
 
   /**
    * Defines the type of matrix used
    */
-  typedef vnl_matrix< double >                               MatrixType;
+  using MatrixType = vnl_matrix< double >;
 
 
   typedef enum { RADIUS_CORRECTION_NONE, RADIUS_CORRECTION_FOR_BINARY_IMAGE,

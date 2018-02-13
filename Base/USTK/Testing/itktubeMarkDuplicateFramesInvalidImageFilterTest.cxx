@@ -45,26 +45,23 @@ int itktubeMarkDuplicateFramesInvalidImageFilterTest( int argc, char * argv[] )
   const char * innerOpticMetadata = argv[1];
   const char * outputImageFile = argv[2];
 
-  typedef itk::tube::InnerOpticToPlusImageReader ReaderType;
+  using ReaderType = itk::tube::InnerOpticToPlusImageReader;
   ReaderType::Pointer reader = ReaderType::New();
   reader->SetFileName( innerOpticMetadata );
   // Make sure the MetaDataDictionary is populated.
   TRY_EXPECT_NO_EXCEPTION( reader->Update() );
-  typedef ReaderType::OutputImageType RGBImageType;
+  using RGBImageType = ReaderType::OutputImageType;
   RGBImageType::Pointer inputImage = reader->GetOutput();
   inputImage->DisconnectPipeline();
 
-  typedef itk::Image< ReaderType::PixelComponentType, ReaderType::ImageDimension >
-    OutputImageType;
+  using OutputImageType = itk::Image< ReaderType::PixelComponentType, ReaderType::ImageDimension >;
 
-  typedef itk::RGBToLuminanceImageFilter< RGBImageType, OutputImageType >
-    LuminanceFilterType;
+  using LuminanceFilterType = itk::RGBToLuminanceImageFilter< RGBImageType, OutputImageType >;
   LuminanceFilterType::Pointer luminanceFilter =
     LuminanceFilterType::New();
   luminanceFilter->SetInput( inputImage );
 
-  typedef itk::tube::MarkDuplicateFramesInvalidImageFilter< OutputImageType >
-    DuplicateFilterType;
+  using DuplicateFilterType = itk::tube::MarkDuplicateFramesInvalidImageFilter< OutputImageType >;
   DuplicateFilterType::Pointer duplicateFilter = DuplicateFilterType::New();
   duplicateFilter->SetInput( luminanceFilter->GetOutput() );
   duplicateFilter->SetTolerance( 3 );
@@ -76,12 +73,12 @@ int itktubeMarkDuplicateFramesInvalidImageFilterTest( int argc, char * argv[] )
   duplicateFilter->DebugOn();
   TRY_EXPECT_NO_EXCEPTION( duplicateFilter->Update() );
 
-  typedef itk::ImageFileWriter< OutputImageType > WriterType;
+  using WriterType = itk::ImageFileWriter< OutputImageType >;
   WriterType::Pointer writer = WriterType::New();
   writer->SetFileName( outputImageFile );
   writer->SetInput( luminanceFilter->GetOutput() );
   writer->SetUseInputMetaDataDictionary( false );
-  typedef itk::MetaImageIO ImageIOType;
+  using ImageIOType = itk::MetaImageIO;
   ImageIOType::Pointer imageIO = ImageIOType::New();
   imageIO->SetMetaDataDictionary(
     duplicateFilter->GetOutputMetaDataDictionary() );

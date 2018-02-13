@@ -76,16 +76,15 @@ class ImageToTubeRigidRegistration
                                                    TMovingSpatialObject >
 {
 public:
-  typedef ImageToTubeRigidRegistration                  Self;
-  typedef ImageToSpatialObjectRegistrationMethod< TFixedImage,
-    TMovingSpatialObject >
-                                                        Superclass;
-  typedef SmartPointer< Self >                          Pointer;
-  typedef SmartPointer< const Self >                    ConstPointer;
+  using Self = ImageToTubeRigidRegistration;
+  using Superclass = ImageToSpatialObjectRegistrationMethod< TFixedImage,
+    TMovingSpatialObject >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
-  typedef typename Superclass::FixedImageType           FixedImageType;
-  typedef typename Superclass::MovingSpatialObjectType  MovingSpatialObjectType;
-  typedef TMovingTube                                   MovingTubeType;
+  using FixedImageType = typename Superclass::FixedImageType;
+  using MovingSpatialObjectType = typename Superclass::MovingSpatialObjectType;
+  using MovingTubeType = TMovingTube;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
@@ -94,12 +93,11 @@ public:
   itkTypeMacro( ImageToTubeRigidRegistration,
                 ImageToSpatialObjectRegistrationMethod );
 
-  typedef typename Superclass::MetricType  MetricType;
+  using MetricType = typename Superclass::MetricType;
 
-  typedef ImageToTubeRigidMetric< FixedImageType,
+  using DefaultMetricType = ImageToTubeRigidMetric< FixedImageType,
     MovingSpatialObjectType,
-    MovingTubeType >
-    DefaultMetricType;
+    MovingTubeType >;
 
   typedef typename DefaultMetricType::TransformParametersType
     ParametersType;
@@ -112,8 +110,8 @@ public:
   enum { ImageDimension = FixedImageType::ImageDimension,
     ParametersDimension = TransformType::ParametersDimension };
 
-  typedef typename Superclass::InterpolatorType   InterpolatorType;
-  typedef typename Superclass::OptimizerType      OptimizerType;
+  using InterpolatorType = typename Superclass::InterpolatorType;
+  using OptimizerType = typename Superclass::OptimizerType;
 
   /** Method that initiates the registration. */
   void StartRegistration( void );

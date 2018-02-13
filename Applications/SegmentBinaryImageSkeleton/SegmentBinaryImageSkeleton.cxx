@@ -54,9 +54,9 @@ int DoIt( int argc, char * argv[] )
                                                  CLPProcessInformation );
   progressReporter.Start();
 
-  typedef unsigned char                         PixelType;
-  typedef itk::Image< PixelType, VDimension >   ImageType;
-  typedef itk::ImageFileReader< ImageType >     ReaderType;
+  using PixelType = unsigned char;
+  using ImageType = itk::Image< PixelType, VDimension >;
+  using ReaderType = itk::ImageFileReader< ImageType >;
 
   timeCollector.Start( "Load data" );
   typename ReaderType::Pointer reader = ReaderType::New();
@@ -81,8 +81,7 @@ int DoIt( int argc, char * argv[] )
   // Progress per iteration
   double progressFraction = 0.8/VDimension;
 
-  typedef itk::tube::SegmentBinaryImageSkeleton<PixelType, VDimension>
-    FilterType;
+  using FilterType = itk::tube::SegmentBinaryImageSkeleton<PixelType, VDimension>;
   typename FilterType::Pointer filter = FilterType::New();
   filter->SetInput( reader->GetOutput() );
   filter->SetRadius( radius );
@@ -96,7 +95,7 @@ int DoIt( int argc, char * argv[] )
   timeCollector.Stop( "Binary Thinning" );
 
 
-  typedef itk::ImageFileWriter< ImageType  >   ImageWriterType;
+  using ImageWriterType = itk::ImageFileWriter< ImageType  >;
 
   timeCollector.Start( "Save data" );
   typename ImageWriterType::Pointer writer = ImageWriterType::New();

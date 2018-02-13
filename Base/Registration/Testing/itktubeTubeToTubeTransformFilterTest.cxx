@@ -42,13 +42,12 @@ int itktubeTubeToTubeTransformFilterTest( int argc, char * argv[] )
     return EXIT_FAILURE;
     }
 
-  typedef itk::GroupSpatialObject<3>                      TubeNetType;
-  typedef itk::SpatialObjectReader<3>                     TubeNetReaderType;
-  typedef itk::SpatialObjectWriter<3>                     TubeNetWriterType;
-  typedef itk::Euler3DTransform<double>                   TransformType;
+  using TubeNetType = itk::GroupSpatialObject<3>;
+  using TubeNetReaderType = itk::SpatialObjectReader<3>;
+  using TubeNetWriterType = itk::SpatialObjectWriter<3>;
+  using TransformType = itk::Euler3DTransform<double>;
 
-  typedef itk::tube::TubeToTubeTransformFilter<TransformType,3>
-    TubeTransformFilterType;
+  using TubeTransformFilterType = itk::tube::TubeToTubeTransformFilter<TransformType,3>;
 
   // read in vessel
   TubeNetReaderType::Pointer reader = TubeNetReaderType::New();
@@ -150,16 +149,15 @@ int itktubeTubeToTubeTransformFilterTest( int argc, char * argv[] )
   if( std::atoi( argv[11] ) )
     {
     // Write vessel as an image
-    typedef itk::Image<double, 3>                           ImageType;
-    typedef itk::ImageFileReader<ImageType>                 ImageReaderType;
-    typedef itk::ImageFileWriter<ImageType>                 ImageWriterType;
+    using ImageType = itk::Image<double, 3>;
+    using ImageReaderType = itk::ImageFileReader<ImageType>;
+    using ImageWriterType = itk::ImageFileWriter<ImageType>;
 
     ImageReaderType::Pointer imageReader = ImageReaderType::New();
     imageReader->SetFileName( argv[3] );
     imageReader->Update();
 
-    typedef itk::SpatialObjectToImageFilter<TubeNetType, ImageType>
-      SpatialObjectToImageFilterType;
+    using SpatialObjectToImageFilterType = itk::SpatialObjectToImageFilter<TubeNetType, ImageType>;
     SpatialObjectToImageFilterType::Pointer vesselToImageFilter =
       SpatialObjectToImageFilterType::New();
 

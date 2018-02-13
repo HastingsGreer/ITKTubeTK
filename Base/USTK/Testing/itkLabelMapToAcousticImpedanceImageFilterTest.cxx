@@ -47,29 +47,27 @@ int itkLabelMapToAcousticImpedanceImageFilterTest( int argc, char * argv[] )
   // Types.
   enum { Dimension = 2 };
 
-  typedef unsigned char                              LabelMapPixelType;
-  typedef itk::Image< LabelMapPixelType, Dimension > LabelMapType;
+  using LabelMapPixelType = unsigned char;
+  using LabelMapType = itk::Image< LabelMapPixelType, Dimension >;
 
   typedef float
     AcousticImpedancePixelType;
-  typedef itk::Image< AcousticImpedancePixelType, Dimension >
-    AcousticImpedanceImageType;
+  using AcousticImpedanceImageType = itk::Image< AcousticImpedancePixelType, Dimension >;
 
-  typedef std::vector< float > LookupTableType;
+  using LookupTableType = std::vector< float >;
 
 
   // Reader.
-  typedef itk::ImageFileReader< LabelMapType > ReaderType;
+  using ReaderType = itk::ImageFileReader< LabelMapType >;
   ReaderType::Pointer reader = ReaderType::New();
   reader->SetFileName( labelMap );
 
 
   // Filter.
-  typedef itk::LabelMapToAcousticImpedanceImageFilter< LabelMapType,
-    AcousticImpedanceImageType, LookupTableType >
-      LabelMapToAcousticImpedanceImageFilterType;
+  using LabelMapToAcousticImpedanceImageFilterType = itk::LabelMapToAcousticImpedanceImageFilter< LabelMapType,
+    AcousticImpedanceImageType, LookupTableType >;
 
-  typedef LabelMapToAcousticImpedanceImageFilterType::FunctorType FunctorType;
+  using FunctorType = LabelMapToAcousticImpedanceImageFilterType::FunctorType;
   FunctorType::LookupTableType lookupTable;
 
   if( ReadLookupTableFromCSV< LookupTableType >( lookupTableFileName, lookupTable )
@@ -88,7 +86,7 @@ int itkLabelMapToAcousticImpedanceImageFilterTest( int argc, char * argv[] )
 
 
   // Writer.
-  typedef itk::ImageFileWriter< AcousticImpedanceImageType > WriterType;
+  using WriterType = itk::ImageFileWriter< AcousticImpedanceImageType >;
   WriterType::Pointer writer = WriterType::New();
   writer->SetInput( filter->GetOutput() );
   writer->SetFileName( acousticImpedance );

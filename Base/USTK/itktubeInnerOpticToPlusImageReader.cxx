@@ -57,7 +57,7 @@ InnerOpticToPlusImageReader
 {
   OutputImageType * output = this->GetOutput();
 
-  typedef OutputImageType::RegionType RegionType;
+  using RegionType = OutputImageType::RegionType;
   RegionType::SizeType regionSize;
   RegionType::IndexType regionIndex;
 
@@ -187,13 +187,13 @@ InnerOpticToPlusImageReader
   this->AllocateOutputs();
 
   OutputImageType * output = this->GetOutput();
-  typedef OutputImageType::RegionType RegionType;
+  using RegionType = OutputImageType::RegionType;
   const RegionType region = output->GetBufferedRegion();
   const RegionType::IndexType index = region.GetIndex();
   const RegionType::SizeType size = region.GetSize();
 
   SyncRecord * syncRecord = m_SyncRecordManager->getNextRecord();
-  typedef ImageScanlineIterator< OutputImageType > ImageIteratorType;
+  using ImageIteratorType = ImageScanlineIterator< OutputImageType >;
   ImageIteratorType outputIt( output, region );
   outputIt.GoToBegin();
   const SizeValueType pixelBytes = 3 * sizeof( PixelComponentType );
@@ -244,7 +244,7 @@ void
 InnerOpticToPlusImageReader
 ::EnlargeOutputRequestedRegion( DataObject * output )
 {
-  typedef OutputImageType::RegionType RegionType;
+  using RegionType = OutputImageType::RegionType;
   OutputImageType * outputImage =
     itkDynamicCastInDebugMode< OutputImageType * >( output );
 

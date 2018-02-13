@@ -40,8 +40,8 @@ int itktubeTubeExponentialResolutionWeightFunctionTest( int argc, char * argv[] 
   const char * outputCSV = argv[1];
 
   enum { Dimension = 2 };
-  typedef itk::TubeSpatialObjectPoint< Dimension >  TubePointType;
-  typedef std::vector< TubePointType >              TubePointContainerType;
+  using TubePointType = itk::TubeSpatialObjectPoint< Dimension >;
+  using TubePointContainerType = std::vector< TubePointType >;
 
   // Create tube points with increasing radius.
   const unsigned int numberOfPoints = 100;
@@ -63,8 +63,8 @@ int itktubeTubeExponentialResolutionWeightFunctionTest( int argc, char * argv[] 
     return EXIT_FAILURE;
     }
 
-  typedef itk::tube::Function::TubeExponentialResolutionWeightFunction<
-    TubePointType, float > WeightFunctionType;
+  using WeightFunctionType = itk::tube::Function::TubeExponentialResolutionWeightFunction<
+    TubePointType, float >;
   WeightFunctionType::Pointer weightFunction = WeightFunctionType::New();
 
   for( unsigned int ii = 0; ii < numberOfPoints; ++ii )

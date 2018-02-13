@@ -59,30 +59,26 @@ class ImageToTubeRigidMetric
   : public ImageToSpatialObjectMetric< TFixedImage, TMovingSpatialObject >
 {
 public:
-  /** Standard class typedefs. */
-  typedef ImageToTubeRigidMetric                Self;
-  typedef ImageToSpatialObjectMetric< TFixedImage, TMovingSpatialObject >
-                                                Superclass;
-  typedef SmartPointer< Self >                  Pointer;
-  typedef SmartPointer< const Self >            ConstPointer;
+  /** Standard class type alias. */
+  using Self = ImageToTubeRigidMetric;
+  using Superclass = ImageToSpatialObjectMetric< TFixedImage, TMovingSpatialObject >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /**  Dimension of the image and tube.  */
-  itkStaticConstMacro( ImageDimension, unsigned int,
-    TFixedImage::ImageDimension );
-  itkStaticConstMacro( TubeDimension, unsigned int,
-    TTubeSpatialObject::ObjectDimension );
+  static constexpr unsigned int ImageDimension = TFixedImage::ImageDimension;
+  static constexpr unsigned int TubeDimension = TTubeSpatialObject::ObjectDimension;
 
-  typedef TFixedImage                           FixedImageType;
-  typedef TMovingSpatialObject                  TubeTreeType;
-  typedef TTubeSpatialObject                    TubeType;
-  typedef typename TubeType::TubePointType      TubePointType;
+  using FixedImageType = TFixedImage;
+  using TubeTreeType = TMovingSpatialObject;
+  using TubeType = TTubeSpatialObject;
+  using TubePointType = typename TubeType::TubePointType;
 
-  typedef double                                ScalarType;
-  typedef GaussianDerivativeImageFunction< TFixedImage >
-                                                DerivativeImageFunctionType;
-  typedef typename Superclass::DerivativeType   DerivativeType;
-  typedef typename Superclass::ParametersType   ParametersType;
-  typedef typename Superclass::MeasureType      MeasureType;
+  using ScalarType = double;
+  using DerivativeImageFunctionType = GaussianDerivativeImageFunction< TFixedImage >;
+  using DerivativeType = typename Superclass::DerivativeType;
+  using ParametersType = typename Superclass::ParametersType;
+  using MeasureType = typename Superclass::MeasureType;
 
   /** Run-time type information ( and related methods ). */
   itkTypeMacro( ImageToTubeRigidMetric, ImageToSpatialObjectMetric );
@@ -100,19 +96,19 @@ public:
                                                CoordinateRepresentationType;
 
   /** Type definition for the size */
-  typedef typename TFixedImage::SizeType       SizeType;
+  using SizeType = typename TFixedImage::SizeType;
 
   /** Type definition for the pixel type */
-  typedef typename TFixedImage::PixelType      PixelType;
+  using PixelType = typename TFixedImage::PixelType;
 
   /**  Type of the Transform Base class */
-  typedef Euler3DTransform< ScalarType >           TransformType;
-  typedef typename TransformType::Pointer          TransformPointer;
-  typedef typename TransformType::InputPointType   InputPointType;
-  typedef typename TransformType::OutputPointType  OutputPointType;
-  typedef typename TransformType::ParametersType   TransformParametersType;
-  typedef typename TransformType::JacobianType     TransformJacobianType;
-  typedef TransformType::ParametersType            FeatureWeightsType;
+  using TransformType = Euler3DTransform< ScalarType >;
+  using TransformPointer = typename TransformType::Pointer;
+  using InputPointType = typename TransformType::InputPointType;
+  using OutputPointType = typename TransformType::OutputPointType;
+  using TransformParametersType = typename TransformType::ParametersType;
+  using TransformJacobianType = typename TransformType::JacobianType;
+  using FeatureWeightsType = TransformType::ParametersType;
 
   /** Get the Derivatives of the Match Measure */
   const DerivativeType & GetDerivative( const ParametersType &
@@ -160,13 +156,13 @@ protected:
   ImageToTubeRigidMetric( void );
   virtual ~ImageToTubeRigidMetric( void );
 
-  typedef Vector< ScalarType, TubeDimension >                VectorType;
-  typedef Matrix< ScalarType, TubeDimension, TubeDimension > MatrixType;
+  using VectorType = Vector< ScalarType, TubeDimension >;
+  using MatrixType = Matrix< ScalarType, TubeDimension, TubeDimension >;
 
-  typedef typename TubePointType::PointType        PointType;
-  typedef vnl_vector< ScalarType >                 VnlVectorType;
-  typedef vnl_matrix< ScalarType >                 VnlMatrixType;
-  typedef CompensatedSummation< ScalarType >       CompensatedSummationType;
+  using PointType = typename TubePointType::PointType;
+  using VnlVectorType = vnl_vector< ScalarType >;
+  using VnlMatrixType = vnl_matrix< ScalarType >;
+  using CompensatedSummationType = CompensatedSummation< ScalarType >;
 
   virtual void ComputeCenterOfRotation( void );
   SizeValueType CountTubePoints( void );
@@ -187,7 +183,7 @@ private:
   ScalarType m_Extent;
 
   /** The center of rotation of the weighted tube points. */
-  typedef PointType CenterOfRotationType;
+  using CenterOfRotationType = PointType;
   CenterOfRotationType m_CenterOfRotation;
 
   /** Test whether the specified tube point is inside the Image.

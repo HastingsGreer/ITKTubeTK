@@ -265,8 +265,7 @@ MeanAndSigmaImageBuilder< TInputImageType, TOutputMeanImageType,
   ProcessImagePointer sumSquareImage  = this->GetSumSquareImage();
   CountImagePointer   validImage      = this->GetValidCountImage();
 
-  typedef ResampleImageFilter< ProcessImageType, ProcessImageType >
-    ResampleProcessImageType;
+  using ResampleProcessImageType = ResampleImageFilter< ProcessImageType, ProcessImageType >;
   typename ResampleProcessImageType::Pointer processFilter =
     ResampleProcessImageType::New();
 
@@ -292,8 +291,7 @@ MeanAndSigmaImageBuilder< TInputImageType, TOutputMeanImageType,
   this->SetSumSquareImage( processFilter2->GetOutput() );
 
 
-  typedef ResampleImageFilter<CountImageType, CountImageType>
-    ResampleCountImageType;
+  using ResampleCountImageType = ResampleImageFilter<CountImageType, CountImageType>;
   typename ResampleCountImageType::Pointer countFilter =
     ResampleCountImageType::New();
 

@@ -46,10 +46,10 @@ class PDFSegmenterRandomForest
 {
 public:
 
-  typedef PDFSegmenterRandomForest                   Self;
-  typedef PDFSegmenterBase< TImage, TLabelMap >      Superclass;
-  typedef SmartPointer< Self >                       Pointer;
-  typedef SmartPointer< const Self >                 ConstPointer;
+  using Self = PDFSegmenterRandomForest;
+  using Superclass = PDFSegmenterBase< TImage, TLabelMap >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   itkTypeMacro( PDFSegmenterRandomForest, PDFSegmenterBase );
 
@@ -58,25 +58,24 @@ public:
   //
   // Template Args Typesdefs
   //
-  typedef TImage                               InputImageType;
-  typedef TLabelMap                            LabelMapType;
+  using InputImageType = TImage;
+  using LabelMapType = TLabelMap;
 
-  itkStaticConstMacro( ImageDimension, unsigned int,
-    TImage::ImageDimension );
+  static constexpr unsigned int ImageDimension = TImage::ImageDimension;
 
   //
   // Superclass Typedefs
   //
   typedef typename Superclass::FeatureVectorGeneratorType
                                                  FeatureVectorGeneratorType;
-  typedef typename Superclass::FeatureValueType  FeatureValueType;
-  typedef typename Superclass::FeatureVectorType FeatureVectorType;
-  typedef typename Superclass::FeatureImageType  FeatureImageType;
+  using FeatureValueType = typename Superclass::FeatureValueType;
+  using FeatureVectorType = typename Superclass::FeatureVectorType;
+  using FeatureImageType = typename Superclass::FeatureImageType;
 
-  typedef typename Superclass::LabelMapPixelType LabelMapPixelType;
+  using LabelMapPixelType = typename Superclass::LabelMapPixelType;
 
-  typedef typename Superclass::ObjectIdType      ObjectIdType;
-  typedef typename Superclass::ObjectIdListType  ObjectIdListType;
+  using ObjectIdType = typename Superclass::ObjectIdType;
+  using ObjectIdListType = typename Superclass::ObjectIdListType;
 
   typedef typename Superclass::ProbabilityPixelType
                                                  ProbabilityPixelType;
@@ -86,15 +85,15 @@ public:
   typedef typename Superclass::ProbabilityImageType
                                                  ProbabilityImageType;
 
-  typedef typename Superclass::VectorDoubleType  VectorDoubleType;
-  typedef typename Superclass::VectorIntType     VectorIntType;
-  typedef typename Superclass::VectorUIntType    VectorUIntType;
+  using VectorDoubleType = typename Superclass::VectorDoubleType;
+  using VectorIntType = typename Superclass::VectorIntType;
+  using VectorUIntType = typename Superclass::VectorUIntType;
 
   //
   // Custom Typedefs
   //
-  typedef andres::ml::DecisionForest< FeatureValueType, unsigned int,
-    ProbabilityPixelType >                       DecisionForestType;
+  using DecisionForestType = andres::ml::DecisionForest< FeatureValueType, unsigned int,
+    ProbabilityPixelType >;
 
   //
   // Methods
@@ -131,12 +130,12 @@ private:
   PDFSegmenterRandomForest( const Self & ); // Purposely not implemented
   void operator = ( const Self & );         // Purposely not implemented
 
-  // Superclass typedefs
-  typedef std::vector< ProbabilityPixelType > ListVectorType;
-  typedef std::vector< ListVectorType >       ListSampleType;
-  typedef std::vector< ListSampleType >       ClassListSampleType;
+  // Superclass type alias
+  using ListVectorType = std::vector< ProbabilityPixelType >;
+  using ListSampleType = std::vector< ListVectorType >;
+  using ClassListSampleType = std::vector< ListSampleType >;
 
-  // Custom typedefs
+  // Custom type alias
   DecisionForestType            m_Model;
 
   unsigned int                  m_TrainingDataStride;

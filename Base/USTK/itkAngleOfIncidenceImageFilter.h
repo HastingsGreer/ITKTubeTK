@@ -47,11 +47,11 @@ class AngleOfIncidenceImageFilter
   : public ImageToImageFilter< TInputImage, TOutputImage >
 {
 public:
-  /** Standard class typedefs. */
-  typedef AngleOfIncidenceImageFilter                         Self;
-  typedef ImageToImageFilter< TInputImage, TOutputImage >     Superclass;
-  typedef SmartPointer< Self >                                Pointer;
-  typedef SmartPointer< const Self >                          ConstPointer;
+  /** Standard class type alias. */
+  using Self = AngleOfIncidenceImageFilter;
+  using Superclass = ImageToImageFilter< TInputImage, TOutputImage >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
@@ -59,52 +59,42 @@ public:
   /** Run-time type information ( and related methods ). */
   itkTypeMacro( AngleOfIncidenceImageFilter, ImageToImageFilter );
 
-  itkStaticConstMacro( ImageDimension, unsigned int,
-    TInputImage::ImageDimension );
+  static constexpr unsigned int ImageDimension = TInputImage::ImageDimension;
 
-  /** Some convenient typedefs for input image */
-  typedef TInputImage                           InputImageType;
-  typedef typename InputImageType::ConstPointer InputImagePointer;
-  typedef typename InputImageType::RegionType   InputImageRegionType;
-  typedef typename InputImageType::PixelType    InputImagePixelType;
+  /** Some convenient type alias for input image */
+  using InputImageType = TInputImage;
+  using InputImagePointer = typename InputImageType::ConstPointer;
+  using InputImageRegionType = typename InputImageType::RegionType;
+  using InputImagePixelType = typename InputImageType::PixelType;
 
 
-  /** typedef for the origin type */
-  typedef Vector< double, ImageDimension >     VectorType;
+  /** type alias for the origin type */
+  using VectorType = Vector< double, ImageDimension >;
 
-  /* typedef for the output image */
-  typedef TOutputImage                         OutputImageType;
-  typedef typename OutputImageType::Pointer    OutputImagePointer;
-  typedef typename OutputImageType::RegionType OutputImageRegionType;
-  typedef typename OutputImageType::PixelType  OutputImagePixelType;
+  /* type alias for the output image */
+  using OutputImageType = TOutputImage;
+  using OutputImagePointer = typename OutputImageType::Pointer;
+  using OutputImageRegionType = typename OutputImageType::RegionType;
+  using OutputImagePixelType = typename OutputImageType::PixelType;
 
-  /** typedef to generate surface normal vector using eigen analysis */
-  typedef typename itk::HessianRecursiveGaussianImageFilter< InputImageType >
-    HessianFilterType;
+  /** type alias to generate surface normal vector using eigen analysis */
+  using HessianFilterType = typename itk::HessianRecursiveGaussianImageFilter< InputImageType >;
 
-  typedef SymmetricSecondRankTensor< double, ImageDimension >
-    SymmetricSecondRankTensorType;
-  typedef Image< SymmetricSecondRankTensorType, ImageDimension >
-    SymmetricSecondRankTensorImageType;
-  typedef Matrix< double, ImageDimension, ImageDimension >
-    EigenVectorMatrixType;
-  typedef Image< EigenVectorMatrixType, ImageDimension >
-    EigenVectorMatrixImageType;
-  typedef FixedArray< double, ImageDimension >
-    EigenValueArrayType;
-  typedef Image< EigenValueArrayType, ImageDimension >
-    EigenValueImageType;
+  using SymmetricSecondRankTensorType = SymmetricSecondRankTensor< double, ImageDimension >;
+  using SymmetricSecondRankTensorImageType = Image< SymmetricSecondRankTensorType, ImageDimension >;
+  using EigenVectorMatrixType = Matrix< double, ImageDimension, ImageDimension >;
+  using EigenVectorMatrixImageType = Image< EigenVectorMatrixType, ImageDimension >;
+  using EigenValueArrayType = FixedArray< double, ImageDimension >;
+  using EigenValueImageType = Image< EigenValueArrayType, ImageDimension >;
 
-  typedef itk::VectorImage< double, ImageDimension >    EigenVectorImageType;
+  using EigenVectorImageType = itk::VectorImage< double, ImageDimension >;
 
-  typedef itk::SymmetricEigenAnalysisImageFilter
-    <SymmetricSecondRankTensorImageType, EigenValueImageType>
-    EigenValueAnalysisFilterType;
+  using EigenValueAnalysisFilterType = itk::SymmetricEigenAnalysisImageFilter
+    <SymmetricSecondRankTensorImageType, EigenValueImageType>;
 
-  typedef itk::tube::SymmetricEigenVectorAnalysisImageFilter
+  using EigenVectorAnalysisFilterType = itk::tube::SymmetricEigenVectorAnalysisImageFilter
         <SymmetricSecondRankTensorImageType, EigenValueImageType,
-         EigenVectorMatrixImageType>
-    EigenVectorAnalysisFilterType;
+         EigenVectorMatrixImageType>;
 
   /** Set/Get Ultrasound origin vector */
   itkSetMacro( UltrasoundProbeOrigin, VectorType );

@@ -53,15 +53,15 @@ class InnerOpticToPlusImageReader
 public:
   static const unsigned int ImageDimension = 3;
 
-  typedef unsigned char                      PixelComponentType;
-  typedef RGBPixel< PixelComponentType >     PixelType;
-  typedef Image< PixelType, ImageDimension > OutputImageType;
+  using PixelComponentType = unsigned char;
+  using PixelType = RGBPixel< PixelComponentType >;
+  using OutputImageType = Image< PixelType, ImageDimension >;
 
-  /** Standard class typedefs. */
-  typedef InnerOpticToPlusImageReader    Self;
-  typedef ImageSource< OutputImageType > Superclass;
-  typedef SmartPointer< Self >           Pointer;
-  typedef SmartPointer< const Self >     ConstPointer;
+  /** Standard class type alias. */
+  using Self = InnerOpticToPlusImageReader;
+  using Superclass = ImageSource< OutputImageType >;
+  using Pointer = SmartPointer< Self >;
+  using ConstPointer = SmartPointer< const Self >;
 
   /** Method for creation through the object factory. */
   itkNewMacro( Self );
@@ -90,7 +90,7 @@ protected:
   InnerOpticToPlusImageReader( void );
   virtual ~InnerOpticToPlusImageReader( void );
 
-  typedef Superclass::OutputImageRegionType OutputImageRegionType;
+  using OutputImageRegionType = Superclass::OutputImageRegionType;
 
   virtual void GenerateOutputInformation( void );
 

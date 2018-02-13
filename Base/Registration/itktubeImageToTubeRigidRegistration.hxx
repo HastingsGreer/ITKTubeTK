@@ -56,8 +56,7 @@ ImageToTubeRigidRegistration< TFixedImage, TMovingSpatialObject, TMovingTube >
   typename DefaultMetricType::Pointer metric = DefaultMetricType::New();
   this->SetMetric( metric );
 
-  typedef LinearInterpolateImageFunction< FixedImageType >
-    DefaultInterpolatorType;
+  using DefaultInterpolatorType = LinearInterpolateImageFunction< FixedImageType >;
   typename DefaultInterpolatorType::Pointer interpolator =
     DefaultInterpolatorType::New();
   this->SetInterpolator( interpolator );
@@ -70,9 +69,9 @@ ImageToTubeRigidRegistration< TFixedImage, TMovingSpatialObject, TMovingTube >
   parameterScales[4] = 1.;
   parameterScales[5] = 1.;
 
-  //typedef GradientDescentVariableStepOptimizer  DefaultOptimizerType;
-  typedef GradientDescentOptimizer                DefaultOptimizerType;
-  //typedef OnePlusOneEvolutionaryOptimizer       DefaultOptimizerType;
+  //using DefaultOptimizerType = GradientDescentVariableStepOptimizer;
+  using DefaultOptimizerType = GradientDescentOptimizer;
+  //using DefaultOptimizerType = OnePlusOneEvolutionaryOptimizer;
   typename DefaultOptimizerType::Pointer optimizer =
     DefaultOptimizerType::New();
 

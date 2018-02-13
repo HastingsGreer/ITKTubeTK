@@ -55,8 +55,8 @@ MarkDuplicateFramesInvalidImageFilterThreader< TAssociate >
 ::ThreadedExecution( const DomainType & regionForThread,
   const ThreadIdType threadId )
 {
-  typedef typename AssociateType::InputImageType       InputImageType;
-  typedef typename AssociateType::InputImageRegionType InputImageRegionType;
+  using InputImageType = typename AssociateType::InputImageType;
+  using InputImageRegionType = typename AssociateType::InputImageRegionType;
 
   const InputImageType * inputImage = this->m_Associate->GetInput();
   const InputImageRegionType largestRegion =
@@ -87,7 +87,7 @@ MarkDuplicateFramesInvalidImageFilterThreader< TAssociate >
   nextSliceRegion.SetSize( nextSliceSize );
   currentSliceRegion.SetSize( currentSliceSize );
 
-  typedef ImageSliceConstIteratorWithIndex< InputImageType > IteratorType;
+  using IteratorType = ImageSliceConstIteratorWithIndex< InputImageType >;
   IteratorType nextSliceIt( inputImage, nextSliceRegion );
   IteratorType currentSliceIt( inputImage, currentSliceRegion );
 

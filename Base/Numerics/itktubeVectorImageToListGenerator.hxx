@@ -161,7 +161,7 @@ VectorImageToListGenerator< TImage, TMaskImage >
     maskImage = const_cast< MaskImageType * >( this->GetMaskImage() );
     }
 
-  typedef ImageRegionConstIterator< ImageType >     IteratorType;
+  using IteratorType = ImageRegionConstIterator< ImageType >;
   IteratorType it( input, input->GetBufferedRegion() );
   it.GoToBegin();
 
@@ -169,7 +169,7 @@ VectorImageToListGenerator< TImage, TMaskImage >
     {
     if( m_UseSingleMaskValue )
       {
-      typedef ImageRegionConstIterator< MaskImageType > MaskIteratorType;
+      using MaskIteratorType = ImageRegionConstIterator< MaskImageType >;
       MaskIteratorType mit( maskImage, maskImage->GetBufferedRegion() );
       mit.GoToBegin();
       while( !it.IsAtEnd() )
@@ -186,7 +186,7 @@ VectorImageToListGenerator< TImage, TMaskImage >
       }
     else
       {
-      typedef ImageRegionConstIterator< MaskImageType > MaskIteratorType;
+      using MaskIteratorType = ImageRegionConstIterator< MaskImageType >;
       MaskIteratorType mit( maskImage, maskImage->GetBufferedRegion() );
       mit.GoToBegin();
       while( !it.IsAtEnd() )

@@ -160,8 +160,8 @@ ImageFilters<VDimension>
 
   if( doResample )
     {
-    typedef typename itk::ResampleImageFilter< ImageType,
-      ImageType> ResampleFilterType;
+    using ResampleFilterType = typename itk::ResampleImageFilter< ImageType,
+      ImageType>;
     typename ResampleFilterType::Pointer filter =
       ResampleFilterType::New();
     filter->SetInput( a );
@@ -181,7 +181,7 @@ ImageFilters<VDimension>::
 AddUniformNoise( typename ImageType::Pointer imIn,
   float valMin, float valMax, float noiseMean, float noiseRange, int seed )
 {
-  typedef itk::Statistics::MersenneTwisterRandomVariateGenerator UniformGenType;
+  using UniformGenType = itk::Statistics::MersenneTwisterRandomVariateGenerator;
   typename UniformGenType::Pointer uniformGen = UniformGenType::New();
   std::srand( seed );
   uniformGen->Initialize( ( int )seed );
@@ -209,7 +209,7 @@ ImageFilters<VDimension>
 ::AddGaussianNoise( typename ImageType::Pointer imIn, float valMin,
   float valMax, float noiseMean, float noiseStdDev, int seed )
 {
-  typedef itk::Statistics::NormalVariateGenerator GaussGenType;
+  using GaussGenType = itk::Statistics::NormalVariateGenerator;
   typename GaussGenType::Pointer gaussGen = GaussGenType::New();
   std::srand( seed );
   gaussGen->Initialize( ( int )seed );
@@ -313,7 +313,7 @@ ImageFilters<VDimension>
     typename ImageType::Pointer & imIn,
     int numPadVoxels )
 {
-  typedef itk::MirrorPadImageFilter< ImageType, ImageType > PadFilterType;
+  using PadFilterType = itk::MirrorPadImageFilter< ImageType, ImageType >;
   typename PadFilterType::Pointer padFilter = PadFilterType::New();
   padFilter->SetInput( imIn );
   typename PadFilterType::InputImageSizeType bounds;
@@ -334,8 +334,7 @@ ImageFilters<VDimension>
 {
   if( normType == 0 )
     {
-    typedef itk::NormalizeImageFilter< ImageType, ImageType >
-                                                  NormFilterType;
+    using NormFilterType = itk::NormalizeImageFilter< ImageType, ImageType >;
     typename NormFilterType::Pointer normFilter = NormFilterType::New();
     normFilter->SetInput( imIn );
     normFilter->Update();
@@ -568,8 +567,7 @@ bool
 ImageFilters<VDimension>
 ::MedianImage( typename ImageType::Pointer & imIn, int filterSize )
 {
-  typedef itk::MedianImageFilter< ImageType, ImageType >
-    FilterType;
+  using FilterType = itk::MedianImageFilter< ImageType, ImageType >;
   typename ImageType::Pointer imTemp;
   typename FilterType::Pointer filter = FilterType::New();
   filter->SetInput( imIn );
@@ -713,16 +711,15 @@ ImageFilters<VDimension>
     typename ImageType::Pointer & imIn,
     int mode, float radius, float foregroundValue, float backgroundValue )
 {
-  typedef itk::BinaryBallStructuringElement<PixelType, VDimension>
-    BallType;
+  using BallType = itk::BinaryBallStructuringElement<PixelType, VDimension>;
   BallType ball;
   ball.SetRadius( radius );
   ball.CreateStructuringElement();
 
-  typedef itk::ErodeObjectMorphologyImageFilter
-               <ImageType, ImageType, BallType>       ErodeFilterType;
-  typedef itk::DilateObjectMorphologyImageFilter
-               <ImageType, ImageType, BallType>       DilateFilterType;
+  using ErodeFilterType = itk::ErodeObjectMorphologyImageFilter
+               <ImageType, ImageType, BallType>;
+  using DilateFilterType = itk::DilateObjectMorphologyImageFilter
+               <ImageType, ImageType, BallType>;
   switch( mode )
     {
     case 0:
@@ -969,9 +966,8 @@ ImageFilters<VDimension>
     typename ImageType::Pointer imIn,
     unsigned int numberOfBins, unsigned int numberOfMatchPoints )
 {
-  typedef itk::Image<PixelType, 2> ImageType2D;
-  typedef itk::HistogramMatchingImageFilter< ImageType2D, ImageType2D >
-      HistogramMatchFilterType;
+  using ImageType2D = itk::Image<PixelType, 2>;
+  using HistogramMatchFilterType = itk::HistogramMatchingImageFilter< ImageType2D, ImageType2D >;
   typename HistogramMatchFilterType::Pointer matchFilter;
   typename ImageType2D::Pointer im2DRef = ImageType2D::New();
   typename ImageType2D::Pointer im2DIn = ImageType2D::New();
@@ -1061,8 +1057,7 @@ ImageFilters<VDimension>
     unsigned int numberOfBins, unsigned int numberOfMatchPoints,
     const std::string & referenceVolumeFilePath )
 {
-  typedef itk::HistogramMatchingImageFilter< ImageType, ImageType >
-      HistogramMatchFilterType;
+  using HistogramMatchFilterType = itk::HistogramMatchingImageFilter< ImageType, ImageType >;
   typename VolumeReaderType::Pointer reader2 = VolumeReaderType::New();
   reader2->SetFileName( referenceVolumeFilePath.c_str() );
   typename ImageType::Pointer imIn2;
@@ -1181,8 +1176,7 @@ ImageFilters<VDimension>
     unsigned int dimension,
     unsigned int slice )
 {
-  typedef itk::ExtractImageFilter<ImageType, ImageType>
-    ExtractSliceFilterType;
+  using ExtractSliceFilterType = itk::ExtractImageFilter<ImageType, ImageType>;
 
   typename ExtractSliceFilterType::Pointer filter =
     ExtractSliceFilterType::New();
@@ -1221,7 +1215,7 @@ ImageFilters<VDimension>
   double logScaleStep = ( std::log( scaleMax ) - std::log( scaleMin ) )
     / ( numScales-1 );
 
-  typedef itk::tube::NJetImageFunction< ImageType > ImageFunctionType;
+  using ImageFunctionType = itk::tube::NJetImageFunction< ImageType >;
   typename ImageFunctionType::Pointer imFunc = ImageFunctionType::New();
   imFunc->SetInputImage( imIn );
 
@@ -1297,8 +1291,7 @@ ImageFilters<VDimension>
   float threshLow, float threshHigh, float labelValue,
   float x, float y, float z )
 {
-  typedef itk::ConnectedThresholdImageFilter<ImageType, ImageType>
-             FilterType;
+  using FilterType = itk::ConnectedThresholdImageFilter<ImageType, ImageType>;
   typename FilterType::Pointer filter = FilterType::New();
 
   typename ImageType::IndexType seed;
@@ -1329,7 +1322,7 @@ ImageFilters<VDimension>
 {
   std::string filename = centroidOutFilePath;
 
-  typedef itk::tube::CVTImageFilter<ImageType, ImageType> FilterType;
+  using FilterType = itk::tube::CVTImageFilter<ImageType, ImageType>;
   typename FilterType::Pointer filter = FilterType::New();
   filter->SetInput( imIn );
   filter->SetNumberOfSamples( numberOfSamples );

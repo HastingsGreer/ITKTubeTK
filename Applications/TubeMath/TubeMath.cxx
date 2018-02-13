@@ -47,7 +47,7 @@ template< unsigned int DimensionT >
 typename itk::GroupSpatialObject< DimensionT >::Pointer
 ReadTubeFile( const char * fileName )
 {
-  typedef itk::SpatialObjectReader< DimensionT > SpatialObjectReaderType;
+  using SpatialObjectReaderType = itk::SpatialObjectReader< DimensionT >;
 
   typename SpatialObjectReaderType::Pointer reader =
     SpatialObjectReaderType::New();
@@ -64,7 +64,7 @@ template< unsigned int DimensionT >
 void WriteTubeFile( typename itk::GroupSpatialObject< DimensionT >::Pointer
   object, const char * fileName )
 {
-  typedef itk::SpatialObjectWriter< DimensionT > SpatialObjectWriterType;
+  using SpatialObjectWriterType = itk::SpatialObjectWriter< DimensionT >;
 
   typename SpatialObjectWriterType::Pointer writer =
     SpatialObjectWriterType::New();
@@ -77,8 +77,8 @@ template< class PixelT, unsigned int DimensionT >
 typename itk::Image< PixelT, DimensionT >::Pointer
 ReadImageFile( const char * fileName )
 {
-  typedef itk::Image< PixelT, DimensionT >  ImageType;
-  typedef itk::ImageFileReader< ImageType > ImageReaderType;
+  using ImageType = itk::Image< PixelT, DimensionT >;
+  using ImageReaderType = itk::ImageFileReader< ImageType >;
 
   typename ImageReaderType::Pointer reader = ImageReaderType::New();
   reader->SetFileName( fileName );
@@ -93,9 +93,9 @@ SetPropertyFromImage( typename itk::GroupSpatialObject< DimensionT >::
   Pointer & inputTubes, int currentTube, typename itk::Image< PixelT,
   DimensionT>::Pointer & inputImage, char propertyId )
 {
-  typedef itk::VesselTubeSpatialObject< DimensionT >  TubeType;
-  typedef typename TubeType::TubePointType            TubePointType;
-  typedef itk::Image< PixelT, DimensionT >            ImageType;
+  using TubeType = itk::VesselTubeSpatialObject< DimensionT >;
+  using TubePointType = typename TubeType::TubePointType;
+  using ImageType = itk::Image< PixelT, DimensionT >;
 
   typename TubeType::ChildrenListType::iterator tubeIterator;
 
@@ -162,9 +162,9 @@ SetPropertyFromImageMean( typename itk::GroupSpatialObject< DimensionT >::
   Pointer & inputTubes, int currentTube, typename itk::Image< PixelT,
   DimensionT>::Pointer & inputImage, char propertyId )
 {
-  typedef itk::VesselTubeSpatialObject< DimensionT >  TubeType;
-  typedef typename TubeType::TubePointType            TubePointType;
-  typedef itk::Image< PixelT, DimensionT >            ImageType;
+  using TubeType = itk::VesselTubeSpatialObject< DimensionT >;
+  using TubePointType = typename TubeType::TubePointType;
+  using ImageType = itk::Image< PixelT, DimensionT >;
 
   typename TubeType::ChildrenListType::iterator tubeIterator;
 
@@ -272,7 +272,7 @@ int DoIt( MetaCommand & command )
     else if( it->name == "LoadValueFromImage" )
       {
       ::tube::Message( "Load Value From Image" );
-      typedef itk::Image< double, DimensionT > ImageType;
+      using ImageType = itk::Image< double, DimensionT >;
       typename ImageType::Pointer ridgeImage = ReadImageFile< double,
         DimensionT >( command.GetValueAsString( *it, "filename" ).c_str() );
       SetPropertyFromImage< double, DimensionT >( inputTubes, currentTube,
@@ -281,7 +281,7 @@ int DoIt( MetaCommand & command )
     else if( it->name == "LoadValueFromImageMean" )
       {
       ::tube::Message( "Load Value From Image Mean" );
-      typedef itk::Image< double, DimensionT > ImageType;
+      using ImageType = itk::Image< double, DimensionT >;
       typename ImageType::Pointer ridgeImage = ReadImageFile< double,
         DimensionT >( command.GetValueAsString( *it, "filename" ).c_str() );
       SetPropertyFromImageMean< double, DimensionT >( inputTubes,
@@ -299,7 +299,7 @@ int DoIt( MetaCommand & command )
     else if( it->name == "ComputeTangentsAndNormals" )
       {
       ::tube::Message( "Compute Tangents and Normals" );
-      typedef itk::VesselTubeSpatialObject< DimensionT >  TubeType;
+      using TubeType = itk::VesselTubeSpatialObject< DimensionT >;
 
       typename TubeType::ChildrenListType::iterator tubeIterator;
 
@@ -330,7 +330,7 @@ int DoIt( MetaCommand & command )
     else if( it->name == "MarkAsArtery" )
       {
       ::tube::Message( "Mark as Artery" );
-      typedef itk::VesselTubeSpatialObject< DimensionT >  TubeType;
+      using TubeType = itk::VesselTubeSpatialObject< DimensionT >;
 
       typename TubeType::ChildrenListType::iterator tubeIterator;
 
@@ -357,7 +357,7 @@ int DoIt( MetaCommand & command )
     else if( it->name == "MarkAsRoot" )
       {
       ::tube::Message( "Mark as Root" );
-      typedef itk::VesselTubeSpatialObject< DimensionT >  TubeType;
+      using TubeType = itk::VesselTubeSpatialObject< DimensionT >;
 
       typename TubeType::ChildrenListType::iterator tubeIterator;
 
@@ -384,7 +384,7 @@ int DoIt( MetaCommand & command )
     else if( it->name == "UniqueIDs" )
       {
       ::tube::Message( "Assign Unique IDs" );
-      typedef itk::VesselTubeSpatialObject< DimensionT >  TubeType;
+      using TubeType = itk::VesselTubeSpatialObject< DimensionT >;
 
       typename TubeType::ChildrenListType::iterator tubeIterator;
 

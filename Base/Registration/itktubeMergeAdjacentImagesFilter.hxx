@@ -173,15 +173,14 @@ MergeAdjacentImagesFilter< TImage >
 
   // read initial transform from file if specified
   bool useInitialTransform = false;
-  typedef itk::AffineTransform< double, ImageDimension >
-    AffineTransformType;
+  using AffineTransformType = itk::AffineTransform< double, ImageDimension >;
   typename AffineTransformType::ConstPointer initialTransform;
 
   if( ! m_InitialTransformFile.empty() )
     {
     useInitialTransform = true;
-    typedef itk::TransformFileReader                    TransformReaderType;
-    typedef TransformReaderType::TransformListType      TransformListType;
+    using TransformReaderType = itk::TransformFileReader;
+    using TransformListType = TransformReaderType::TransformListType;
 
     TransformReaderType::Pointer transformReader = TransformReaderType::New();
     transformReader->SetFileName( m_InitialTransformFile );
@@ -308,8 +307,7 @@ MergeAdjacentImagesFilter< TImage >
   // timeCollector.Stop( "Allocate output image" );
 
   // perform registration
-  typedef typename itk::ImageToImageRegistrationHelper< ImageType >
-    RegFilterType;
+  using RegFilterType = typename itk::ImageToImageRegistrationHelper< ImageType >;
   typename RegFilterType::Pointer regOp = RegFilterType::New();
   regOp->SetFixedImage( m_Input1 );
   regOp->SetMovingImage( m_Input2 );
@@ -468,12 +466,11 @@ MergeAdjacentImagesFilter< TImage >
     typename ImageType::Pointer outputVoronoiMap = NULL;
     if( m_UseFastBlending )
       {
-      typedef typename itk::GeneralizedDistanceTransformImageFilter<
-        ImageType, ImageType >   MapFilterType;
+      using MapFilterType = typename itk::GeneralizedDistanceTransformImageFilter<
+        ImageType, ImageType >;
       typename MapFilterType::Pointer mapDistFilter = MapFilterType::New();
 
-      typedef itk::BinaryThresholdImageFilter<ImageType, ImageType>
-        Indicator;
+      using Indicator = itk::BinaryThresholdImageFilter<ImageType, ImageType>;
       typename Indicator::Pointer indicator = Indicator::New();
 
       indicator->SetLowerThreshold( 0 );
@@ -494,8 +491,8 @@ MergeAdjacentImagesFilter< TImage >
       }
     else
       {
-      typedef typename itk::DanielssonDistanceMapImageFilter< ImageType,
-        ImageType>   MapFilterType;
+      using MapFilterType = typename itk::DanielssonDistanceMapImageFilter< ImageType,
+        ImageType>;
       typename MapFilterType::Pointer mapDistFilter = MapFilterType::New();
       mapDistFilter->SetInput( outputMap );
       mapDistFilter->SetInputIsBinary( false );
@@ -533,14 +530,13 @@ MergeAdjacentImagesFilter< TImage >
     typename ImageType::Pointer vorImageDistMap = NULL;
     if( m_UseFastBlending )
       {
-      typedef typename itk::GeneralizedDistanceTransformImageFilter<
-        ImageType, ImageType >   MapFilterType;
+      using MapFilterType = typename itk::GeneralizedDistanceTransformImageFilter<
+        ImageType, ImageType >;
       typename MapFilterType::Pointer mapVorFilter = MapFilterType::New();
 
       // timeCollector.Start( "Voronoi Distance Map" );
 
-      typedef itk::BinaryThresholdImageFilter<ImageType, ImageType>
-        Indicator;
+      using Indicator = itk::BinaryThresholdImageFilter<ImageType, ImageType>;
       typename Indicator::Pointer indicator2 = Indicator::New();
 
       indicator2->SetLowerThreshold( 0 );
@@ -564,8 +560,8 @@ MergeAdjacentImagesFilter< TImage >
       {
       // timeCollector.Start( "Voronoi Distance Map" );
 
-      typedef typename itk::SignedDanielssonDistanceMapImageFilter<
-        ImageType, ImageType>  SignedMapFilterType;
+      using SignedMapFilterType = typename itk::SignedDanielssonDistanceMapImageFilter<
+        ImageType, ImageType>;
       typename SignedMapFilterType::Pointer mapVorFilter =
         SignedMapFilterType::New();
 
